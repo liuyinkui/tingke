@@ -10,6 +10,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import WordBookScreen from '../screens/WordBookScreen';
 import LearningFlowContainer from '../components/LearningFlowContainer';
+import MilestonePopup from '../components/MilestonePopup';
 
 const Tab = createBottomTabNavigator();
 
@@ -69,7 +70,7 @@ function MainTabs({ onStartLearning }: { onStartLearning: (materialId?: string) 
     >
       <Tab.Screen
         name="Start"
-        children={() => <StartScreen onStartLearning={onStartLearning} />}
+        children={() => <StartScreen onStartLearning={() => onStartLearning()} />}
         options={{
           tabBarLabel: '首页',
           tabBarIcon: ({ color, size }) => (
@@ -86,7 +87,7 @@ function MainTabs({ onStartLearning }: { onStartLearning: (materialId?: string) 
           ),
         }}
       >
-        {() => <LibraryScreen onSelectMaterial={onStartLearning} />}
+        {() => <LibraryScreen onSelectMaterial={(id) => onStartLearning(id)} />}
       </Tab.Screen>
       <Tab.Screen
         name="Profile"
@@ -103,12 +104,18 @@ function MainTabs({ onStartLearning }: { onStartLearning: (materialId?: string) 
 }
 
 /**
- * AppNavigator — 3 个一级页面 + 认证流程 + 学习流
+ * AppNavigator — 3 个一级页面 + 认证流程 + 学习流 + 里程碑弹窗
  */
 export default function AppNavigator() {
   const { isAuthenticated, isLoading } = useAuth();
   const [inLearningFlow, setInLearningFlow] = useState(false);
   const [selectedMaterialId, setSelectedMaterialId] = useState<string | undefined>(undefined);
+  const [showMilestone, setShowMilestone] = useState(false);
+
+  const handleAuthReady = useCallback(() => {
+    // Trigger milestone check after auth is confirmed
+    setShowMilestone(true);
+  }, []);
 
   const handleStartLearning = useCallback((materialId?: string) => {
     setSelectedMaterialId(materialId);
@@ -132,5 +139,14 @@ export default function AppNavigator() {
     );
   }
 
-  return <MainTabs onStartLearning={() => handleStartLearning()} />;
+  return (
+    <>
+      <MainTabs onStartLearning={(id) => handleStartLearning(id)} />
+      {showMilestone && (
+        <MilestonePopup
+          onDismiss={() => setShowMilestone(false)}
+        />
+      )}
+    </>
+  );
 }
