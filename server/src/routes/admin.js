@@ -13,8 +13,20 @@ router.use(auth);
 router.post('/ingest', adminController.ingest);
 
 /**
+ * GET /api/admin/materials
+ * 管理端查看全部素材（包含 draft）
+ */
+router.get('/materials', adminController.adminList);
+
+/**
+ * POST /api/admin/trigger-ingest
+ * 手动触发素材流水线抓取
+ */
+router.post('/trigger-ingest', adminController.triggerIngest);
+
+/**
  * GET /api/admin/stats
- * 素材库数据统计
+ * 整体数据大盘
  */
 router.get('/stats', adminController.stats);
 
