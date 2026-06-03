@@ -9,6 +9,7 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 const errorHandler = require('./middleware/errorHandler');
 const healthRouter = require('./routes/health');
 const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 // ── Routes ─────────────────────────────────────────────────
 app.use('/api/health', healthRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
 
 // ── 404 handler ────────────────────────────────────────────
 app.use((req, res) => {

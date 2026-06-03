@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, ActivityIndicator, View } from 'react-native';
 
@@ -7,6 +7,7 @@ import AuthScreen from '../screens/AuthScreen';
 import StartScreen from '../screens/StartScreen';
 import LibraryScreen from '../screens/LibraryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,6 +17,19 @@ function LoadingScreen() {
       <ActivityIndicator size="large" color="#1E3A5F" />
     </View>
   );
+}
+
+/**
+ * Profile container — 在 ProfileScreen 和 SettingsScreen 之间切换
+ */
+function ProfileContainer() {
+  const [showSettings, setShowSettings] = useState(false);
+
+  if (showSettings) {
+    return <SettingsScreen onBack={() => setShowSettings(false)} />;
+  }
+
+  return <ProfileScreen onNavigateToSettings={() => setShowSettings(true)} />;
 }
 
 /**
@@ -76,7 +90,7 @@ export default function AppNavigator() {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileContainer}
         options={{
           tabBarLabel: '我的',
           tabBarIcon: ({ color, size }) => (
