@@ -1,0 +1,3246 @@
+{
+  "materials": [
+    {
+      "title": "CET-4 真题听力 #01",
+      "difficulty": "L2",
+      "duration": 119,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------01.mp3",
+      "transcript": "In modern society, communication plays a vital role in our daily lives. With the development of technology, people can now connect with each other more easily than ever before. However, many young people still find it difficult to express their thoughts clearly. This is especially true when they need to speak in public. The key to improving communication skills is practice and confidence building. Everyone can become a good communicator with enough effort.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 19562,
+          "text": "In modern society, communication plays a vital role in our daily lives."
+        },
+        {
+          "index": 1,
+          "start_ms": 19762,
+          "end_ms": 47474,
+          "text": "With the development of technology, people can now connect with each other more easily than ever before."
+        },
+        {
+          "index": 2,
+          "start_ms": 47674,
+          "end_ms": 68866,
+          "text": "However, many young people still find it difficult to express their thoughts clearly."
+        },
+        {
+          "index": 3,
+          "start_ms": 69066,
+          "end_ms": 86998,
+          "text": "This is especially true when they need to speak in public."
+        },
+        {
+          "index": 4,
+          "start_ms": 87198,
+          "end_ms": 105130,
+          "text": "The key to improving communication skills is practice and confidence building."
+        },
+        {
+          "index": 5,
+          "start_ms": 105330,
+          "end_ms": 120001,
+          "text": "Everyone can become a good communicator with enough effort."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #02",
+      "difficulty": "L2",
+      "duration": 91,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------02.mp3",
+      "transcript": "Environmental protection has become a global concern in recent years. More and more people are realizing the importance of living a green lifestyle. Simple actions like recycling waste and saving energy can make a big difference. Governments around the world are also taking measures to reduce pollution. It is our responsibility to protect the earth for future generations. Every small step counts towards a better environment.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 13788,
+          "text": "Environmental protection has become a global concern in recent years."
+        },
+        {
+          "index": 1,
+          "start_ms": 13988,
+          "end_ms": 31912,
+          "text": "More and more people are realizing the importance of living a green lifestyle."
+        },
+        {
+          "index": 2,
+          "start_ms": 32112,
+          "end_ms": 50036,
+          "text": "Simple actions like recycling waste and saving energy can make a big difference."
+        },
+        {
+          "index": 3,
+          "start_ms": 50236,
+          "end_ms": 65403,
+          "text": "Governments around the world are also taking measures to reduce pollution."
+        },
+        {
+          "index": 4,
+          "start_ms": 65603,
+          "end_ms": 80770,
+          "text": "It is our responsibility to protect the earth for future generations."
+        },
+        {
+          "index": 5,
+          "start_ms": 80970,
+          "end_ms": 92000,
+          "text": "Every small step counts towards a better environment."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #03",
+      "difficulty": "L2",
+      "duration": 113,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------03.mp3",
+      "transcript": "The internet has changed the way we learn and work. Online education allows students to access knowledge from anywhere in the world. Many universities now offer free online courses on various subjects. This makes education more accessible to people who cannot attend traditional schools. However, online learning also requires self-discipline and time management skills. Students need to be proactive in their studies.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 18226,
+          "text": "The internet has changed the way we learn and work."
+        },
+        {
+          "index": 1,
+          "start_ms": 18426,
+          "end_ms": 40297,
+          "text": "Online education allows students to access knowledge from anywhere in the world."
+        },
+        {
+          "index": 2,
+          "start_ms": 40497,
+          "end_ms": 58723,
+          "text": "Many universities now offer free online courses on various subjects."
+        },
+        {
+          "index": 3,
+          "start_ms": 58923,
+          "end_ms": 80794,
+          "text": "This makes education more accessible to people who cannot attend traditional schools."
+        },
+        {
+          "index": 4,
+          "start_ms": 80994,
+          "end_ms": 99220,
+          "text": "However, online learning also requires self-discipline and time management skills."
+        },
+        {
+          "index": 5,
+          "start_ms": 99420,
+          "end_ms": 114001,
+          "text": "Students need to be proactive in their studies."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #04",
+      "difficulty": "L2",
+      "duration": 60,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------04.mp3",
+      "transcript": "Reading is one of the most beneficial habits a person can develop. It not only improves vocabulary and language skills but also broadens one's horizons. Through reading, we can explore different cultures and perspectives. Many successful people attribute their achievements to a love of reading. Experts recommend reading for at least thirty minutes every day. Even fifteen minutes can make a difference over time.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 11250,
+          "text": "Reading is one of the most beneficial habits a person can develop."
+        },
+        {
+          "index": 1,
+          "start_ms": 11450,
+          "end_ms": 23638,
+          "text": "It not only improves vocabulary and language skills but also broadens one's horizons."
+        },
+        {
+          "index": 2,
+          "start_ms": 23838,
+          "end_ms": 32276,
+          "text": "Through reading, we can explore different cultures and perspectives."
+        },
+        {
+          "index": 3,
+          "start_ms": 32476,
+          "end_ms": 42789,
+          "text": "Many successful people attribute their achievements to a love of reading."
+        },
+        {
+          "index": 4,
+          "start_ms": 42989,
+          "end_ms": 52364,
+          "text": "Experts recommend reading for at least thirty minutes every day."
+        },
+        {
+          "index": 5,
+          "start_ms": 52564,
+          "end_ms": 61002,
+          "text": "Even fifteen minutes can make a difference over time."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #05",
+      "difficulty": "L2",
+      "duration": 118,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------05.mp3",
+      "transcript": "Traveling is a wonderful way to experience new cultures and create lasting memories. When you visit a foreign country, you get to try local food and learn about different customs. Travel also helps you become more independent and open-minded. Many students choose to study abroad to improve their language skills. Whether it is a short trip or a long journey, traveling always brings valuable experiences.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 23600,
+          "text": "Traveling is a wonderful way to experience new cultures and create lasting memories."
+        },
+        {
+          "index": 1,
+          "start_ms": 23800,
+          "end_ms": 54662,
+          "text": "When you visit a foreign country, you get to try local food and learn about different customs."
+        },
+        {
+          "index": 2,
+          "start_ms": 54862,
+          "end_ms": 71200,
+          "text": "Travel also helps you become more independent and open-minded."
+        },
+        {
+          "index": 3,
+          "start_ms": 71400,
+          "end_ms": 91369,
+          "text": "Many students choose to study abroad to improve their language skills."
+        },
+        {
+          "index": 4,
+          "start_ms": 91569,
+          "end_ms": 118800,
+          "text": "Whether it is a short trip or a long journey, traveling always brings valuable experiences."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #06",
+      "difficulty": "L2",
+      "duration": 72,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------06.mp3",
+      "transcript": "Technology has transformed the way we communicate with each other. Smartphones and social media platforms keep us connected at all times. However, too much screen time can have negative effects on our health. Doctors recommend taking regular breaks from electronic devices. Balancing online and offline activities is essential for a healthy lifestyle. We should use technology wisely.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 12632,
+          "text": "Technology has transformed the way we communicate with each other."
+        },
+        {
+          "index": 1,
+          "start_ms": 12832,
+          "end_ms": 26727,
+          "text": "Smartphones and social media platforms keep us connected at all times."
+        },
+        {
+          "index": 2,
+          "start_ms": 26927,
+          "end_ms": 42085,
+          "text": "However, too much screen time can have negative effects on our health."
+        },
+        {
+          "index": 3,
+          "start_ms": 42285,
+          "end_ms": 52390,
+          "text": "Doctors recommend taking regular breaks from electronic devices."
+        },
+        {
+          "index": 4,
+          "start_ms": 52590,
+          "end_ms": 66485,
+          "text": "Balancing online and offline activities is essential for a healthy lifestyle."
+        },
+        {
+          "index": 5,
+          "start_ms": 66685,
+          "end_ms": 73001,
+          "text": "We should use technology wisely."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #07",
+      "difficulty": "L2",
+      "duration": 61,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------07.mp3",
+      "transcript": "The importance of exercise cannot be overstated. Regular physical activity helps maintain a healthy body and mind. Even simple exercises like walking or jogging can improve your mood and energy levels. Many people find it helpful to exercise with friends for motivation. The key is to find an activity that you enjoy and stick with it. Consistency is more important than intensity.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 6887,
+          "text": "The importance of exercise cannot be overstated."
+        },
+        {
+          "index": 1,
+          "start_ms": 7087,
+          "end_ms": 16926,
+          "text": "Regular physical activity helps maintain a healthy body and mind."
+        },
+        {
+          "index": 2,
+          "start_ms": 17126,
+          "end_ms": 30900,
+          "text": "Even simple exercises like walking or jogging can improve your mood and energy levels."
+        },
+        {
+          "index": 3,
+          "start_ms": 31100,
+          "end_ms": 41923,
+          "text": "Many people find it helpful to exercise with friends for motivation."
+        },
+        {
+          "index": 4,
+          "start_ms": 42123,
+          "end_ms": 55897,
+          "text": "The key is to find an activity that you enjoy and stick with it."
+        },
+        {
+          "index": 5,
+          "start_ms": 56097,
+          "end_ms": 62000,
+          "text": "Consistency is more important than intensity."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #08",
+      "difficulty": "L2",
+      "duration": 67,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------08.mp3",
+      "transcript": "Music is a universal language that brings people together. Different genres of music can evoke different emotions and memories. Learning to play a musical instrument has many benefits for brain development. Many schools include music education as part of their curriculum. Whether you are listening or playing, music enriches our lives in countless ways. It is truly a gift to humanity.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 9885,
+          "text": "Music is a universal language that brings people together."
+        },
+        {
+          "index": 1,
+          "start_ms": 10085,
+          "end_ms": 21069,
+          "text": "Different genres of music can evoke different emotions and memories."
+        },
+        {
+          "index": 2,
+          "start_ms": 21269,
+          "end_ms": 34449,
+          "text": "Learning to play a musical instrument has many benefits for brain development."
+        },
+        {
+          "index": 3,
+          "start_ms": 34649,
+          "end_ms": 45633,
+          "text": "Many schools include music education as part of their curriculum."
+        },
+        {
+          "index": 4,
+          "start_ms": 45833,
+          "end_ms": 60112,
+          "text": "Whether you are listening or playing, music enriches our lives in countless ways."
+        },
+        {
+          "index": 5,
+          "start_ms": 60312,
+          "end_ms": 68001,
+          "text": "It is truly a gift to humanity."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #09",
+      "difficulty": "L2",
+      "duration": 62,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------09.mp3",
+      "transcript": "The concept of time management is crucial for success in both academic and professional life. Effective time management allows you to accomplish more in less time. It also reduces stress and helps maintain a healthy work-life balance. Many people use planners or digital apps to organize their schedules. The first step is to prioritize tasks based on their importance and urgency.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 15246,
+          "text": "The concept of time management is crucial for success in both academic and professional life."
+        },
+        {
+          "index": 1,
+          "start_ms": 15446,
+          "end_ms": 26626,
+          "text": "Effective time management allows you to accomplish more in less time."
+        },
+        {
+          "index": 2,
+          "start_ms": 26826,
+          "end_ms": 38006,
+          "text": "It also reduces stress and helps maintain a healthy work-life balance."
+        },
+        {
+          "index": 3,
+          "start_ms": 38206,
+          "end_ms": 49386,
+          "text": "Many people use planners or digital apps to organize their schedules."
+        },
+        {
+          "index": 4,
+          "start_ms": 49586,
+          "end_ms": 62799,
+          "text": "The first step is to prioritize tasks based on their importance and urgency."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #10",
+      "difficulty": "L2",
+      "duration": 73,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------10.mp3",
+      "transcript": "Healthy eating habits are essential for overall well-being. A balanced diet provides the nutrients your body needs to function properly. Fruits and vegetables should be an important part of every meal. Drinking enough water is also crucial for maintaining good health. Avoiding processed foods and reducing sugar intake can significantly improve your health.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 11019,
+          "text": "Healthy eating habits are essential for overall well-being."
+        },
+        {
+          "index": 1,
+          "start_ms": 11219,
+          "end_ms": 27747,
+          "text": "A balanced diet provides the nutrients your body needs to function properly."
+        },
+        {
+          "index": 2,
+          "start_ms": 27947,
+          "end_ms": 43098,
+          "text": "Fruits and vegetables should be an important part of every meal."
+        },
+        {
+          "index": 3,
+          "start_ms": 43298,
+          "end_ms": 57072,
+          "text": "Drinking enough water is also crucial for maintaining good health."
+        },
+        {
+          "index": 4,
+          "start_ms": 57272,
+          "end_ms": 73800,
+          "text": "Avoiding processed foods and reducing sugar intake can significantly improve your health."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #11",
+      "difficulty": "L2",
+      "duration": 112,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------11.mp3",
+      "transcript": "Friendship is one of the most valuable relationships in life. Good friends support each other through difficult times and celebrate happy moments together. Building strong friendships requires trust, honesty, and mutual respect. In today's busy world, it is important to make time for the people who matter most. Quality friendships can last a lifetime.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 20741,
+          "text": "Friendship is one of the most valuable relationships in life."
+        },
+        {
+          "index": 1,
+          "start_ms": 20941,
+          "end_ms": 47904,
+          "text": "Good friends support each other through difficult times and celebrate happy moments together."
+        },
+        {
+          "index": 2,
+          "start_ms": 48104,
+          "end_ms": 66771,
+          "text": "Building strong friendships requires trust, honesty, and mutual respect."
+        },
+        {
+          "index": 3,
+          "start_ms": 66971,
+          "end_ms": 100156,
+          "text": "In today's busy world, it is important to make time for the people who matter most."
+        },
+        {
+          "index": 4,
+          "start_ms": 100356,
+          "end_ms": 112800,
+          "text": "Quality friendships can last a lifetime."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #12",
+      "difficulty": "L2",
+      "duration": 95,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------12.mp3",
+      "transcript": "The rapid development of artificial intelligence is changing many industries. AI can now perform tasks that once required human intelligence. From healthcare to transportation, AI applications are becoming increasingly common. However, there are also concerns about job displacement and privacy. It is important to develop AI responsibly and ethically.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 19388,
+          "text": "The rapid development of artificial intelligence is changing many industries."
+        },
+        {
+          "index": 1,
+          "start_ms": 19588,
+          "end_ms": 38976,
+          "text": "AI can now perform tasks that once required human intelligence."
+        },
+        {
+          "index": 2,
+          "start_ms": 39176,
+          "end_ms": 58564,
+          "text": "From healthcare to transportation, AI applications are becoming increasingly common."
+        },
+        {
+          "index": 3,
+          "start_ms": 58764,
+          "end_ms": 78152,
+          "text": "However, there are also concerns about job displacement and privacy."
+        },
+        {
+          "index": 4,
+          "start_ms": 78352,
+          "end_ms": 95801,
+          "text": "It is important to develop AI responsibly and ethically."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #13",
+      "difficulty": "L2",
+      "duration": 83,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------13.mp3",
+      "transcript": "Learning a second language has numerous cognitive benefits. Studies show that bilingual people have better problem-solving skills and memory. Learning a new language also opens up opportunities for travel and career advancement. While it can be challenging at first, consistent practice leads to improvement. The best way to learn is through daily exposure and conversation.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 12073,
+          "text": "Learning a second language has numerous cognitive benefits."
+        },
+        {
+          "index": 1,
+          "start_ms": 12273,
+          "end_ms": 28873,
+          "text": "Studies show that bilingual people have better problem-solving skills and memory."
+        },
+        {
+          "index": 2,
+          "start_ms": 29073,
+          "end_ms": 48691,
+          "text": "Learning a new language also opens up opportunities for travel and career advancement."
+        },
+        {
+          "index": 3,
+          "start_ms": 48891,
+          "end_ms": 67000,
+          "text": "While it can be challenging at first, consistent practice leads to improvement."
+        },
+        {
+          "index": 4,
+          "start_ms": 67200,
+          "end_ms": 83800,
+          "text": "The best way to learn is through daily exposure and conversation."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #14",
+      "difficulty": "L2",
+      "duration": 84,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------14.mp3",
+      "transcript": "Cultural diversity makes our world a more interesting place. Different cultures have unique traditions, foods, and ways of thinking. When we understand and appreciate cultural differences, we become more tolerant and empathetic. Globalization has increased cultural exchange between countries. Embracing diversity strengthens communities and promotes peace.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 16435,
+          "text": "Cultural diversity makes our world a more interesting place."
+        },
+        {
+          "index": 1,
+          "start_ms": 16635,
+          "end_ms": 34896,
+          "text": "Different cultures have unique traditions, foods, and ways of thinking."
+        },
+        {
+          "index": 2,
+          "start_ms": 35096,
+          "end_ms": 58835,
+          "text": "When we understand and appreciate cultural differences, we become more tolerant and empathetic."
+        },
+        {
+          "index": 3,
+          "start_ms": 59035,
+          "end_ms": 71818,
+          "text": "Globalization has increased cultural exchange between countries."
+        },
+        {
+          "index": 4,
+          "start_ms": 72018,
+          "end_ms": 84801,
+          "text": "Embracing diversity strengthens communities and promotes peace."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #15",
+      "difficulty": "L2",
+      "duration": 108,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------15.mp3",
+      "transcript": "The career landscape is changing rapidly in the twenty-first century. Many traditional jobs are being replaced by automation and technology. New types of jobs are emerging that require different skills. Lifelong learning has become essential for career success. Professionals need to continuously update their knowledge and adapt to change.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 22041,
+          "text": "The career landscape is changing rapidly in the twenty-first century."
+        },
+        {
+          "index": 1,
+          "start_ms": 22241,
+          "end_ms": 44282,
+          "text": "Many traditional jobs are being replaced by automation and technology."
+        },
+        {
+          "index": 2,
+          "start_ms": 44482,
+          "end_ms": 66523,
+          "text": "New types of jobs are emerging that require different skills."
+        },
+        {
+          "index": 3,
+          "start_ms": 66723,
+          "end_ms": 84356,
+          "text": "Lifelong learning has become essential for career success."
+        },
+        {
+          "index": 4,
+          "start_ms": 84556,
+          "end_ms": 108801,
+          "text": "Professionals need to continuously update their knowledge and adapt to change."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #16",
+      "difficulty": "L2",
+      "duration": 78,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------16.mp3",
+      "transcript": "Family plays a fundamental role in shaping a person's character and values. The support and guidance of family members help individuals navigate life's challenges. In many cultures, family bonds remain strong throughout a person's life. Spending quality time with family is important for emotional well-being. Strong family relationships provide a foundation for happiness.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 17660,
+          "text": "Family plays a fundamental role in shaping a person's character and values."
+        },
+        {
+          "index": 1,
+          "start_ms": 17860,
+          "end_ms": 35520,
+          "text": "The support and guidance of family members help individuals navigate life's challenges."
+        },
+        {
+          "index": 2,
+          "start_ms": 35720,
+          "end_ms": 51909,
+          "text": "In many cultures, family bonds remain strong throughout a person's life."
+        },
+        {
+          "index": 3,
+          "start_ms": 52109,
+          "end_ms": 66826,
+          "text": "Spending quality time with family is important for emotional well-being."
+        },
+        {
+          "index": 4,
+          "start_ms": 67026,
+          "end_ms": 78800,
+          "text": "Strong family relationships provide a foundation for happiness."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #17",
+      "difficulty": "L2",
+      "duration": 107,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------17.mp3",
+      "transcript": "Volunteering is a rewarding activity that benefits both the community and the individual. By giving your time to help others, you gain new perspectives and skills. Many organizations rely on volunteers to carry out their missions. Volunteering can also be a great way to meet new people and make friends. It is an experience that enriches your life.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 23983,
+          "text": "Volunteering is a rewarding activity that benefits both the community and the individual."
+        },
+        {
+          "index": 1,
+          "start_ms": 24183,
+          "end_ms": 48166,
+          "text": "By giving your time to help others, you gain new perspectives and skills."
+        },
+        {
+          "index": 2,
+          "start_ms": 48366,
+          "end_ms": 66814,
+          "text": "Many organizations rely on volunteers to carry out their missions."
+        },
+        {
+          "index": 3,
+          "start_ms": 67014,
+          "end_ms": 92842,
+          "text": "Volunteering can also be a great way to meet new people and make friends."
+        },
+        {
+          "index": 4,
+          "start_ms": 93042,
+          "end_ms": 107801,
+          "text": "It is an experience that enriches your life."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #18",
+      "difficulty": "L2",
+      "duration": 61,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------18.mp3",
+      "transcript": "The impact of social media on society is a topic of ongoing debate. While social media helps people stay connected, it can also lead to comparison and anxiety. Studies have found that excessive use of social media may affect mental health. It is important to use these platforms mindfully and take breaks when needed. Finding a healthy balance is key.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 13217,
+          "text": "The impact of social media on society is a topic of ongoing debate."
+        },
+        {
+          "index": 1,
+          "start_ms": 13417,
+          "end_ms": 28667,
+          "text": "While social media helps people stay connected, it can also lead to comparison and anxiety."
+        },
+        {
+          "index": 2,
+          "start_ms": 28867,
+          "end_ms": 42084,
+          "text": "Studies have found that excessive use of social media may affect mental health."
+        },
+        {
+          "index": 3,
+          "start_ms": 42284,
+          "end_ms": 55501,
+          "text": "It is important to use these platforms mindfully and take breaks when needed."
+        },
+        {
+          "index": 4,
+          "start_ms": 55701,
+          "end_ms": 61801,
+          "text": "Finding a healthy balance is key."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #19",
+      "difficulty": "L2",
+      "duration": 71,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------19.mp3",
+      "transcript": "Climate change is one of the most pressing issues of our time. Rising temperatures and extreme weather events are affecting communities worldwide. Scientists agree that human activities are contributing to climate change. Reducing carbon emissions and adopting renewable energy are crucial steps. Everyone has a role to play in protecting our planet.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 16385,
+          "text": "Climate change is one of the most pressing issues of our time."
+        },
+        {
+          "index": 1,
+          "start_ms": 16585,
+          "end_ms": 30239,
+          "text": "Rising temperatures and extreme weather events are affecting communities worldwide."
+        },
+        {
+          "index": 2,
+          "start_ms": 30439,
+          "end_ms": 44093,
+          "text": "Scientists agree that human activities are contributing to climate change."
+        },
+        {
+          "index": 3,
+          "start_ms": 44293,
+          "end_ms": 57947,
+          "text": "Reducing carbon emissions and adopting renewable energy are crucial steps."
+        },
+        {
+          "index": 4,
+          "start_ms": 58147,
+          "end_ms": 71801,
+          "text": "Everyone has a role to play in protecting our planet."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-4 真题听力 #20",
+      "difficulty": "L2",
+      "duration": 78,
+      "audio_url": "https://audio.tingke.app/materials/CET-4-------20.mp3",
+      "transcript": "The power of positive thinking should not be underestimated. A positive attitude can help you overcome obstacles and achieve your goals. Optimistic people tend to be healthier and live longer. Practicing gratitude and focusing on the good things in life can improve your outlook. Happiness is often a choice that we make every day.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 13000,
+          "text": "The power of positive thinking should not be underestimated."
+        },
+        {
+          "index": 1,
+          "start_ms": 13200,
+          "end_ms": 30533,
+          "text": "A positive attitude can help you overcome obstacles and achieve your goals."
+        },
+        {
+          "index": 2,
+          "start_ms": 30733,
+          "end_ms": 43733,
+          "text": "Optimistic people tend to be healthier and live longer."
+        },
+        {
+          "index": 3,
+          "start_ms": 43933,
+          "end_ms": 64155,
+          "text": "Practicing gratitude and focusing on the good things in life can improve your outlook."
+        },
+        {
+          "index": 4,
+          "start_ms": 64355,
+          "end_ms": 78799,
+          "text": "Happiness is often a choice that we make every day."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-4"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #01",
+      "difficulty": "L3",
+      "duration": 139,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------01.mp3",
+      "transcript": "The relationship between economic growth and environmental sustainability has become a central topic in global discussions. Many developing countries face the challenge of balancing industrial development with environmental protection. International organizations have proposed various frameworks to address this complex issue. Critics argue that current approaches are insufficient to prevent ecological damage. The search for sustainable solutions continues to be a priority for policymakers worldwide.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 34750,
+          "text": "The relationship between economic growth and environmental sustainability has become a central topic in global discussions."
+        },
+        {
+          "index": 1,
+          "start_ms": 34950,
+          "end_ms": 63184,
+          "text": "Many developing countries face the challenge of balancing industrial development with environmental protection."
+        },
+        {
+          "index": 2,
+          "start_ms": 63384,
+          "end_ms": 87275,
+          "text": "International organizations have proposed various frameworks to address this complex issue."
+        },
+        {
+          "index": 3,
+          "start_ms": 87475,
+          "end_ms": 111366,
+          "text": "Critics argue that current approaches are insufficient to prevent ecological damage."
+        },
+        {
+          "index": 4,
+          "start_ms": 111566,
+          "end_ms": 139800,
+          "text": "The search for sustainable solutions continues to be a priority for policymakers worldwide."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #02",
+      "difficulty": "L3",
+      "duration": 118,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------02.mp3",
+      "transcript": "Recent breakthroughs in genetic research have opened new possibilities for treating hereditary diseases. Scientists have developed techniques to edit genes with unprecedented precision. These advances raise important ethical questions about the boundaries of scientific intervention. While the potential benefits are enormous, careful regulation is necessary to prevent misuse. The debate between scientific progress and ethical considerations continues to evolve.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 26000,
+          "text": "Recent breakthroughs in genetic research have opened new possibilities for treating hereditary diseases."
+        },
+        {
+          "index": 1,
+          "start_ms": 26200,
+          "end_ms": 46200,
+          "text": "Scientists have developed techniques to edit genes with unprecedented precision."
+        },
+        {
+          "index": 2,
+          "start_ms": 46400,
+          "end_ms": 70400,
+          "text": "These advances raise important ethical questions about the boundaries of scientific intervention."
+        },
+        {
+          "index": 3,
+          "start_ms": 70600,
+          "end_ms": 96600,
+          "text": "While the potential benefits are enormous, careful regulation is necessary to prevent misuse."
+        },
+        {
+          "index": 4,
+          "start_ms": 96800,
+          "end_ms": 118800,
+          "text": "The debate between scientific progress and ethical considerations continues to evolve."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #03",
+      "difficulty": "L3",
+      "duration": 104,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------03.mp3",
+      "transcript": "The phenomenon of urbanization has accelerated dramatically in the past century. More than half of the world's population now lives in urban areas. This rapid urban growth presents both opportunities and challenges for city planners. Infrastructure development often struggles to keep pace with population increases. Sustainable urban design has become a critical field of study for architects and policymakers.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 19390,
+          "text": "The phenomenon of urbanization has accelerated dramatically in the past century."
+        },
+        {
+          "index": 1,
+          "start_ms": 19590,
+          "end_ms": 40743,
+          "text": "More than half of the world's population now lives in urban areas."
+        },
+        {
+          "index": 2,
+          "start_ms": 40943,
+          "end_ms": 62096,
+          "text": "This rapid urban growth presents both opportunities and challenges for city planners."
+        },
+        {
+          "index": 3,
+          "start_ms": 62296,
+          "end_ms": 79923,
+          "text": "Infrastructure development often struggles to keep pace with population increases."
+        },
+        {
+          "index": 4,
+          "start_ms": 80123,
+          "end_ms": 104801,
+          "text": "Sustainable urban design has become a critical field of study for architects and policymakers."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #04",
+      "difficulty": "L3",
+      "duration": 100,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------04.mp3",
+      "transcript": "Psychological research has revealed fascinating insights into human decision-making processes. Cognitive biases often lead people to make irrational choices in predictable ways. Understanding these mental shortcuts can help individuals make better decisions. Behavioral economics combines insights from psychology and economics to explain market behavior. This interdisciplinary approach has gained significant attention in recent years.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 18519,
+          "text": "Psychological research has revealed fascinating insights into human decision-making processes."
+        },
+        {
+          "index": 1,
+          "start_ms": 18719,
+          "end_ms": 40941,
+          "text": "Cognitive biases often lead people to make irrational choices in predictable ways."
+        },
+        {
+          "index": 2,
+          "start_ms": 41141,
+          "end_ms": 59660,
+          "text": "Understanding these mental shortcuts can help individuals make better decisions."
+        },
+        {
+          "index": 3,
+          "start_ms": 59860,
+          "end_ms": 82082,
+          "text": "Behavioral economics combines insights from psychology and economics to explain market behavior."
+        },
+        {
+          "index": 4,
+          "start_ms": 82282,
+          "end_ms": 100801,
+          "text": "This interdisciplinary approach has gained significant attention in recent years."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #05",
+      "difficulty": "L3",
+      "duration": 93,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------05.mp3",
+      "transcript": "The globalization of trade has profoundly impacted local economies around the world. While international commerce creates opportunities for economic growth, it can also threaten traditional industries. Developing countries often struggle to compete with established economies in global markets. Trade agreements attempt to create fair conditions for all participating nations. The debate over free trade versus protectionism remains highly contentious.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 18915,
+          "text": "The globalization of trade has profoundly impacted local economies around the world."
+        },
+        {
+          "index": 1,
+          "start_ms": 19115,
+          "end_ms": 41183,
+          "text": "While international commerce creates opportunities for economic growth, it can also threaten traditional industries."
+        },
+        {
+          "index": 2,
+          "start_ms": 41383,
+          "end_ms": 60298,
+          "text": "Developing countries often struggle to compete with established economies in global markets."
+        },
+        {
+          "index": 3,
+          "start_ms": 60498,
+          "end_ms": 77837,
+          "text": "Trade agreements attempt to create fair conditions for all participating nations."
+        },
+        {
+          "index": 4,
+          "start_ms": 78037,
+          "end_ms": 93800,
+          "text": "The debate over free trade versus protectionism remains highly contentious."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #06",
+      "difficulty": "L3",
+      "duration": 93,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------06.mp3",
+      "transcript": "Advancements in renewable energy technology have made clean power more affordable than ever. Solar and wind energy costs have decreased dramatically over the past decade. Many countries are now setting ambitious targets for carbon neutrality. The transition to renewable energy requires significant investment in infrastructure. Energy storage remains one of the biggest challenges for widespread adoption.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 21589,
+          "text": "Advancements in renewable energy technology have made clean power more affordable than ever."
+        },
+        {
+          "index": 1,
+          "start_ms": 21789,
+          "end_ms": 41718,
+          "text": "Solar and wind energy costs have decreased dramatically over the past decade."
+        },
+        {
+          "index": 2,
+          "start_ms": 41918,
+          "end_ms": 58525,
+          "text": "Many countries are now setting ambitious targets for carbon neutrality."
+        },
+        {
+          "index": 3,
+          "start_ms": 58725,
+          "end_ms": 75332,
+          "text": "The transition to renewable energy requires significant investment in infrastructure."
+        },
+        {
+          "index": 4,
+          "start_ms": 75532,
+          "end_ms": 93800,
+          "text": "Energy storage remains one of the biggest challenges for widespread adoption."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #07",
+      "difficulty": "L3",
+      "duration": 140,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------07.mp3",
+      "transcript": "The study of ancient civilizations provides valuable insights into human history and cultural development. Archaeological discoveries continue to challenge our understanding of past societies. New technologies like ground-penetrating radar have revolutionized the field of archaeology. Each discovery adds another piece to the puzzle of human civilization. Preserving cultural heritage sites is essential for future generations.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 35636,
+          "text": "The study of ancient civilizations provides valuable insights into human history and cultural development."
+        },
+        {
+          "index": 1,
+          "start_ms": 35836,
+          "end_ms": 61291,
+          "text": "Archaeological discoveries continue to challenge our understanding of past societies."
+        },
+        {
+          "index": 2,
+          "start_ms": 61491,
+          "end_ms": 89491,
+          "text": "New technologies like ground-penetrating radar have revolutionized the field of archaeology."
+        },
+        {
+          "index": 3,
+          "start_ms": 89691,
+          "end_ms": 117691,
+          "text": "Each discovery adds another piece to the puzzle of human civilization."
+        },
+        {
+          "index": 4,
+          "start_ms": 117891,
+          "end_ms": 140800,
+          "text": "Preserving cultural heritage sites is essential for future generations."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #08",
+      "difficulty": "L3",
+      "duration": 104,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------08.mp3",
+      "transcript": "The modern workplace has undergone significant transformation in recent years. Remote work and flexible schedules have become increasingly common across many industries. While these changes offer greater autonomy for workers, they also present challenges for collaboration. Companies are developing new strategies to maintain team cohesion in distributed environments. The future of work will likely continue to evolve in response to technological advances.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 16774,
+          "text": "The modern workplace has undergone significant transformation in recent years."
+        },
+        {
+          "index": 1,
+          "start_ms": 16974,
+          "end_ms": 37103,
+          "text": "Remote work and flexible schedules have become increasingly common across many industries."
+        },
+        {
+          "index": 2,
+          "start_ms": 37303,
+          "end_ms": 60787,
+          "text": "While these changes offer greater autonomy for workers, they also present challenges for collaboration."
+        },
+        {
+          "index": 3,
+          "start_ms": 60987,
+          "end_ms": 81116,
+          "text": "Companies are developing new strategies to maintain team cohesion in distributed environments."
+        },
+        {
+          "index": 4,
+          "start_ms": 81316,
+          "end_ms": 104800,
+          "text": "The future of work will likely continue to evolve in response to technological advances."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #09",
+      "difficulty": "L3",
+      "duration": 91,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------09.mp3",
+      "transcript": "Neuroscience has made remarkable progress in understanding how the brain processes information. Studies using functional magnetic resonance imaging have revealed the neural basis of memory and emotion. This research has important implications for treating neurological disorders. Understanding brain plasticity has opened new approaches to education and rehabilitation. The complexity of the human brain continues to amaze researchers.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 19158,
+          "text": "Neuroscience has made remarkable progress in understanding how the brain processes information."
+        },
+        {
+          "index": 1,
+          "start_ms": 19358,
+          "end_ms": 43305,
+          "text": "Studies using functional magnetic resonance imaging have revealed the neural basis of memory and emotion."
+        },
+        {
+          "index": 2,
+          "start_ms": 43505,
+          "end_ms": 57873,
+          "text": "This research has important implications for treating neurological disorders."
+        },
+        {
+          "index": 3,
+          "start_ms": 58073,
+          "end_ms": 75634,
+          "text": "Understanding brain plasticity has opened new approaches to education and rehabilitation."
+        },
+        {
+          "index": 4,
+          "start_ms": 75834,
+          "end_ms": 91799,
+          "text": "The complexity of the human brain continues to amaze researchers."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #10",
+      "difficulty": "L3",
+      "duration": 91,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------10.mp3",
+      "transcript": "Demographic shifts in developed countries are creating significant economic and social challenges. Aging populations place increasing pressure on healthcare systems and pension programs. Declining birth rates in many countries raise concerns about future workforce shortages. Immigration policies are being debated as potential solutions to demographic challenges. Countries must adapt their social policies to address these demographic trends.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 19158,
+          "text": "Demographic shifts in developed countries are creating significant economic and social challenges."
+        },
+        {
+          "index": 1,
+          "start_ms": 19358,
+          "end_ms": 36919,
+          "text": "Aging populations place increasing pressure on healthcare systems and pension programs."
+        },
+        {
+          "index": 2,
+          "start_ms": 37119,
+          "end_ms": 56277,
+          "text": "Declining birth rates in many countries raise concerns about future workforce shortages."
+        },
+        {
+          "index": 3,
+          "start_ms": 56477,
+          "end_ms": 74038,
+          "text": "Immigration policies are being debated as potential solutions to demographic challenges."
+        },
+        {
+          "index": 4,
+          "start_ms": 74238,
+          "end_ms": 91799,
+          "text": "Countries must adapt their social policies to address these demographic trends."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #11",
+      "difficulty": "L3",
+      "duration": 93,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------11.mp3",
+      "transcript": "The field of artificial intelligence ethics has emerged as a critical area of study. Questions about algorithmic bias and fairness have become increasingly important. Researchers are developing frameworks to ensure AI systems are transparent and accountable. The potential for AI to amplify existing social inequalities is a major concern. Ethical guidelines must keep pace with technological advancement.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 22842,
+          "text": "The field of artificial intelligence ethics has emerged as a critical area of study."
+        },
+        {
+          "index": 1,
+          "start_ms": 23042,
+          "end_ms": 39358,
+          "text": "Questions about algorithmic bias and fairness have become increasingly important."
+        },
+        {
+          "index": 2,
+          "start_ms": 39558,
+          "end_ms": 59137,
+          "text": "Researchers are developing frameworks to ensure AI systems are transparent and accountable."
+        },
+        {
+          "index": 3,
+          "start_ms": 59337,
+          "end_ms": 80548,
+          "text": "The potential for AI to amplify existing social inequalities is a major concern."
+        },
+        {
+          "index": 4,
+          "start_ms": 80748,
+          "end_ms": 93801,
+          "text": "Ethical guidelines must keep pace with technological advancement."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #12",
+      "difficulty": "L3",
+      "duration": 127,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------12.mp3",
+      "transcript": "International cooperation in space exploration has yielded remarkable scientific achievements. Collaborative projects between nations have advanced our understanding of the universe. The International Space Station stands as a symbol of what can be achieved through cooperation. Private companies are now playing an increasingly important role in space exploration. The future of space travel holds exciting possibilities for humanity.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 21897,
+          "text": "International cooperation in space exploration has yielded remarkable scientific achievements."
+        },
+        {
+          "index": 1,
+          "start_ms": 22097,
+          "end_ms": 46183,
+          "text": "Collaborative projects between nations have advanced our understanding of the universe."
+        },
+        {
+          "index": 2,
+          "start_ms": 46383,
+          "end_ms": 79228,
+          "text": "The International Space Station stands as a symbol of what can be achieved through cooperation."
+        },
+        {
+          "index": 3,
+          "start_ms": 79428,
+          "end_ms": 105704,
+          "text": "Private companies are now playing an increasingly important role in space exploration."
+        },
+        {
+          "index": 4,
+          "start_ms": 105904,
+          "end_ms": 127801,
+          "text": "The future of space travel holds exciting possibilities for humanity."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #13",
+      "difficulty": "L3",
+      "duration": 135,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------13.mp3",
+      "transcript": "The preservation of biodiversity is crucial for maintaining healthy ecosystems. Species extinction rates have accelerated dramatically due to human activities. Conservation efforts aim to protect endangered species and their natural habitats. Protected areas and wildlife reserves play a vital role in conservation strategies. Public awareness and support are essential for successful conservation initiatives.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 25472,
+          "text": "The preservation of biodiversity is crucial for maintaining healthy ecosystems."
+        },
+        {
+          "index": 1,
+          "start_ms": 25672,
+          "end_ms": 51144,
+          "text": "Species extinction rates have accelerated dramatically due to human activities."
+        },
+        {
+          "index": 2,
+          "start_ms": 51344,
+          "end_ms": 79363,
+          "text": "Conservation efforts aim to protect endangered species and their natural habitats."
+        },
+        {
+          "index": 3,
+          "start_ms": 79563,
+          "end_ms": 110129,
+          "text": "Protected areas and wildlife reserves play a vital role in conservation strategies."
+        },
+        {
+          "index": 4,
+          "start_ms": 110329,
+          "end_ms": 135801,
+          "text": "Public awareness and support are essential for successful conservation initiatives."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #14",
+      "difficulty": "L3",
+      "duration": 131,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------14.mp3",
+      "transcript": "Educational reform remains a topic of intense debate in many countries. Traditional teaching methods are being challenged by innovative pedagogical approaches. Technology integration in classrooms has transformed the learning experience for many students. Assessment methods are evolving to better measure student understanding and skills. The goal of education extends beyond academic achievement to include personal development.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 25732,
+          "text": "Educational reform remains a topic of intense debate in many countries."
+        },
+        {
+          "index": 1,
+          "start_ms": 25932,
+          "end_ms": 49325,
+          "text": "Traditional teaching methods are being challenged by innovative pedagogical approaches."
+        },
+        {
+          "index": 2,
+          "start_ms": 49525,
+          "end_ms": 77596,
+          "text": "Technology integration in classrooms has transformed the learning experience for many students."
+        },
+        {
+          "index": 3,
+          "start_ms": 77796,
+          "end_ms": 103528,
+          "text": "Assessment methods are evolving to better measure student understanding and skills."
+        },
+        {
+          "index": 4,
+          "start_ms": 103728,
+          "end_ms": 131799,
+          "text": "The goal of education extends beyond academic achievement to include personal development."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #15",
+      "difficulty": "L3",
+      "duration": 112,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------15.mp3",
+      "transcript": "The economics of healthcare is a complex and often controversial subject. Rising medical costs pose challenges for individuals and governments alike. Different countries have adopted various models for delivering healthcare services. The debate between public and private healthcare systems continues in many nations. Finding sustainable solutions to healthcare financing remains a global priority.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 23245,
+          "text": "The economics of healthcare is a complex and often controversial subject."
+        },
+        {
+          "index": 1,
+          "start_ms": 23445,
+          "end_ms": 44577,
+          "text": "Rising medical costs pose challenges for individuals and governments alike."
+        },
+        {
+          "index": 2,
+          "start_ms": 44777,
+          "end_ms": 65909,
+          "text": "Different countries have adopted various models for delivering healthcare services."
+        },
+        {
+          "index": 3,
+          "start_ms": 66109,
+          "end_ms": 91467,
+          "text": "The debate between public and private healthcare systems continues in many nations."
+        },
+        {
+          "index": 4,
+          "start_ms": 91667,
+          "end_ms": 112799,
+          "text": "Finding sustainable solutions to healthcare financing remains a global priority."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #16",
+      "difficulty": "L3",
+      "duration": 102,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------16.mp3",
+      "transcript": "Migration patterns have shaped human history since ancient times. Economic opportunities, political instability, and environmental factors drive population movements. Modern migration presents both challenges and opportunities for receiving countries. Integration policies play a crucial role in determining outcomes for migrants and host communities. Understanding migration dynamics is essential for informed policy-making.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 18000,
+          "text": "Migration patterns have shaped human history since ancient times."
+        },
+        {
+          "index": 1,
+          "start_ms": 18200,
+          "end_ms": 38200,
+          "text": "Economic opportunities, political instability, and environmental factors drive population movements."
+        },
+        {
+          "index": 2,
+          "start_ms": 38400,
+          "end_ms": 58400,
+          "text": "Modern migration presents both challenges and opportunities for receiving countries."
+        },
+        {
+          "index": 3,
+          "start_ms": 58600,
+          "end_ms": 86600,
+          "text": "Integration policies play a crucial role in determining outcomes for migrants and host communities."
+        },
+        {
+          "index": 4,
+          "start_ms": 86800,
+          "end_ms": 102800,
+          "text": "Understanding migration dynamics is essential for informed policy-making."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #17",
+      "difficulty": "L3",
+      "duration": 120,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------17.mp3",
+      "transcript": "The digital revolution has fundamentally changed how information is created and consumed. Traditional media industries have been disrupted by online platforms and social networks. The abundance of information available online has raised concerns about misinformation. Digital literacy has become an essential skill for navigating the modern information landscape. Media education is increasingly important for critical thinking.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 25714,
+          "text": "The digital revolution has fundamentally changed how information is created and consumed."
+        },
+        {
+          "index": 1,
+          "start_ms": 25914,
+          "end_ms": 51628,
+          "text": "Traditional media industries have been disrupted by online platforms and social networks."
+        },
+        {
+          "index": 2,
+          "start_ms": 51828,
+          "end_ms": 75399,
+          "text": "The abundance of information available online has raised concerns about misinformation."
+        },
+        {
+          "index": 3,
+          "start_ms": 75599,
+          "end_ms": 103456,
+          "text": "Digital literacy has become an essential skill for navigating the modern information landscape."
+        },
+        {
+          "index": 4,
+          "start_ms": 103656,
+          "end_ms": 120799,
+          "text": "Media education is increasingly important for critical thinking."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #18",
+      "difficulty": "L3",
+      "duration": 120,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------18.mp3",
+      "transcript": "Oceanography research has revealed the critical role of oceans in regulating Earth's climate. Marine ecosystems are under threat from pollution, overfishing, and acidification. International efforts to protect ocean health have gained momentum in recent years. Sustainable fishing practices are essential for preserving marine biodiversity. The health of our oceans is directly linked to the health of our planet.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 26897,
+          "text": "Oceanography research has revealed the critical role of oceans in regulating Earth's climate."
+        },
+        {
+          "index": 1,
+          "start_ms": 27097,
+          "end_ms": 47787,
+          "text": "Marine ecosystems are under threat from pollution, overfishing, and acidification."
+        },
+        {
+          "index": 2,
+          "start_ms": 47987,
+          "end_ms": 72815,
+          "text": "International efforts to protect ocean health have gained momentum in recent years."
+        },
+        {
+          "index": 3,
+          "start_ms": 73015,
+          "end_ms": 91636,
+          "text": "Sustainable fishing practices are essential for preserving marine biodiversity."
+        },
+        {
+          "index": 4,
+          "start_ms": 91836,
+          "end_ms": 120802,
+          "text": "The health of our oceans is directly linked to the health of our planet."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #19",
+      "difficulty": "L3",
+      "duration": 110,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------19.mp3",
+      "transcript": "The psychology of happiness has become a popular area of scientific inquiry. Research suggests that happiness is influenced by both genetic and environmental factors. Certain practices like gratitude and mindfulness have been shown to increase well-being. Social relationships are consistently found to be important predictors of happiness. The pursuit of happiness is a universal human goal.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 23571,
+          "text": "The psychology of happiness has become a popular area of scientific inquiry."
+        },
+        {
+          "index": 1,
+          "start_ms": 23771,
+          "end_ms": 47342,
+          "text": "Research suggests that happiness is influenced by both genetic and environmental factors."
+        },
+        {
+          "index": 2,
+          "start_ms": 47542,
+          "end_ms": 71113,
+          "text": "Certain practices like gratitude and mindfulness have been shown to increase well-being."
+        },
+        {
+          "index": 3,
+          "start_ms": 71313,
+          "end_ms": 92920,
+          "text": "Social relationships are consistently found to be important predictors of happiness."
+        },
+        {
+          "index": 4,
+          "start_ms": 93120,
+          "end_ms": 110799,
+          "text": "The pursuit of happiness is a universal human goal."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "CET-6 真题听力 #20",
+      "difficulty": "L3",
+      "duration": 94,
+      "audio_url": "https://audio.tingke.app/materials/CET-6-------20.mp3",
+      "transcript": "Quantum computing represents a paradigm shift in computational capability. Unlike classical computers, quantum computers leverage the principles of quantum mechanics. This technology has the potential to revolutionize fields like cryptography and drug discovery. However, significant technical challenges remain before quantum computers become practical. Researchers around the world are racing to overcome these obstacles.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 15962,
+          "text": "Quantum computing represents a paradigm shift in computational capability."
+        },
+        {
+          "index": 1,
+          "start_ms": 16162,
+          "end_ms": 35671,
+          "text": "Unlike classical computers, quantum computers leverage the principles of quantum mechanics."
+        },
+        {
+          "index": 2,
+          "start_ms": 35871,
+          "end_ms": 58928,
+          "text": "This technology has the potential to revolutionize fields like cryptography and drug discovery."
+        },
+        {
+          "index": 3,
+          "start_ms": 59128,
+          "end_ms": 76864,
+          "text": "However, significant technical challenges remain before quantum computers become practical."
+        },
+        {
+          "index": 4,
+          "start_ms": 77064,
+          "end_ms": 94800,
+          "text": "Researchers around the world are racing to overcome these obstacles."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "cet-6"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #01",
+      "difficulty": "L1",
+      "duration": 46,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------01.mp3",
+      "transcript": "Hello and welcome to VOA Learning English. Today we have a simple story for you. A young boy found a lost dog on his way home from school. He was very kind and helped the dog find its owner. The owner was very happy and thanked the boy. This story shows that small acts of kindness can make a big difference.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 5279,
+          "text": "Hello and welcome to VOA Learning English."
+        },
+        {
+          "index": 1,
+          "start_ms": 5479,
+          "end_ms": 11512,
+          "text": "Today we have a simple story for you."
+        },
+        {
+          "index": 2,
+          "start_ms": 11712,
+          "end_ms": 21515,
+          "text": "A young boy found a lost dog on his way home from school."
+        },
+        {
+          "index": 3,
+          "start_ms": 21715,
+          "end_ms": 30010,
+          "text": "He was very kind and helped the dog find its owner."
+        },
+        {
+          "index": 4,
+          "start_ms": 30210,
+          "end_ms": 36997,
+          "text": "The owner was very happy and thanked the boy."
+        },
+        {
+          "index": 5,
+          "start_ms": 37197,
+          "end_ms": 47000,
+          "text": "This story shows that small acts of kindness can make a big difference."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #02",
+      "difficulty": "L1",
+      "duration": 38,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------02.mp3",
+      "transcript": "Many people enjoy drinking tea every day. Tea is one of the most popular drinks in the world. There are many different kinds of tea. Some people like green tea while others prefer black tea. Tea has many health benefits according to scientists. Drinking tea can help you relax and feel good.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 5115,
+          "text": "Many people enjoy drinking tea every day."
+        },
+        {
+          "index": 1,
+          "start_ms": 5315,
+          "end_ms": 13353,
+          "text": "Tea is one of the most popular drinks in the world."
+        },
+        {
+          "index": 2,
+          "start_ms": 13553,
+          "end_ms": 18668,
+          "text": "There are many different kinds of tea."
+        },
+        {
+          "index": 3,
+          "start_ms": 18868,
+          "end_ms": 26176,
+          "text": "Some people like green tea while others prefer black tea."
+        },
+        {
+          "index": 4,
+          "start_ms": 26376,
+          "end_ms": 32222,
+          "text": "Tea has many health benefits according to scientists."
+        },
+        {
+          "index": 5,
+          "start_ms": 32422,
+          "end_ms": 38999,
+          "text": "Drinking tea can help you relax and feel good."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #03",
+      "difficulty": "L1",
+      "duration": 51,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------03.mp3",
+      "transcript": "The weather today is very nice. The sun is shining and the sky is blue. It is a good day to go outside and play. Many families are having picnics in the park. Children are running and laughing. Everyone is enjoying the beautiful weather.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 6955,
+          "text": "The weather today is very nice."
+        },
+        {
+          "index": 1,
+          "start_ms": 7155,
+          "end_ms": 17587,
+          "text": "The sun is shining and the sky is blue."
+        },
+        {
+          "index": 2,
+          "start_ms": 17787,
+          "end_ms": 29378,
+          "text": "It is a good day to go outside and play."
+        },
+        {
+          "index": 3,
+          "start_ms": 29578,
+          "end_ms": 38851,
+          "text": "Many families are having picnics in the park."
+        },
+        {
+          "index": 4,
+          "start_ms": 39051,
+          "end_ms": 44846,
+          "text": "Children are running and laughing."
+        },
+        {
+          "index": 5,
+          "start_ms": 45046,
+          "end_ms": 52001,
+          "text": "Everyone is enjoying the beautiful weather."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #04",
+      "difficulty": "L1",
+      "duration": 58,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------04.mp3",
+      "transcript": "Cooking at home is a good habit. When you cook at home you know what is in your food. You can make healthy meals for your family. Cooking can also be fun. You can learn new recipes from different countries. Many people enjoy cooking with their friends.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 8638,
+          "text": "Cooking at home is a good habit."
+        },
+        {
+          "index": 1,
+          "start_ms": 8838,
+          "end_ms": 23647,
+          "text": "When you cook at home you know what is in your food."
+        },
+        {
+          "index": 2,
+          "start_ms": 23847,
+          "end_ms": 33719,
+          "text": "You can make healthy meals for your family."
+        },
+        {
+          "index": 3,
+          "start_ms": 33919,
+          "end_ms": 40089,
+          "text": "Cooking can also be fun."
+        },
+        {
+          "index": 4,
+          "start_ms": 40289,
+          "end_ms": 50161,
+          "text": "You can learn new recipes from different countries."
+        },
+        {
+          "index": 5,
+          "start_ms": 50361,
+          "end_ms": 58999,
+          "text": "Many people enjoy cooking with their friends."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #05",
+      "difficulty": "L1",
+      "duration": 39,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------05.mp3",
+      "transcript": "Reading books is good for your brain. When you read you learn new words and ideas. Reading can also help you relax before sleep. Many people read for thirty minutes every night. Children who read often do better in school. So pick up a book and start reading today.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 5571,
+          "text": "Reading books is good for your brain."
+        },
+        {
+          "index": 1,
+          "start_ms": 5771,
+          "end_ms": 12934,
+          "text": "When you read you learn new words and ideas."
+        },
+        {
+          "index": 2,
+          "start_ms": 13134,
+          "end_ms": 19501,
+          "text": "Reading can also help you relax before sleep."
+        },
+        {
+          "index": 3,
+          "start_ms": 19701,
+          "end_ms": 26068,
+          "text": "Many people read for thirty minutes every night."
+        },
+        {
+          "index": 4,
+          "start_ms": 26268,
+          "end_ms": 32635,
+          "text": "Children who read often do better in school."
+        },
+        {
+          "index": 5,
+          "start_ms": 32835,
+          "end_ms": 39998,
+          "text": "So pick up a book and start reading today."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #06",
+      "difficulty": "L1",
+      "duration": 33,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------06.mp3",
+      "transcript": "Exercise is important for good health. You do not need to run a marathon to be healthy. Walking for thirty minutes every day is enough. Exercise helps your heart and your mind. It also helps you sleep better at night. Find an activity you enjoy and do it every day.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 3960,
+          "text": "Exercise is important for good health."
+        },
+        {
+          "index": 1,
+          "start_ms": 4160,
+          "end_ms": 11420,
+          "text": "You do not need to run a marathon to be healthy."
+        },
+        {
+          "index": 2,
+          "start_ms": 11620,
+          "end_ms": 16900,
+          "text": "Walking for thirty minutes every day is enough."
+        },
+        {
+          "index": 3,
+          "start_ms": 17100,
+          "end_ms": 21720,
+          "text": "Exercise helps your heart and your mind."
+        },
+        {
+          "index": 4,
+          "start_ms": 21920,
+          "end_ms": 27200,
+          "text": "It also helps you sleep better at night."
+        },
+        {
+          "index": 5,
+          "start_ms": 27400,
+          "end_ms": 34000,
+          "text": "Find an activity you enjoy and do it every day."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #07",
+      "difficulty": "L1",
+      "duration": 47,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------07.mp3",
+      "transcript": "Water is very important for our bodies. We need to drink water every day to stay healthy. Doctors say we should drink about eight glasses of water each day. Water helps our bodies work properly. It also helps our skin look good. Remember to drink water throughout the day.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 6714,
+          "text": "Water is very important for our bodies."
+        },
+        {
+          "index": 1,
+          "start_ms": 6914,
+          "end_ms": 16506,
+          "text": "We need to drink water every day to stay healthy."
+        },
+        {
+          "index": 2,
+          "start_ms": 16706,
+          "end_ms": 28216,
+          "text": "Doctors say we should drink about eight glasses of water each day."
+        },
+        {
+          "index": 3,
+          "start_ms": 28416,
+          "end_ms": 34171,
+          "text": "Water helps our bodies work properly."
+        },
+        {
+          "index": 4,
+          "start_ms": 34371,
+          "end_ms": 41085,
+          "text": "It also helps our skin look good."
+        },
+        {
+          "index": 5,
+          "start_ms": 41285,
+          "end_ms": 47999,
+          "text": "Remember to drink water throughout the day."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #08",
+      "difficulty": "L1",
+      "duration": 33,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------08.mp3",
+      "transcript": "Trees are very important for our planet. They give us clean air to breathe. Trees also provide shade on hot days. Many animals live in trees. We should take care of trees and plant new ones. Every tree makes a difference for our environment.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 5250,
+          "text": "Trees are very important for our planet."
+        },
+        {
+          "index": 1,
+          "start_ms": 5450,
+          "end_ms": 10700,
+          "text": "They give us clean air to breathe."
+        },
+        {
+          "index": 2,
+          "start_ms": 10900,
+          "end_ms": 16150,
+          "text": "Trees also provide shade on hot days."
+        },
+        {
+          "index": 3,
+          "start_ms": 16350,
+          "end_ms": 20100,
+          "text": "Many animals live in trees."
+        },
+        {
+          "index": 4,
+          "start_ms": 20300,
+          "end_ms": 27800,
+          "text": "We should take care of trees and plant new ones."
+        },
+        {
+          "index": 5,
+          "start_ms": 28000,
+          "end_ms": 34000,
+          "text": "Every tree makes a difference for our environment."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #09",
+      "difficulty": "L1",
+      "duration": 44,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------09.mp3",
+      "transcript": "Learning to play a musical instrument is fun. You can start learning at any age. Many schools offer music classes for students. Playing an instrument helps your brain develop. It also helps you express your feelings. Music brings joy to both the player and the listener.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 7652,
+          "text": "Learning to play a musical instrument is fun."
+        },
+        {
+          "index": 1,
+          "start_ms": 7852,
+          "end_ms": 14548,
+          "text": "You can start learning at any age."
+        },
+        {
+          "index": 2,
+          "start_ms": 14748,
+          "end_ms": 21444,
+          "text": "Many schools offer music classes for students."
+        },
+        {
+          "index": 3,
+          "start_ms": 21644,
+          "end_ms": 28340,
+          "text": "Playing an instrument helps your brain develop."
+        },
+        {
+          "index": 4,
+          "start_ms": 28540,
+          "end_ms": 35236,
+          "text": "It also helps you express your feelings."
+        },
+        {
+          "index": 5,
+          "start_ms": 35436,
+          "end_ms": 45001,
+          "text": "Music brings joy to both the player and the listener."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #10",
+      "difficulty": "L1",
+      "duration": 56,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------10.mp3",
+      "transcript": "Sleep is very important for our health. Adults need about seven to eight hours of sleep each night. Children need even more sleep than adults. Good sleep helps us think clearly and feel happy. Without enough sleep we cannot do our best work. Make sure to get enough sleep every night.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 7686,
+          "text": "Sleep is very important for our health."
+        },
+        {
+          "index": 1,
+          "start_ms": 7886,
+          "end_ms": 19964,
+          "text": "Adults need about seven to eight hours of sleep each night."
+        },
+        {
+          "index": 2,
+          "start_ms": 20164,
+          "end_ms": 27850,
+          "text": "Children need even more sleep than adults."
+        },
+        {
+          "index": 3,
+          "start_ms": 28050,
+          "end_ms": 37932,
+          "text": "Good sleep helps us think clearly and feel happy."
+        },
+        {
+          "index": 4,
+          "start_ms": 38132,
+          "end_ms": 48014,
+          "text": "Without enough sleep we cannot do our best work."
+        },
+        {
+          "index": 5,
+          "start_ms": 48214,
+          "end_ms": 56998,
+          "text": "Make sure to get enough sleep every night."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #11",
+      "difficulty": "L1",
+      "duration": 53,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------11.mp3",
+      "transcript": "Spring is a beautiful season. Flowers start to bloom and the weather becomes warm. Many people enjoy going for walks in the spring. Birds return from their winter homes and sing in the trees. Spring is a time of new beginnings. It is a wonderful time of year.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 5521,
+          "text": "Spring is a beautiful season."
+        },
+        {
+          "index": 1,
+          "start_ms": 5721,
+          "end_ms": 15659,
+          "text": "Flowers start to bloom and the weather becomes warm."
+        },
+        {
+          "index": 2,
+          "start_ms": 15859,
+          "end_ms": 25797,
+          "text": "Many people enjoy going for walks in the spring."
+        },
+        {
+          "index": 3,
+          "start_ms": 25997,
+          "end_ms": 38143,
+          "text": "Birds return from their winter homes and sing in the trees."
+        },
+        {
+          "index": 4,
+          "start_ms": 38343,
+          "end_ms": 46072,
+          "text": "Spring is a time of new beginnings."
+        },
+        {
+          "index": 5,
+          "start_ms": 46272,
+          "end_ms": 54001,
+          "text": "It is a wonderful time of year."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #12",
+      "difficulty": "L1",
+      "duration": 44,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------12.mp3",
+      "transcript": "Fruits are good for your health. Apples oranges and bananas are all healthy choices. Eating fruits every day gives your body important vitamins. Fruits can be eaten fresh or in a salad. They are also good for making healthy drinks. Try to eat different fruits every day.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 5617,
+          "text": "Fruits are good for your health."
+        },
+        {
+          "index": 1,
+          "start_ms": 5817,
+          "end_ms": 13306,
+          "text": "Apples oranges and bananas are all healthy choices."
+        },
+        {
+          "index": 2,
+          "start_ms": 13506,
+          "end_ms": 21932,
+          "text": "Eating fruits every day gives your body important vitamins."
+        },
+        {
+          "index": 3,
+          "start_ms": 22132,
+          "end_ms": 30558,
+          "text": "Fruits can be eaten fresh or in a salad."
+        },
+        {
+          "index": 4,
+          "start_ms": 30758,
+          "end_ms": 38247,
+          "text": "They are also good for making healthy drinks."
+        },
+        {
+          "index": 5,
+          "start_ms": 38447,
+          "end_ms": 45000,
+          "text": "Try to eat different fruits every day."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #13",
+      "difficulty": "L1",
+      "duration": 52,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------13.mp3",
+      "transcript": "The sun rises in the east every morning. It gives light and warmth to our world. Plants need sunlight to grow. People feel happy when the sun is shining. The sun is a star that is very close to Earth. It is very important for all life on our planet.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 8320,
+          "text": "The sun rises in the east every morning."
+        },
+        {
+          "index": 1,
+          "start_ms": 8520,
+          "end_ms": 16840,
+          "text": "It gives light and warmth to our world."
+        },
+        {
+          "index": 2,
+          "start_ms": 17040,
+          "end_ms": 22240,
+          "text": "Plants need sunlight to grow."
+        },
+        {
+          "index": 3,
+          "start_ms": 22440,
+          "end_ms": 30760,
+          "text": "People feel happy when the sun is shining."
+        },
+        {
+          "index": 4,
+          "start_ms": 30960,
+          "end_ms": 42400,
+          "text": "The sun is a star that is very close to Earth."
+        },
+        {
+          "index": 5,
+          "start_ms": 42600,
+          "end_ms": 53000,
+          "text": "It is very important for all life on our planet."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #14",
+      "difficulty": "L1",
+      "duration": 41,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------14.mp3",
+      "transcript": "Animals are wonderful creatures. There are many different kinds of animals in the world. Some animals live on land and others live in water. Each animal has its own special way of living. We should respect and protect all animals. They are an important part of our world.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 3417,
+          "text": "Animals are wonderful creatures."
+        },
+        {
+          "index": 1,
+          "start_ms": 3617,
+          "end_ms": 12159,
+          "text": "There are many different kinds of animals in the world."
+        },
+        {
+          "index": 2,
+          "start_ms": 12359,
+          "end_ms": 20901,
+          "text": "Some animals live on land and others live in water."
+        },
+        {
+          "index": 3,
+          "start_ms": 21101,
+          "end_ms": 28789,
+          "text": "Each animal has its own special way of living."
+        },
+        {
+          "index": 4,
+          "start_ms": 28989,
+          "end_ms": 34968,
+          "text": "We should respect and protect all animals."
+        },
+        {
+          "index": 5,
+          "start_ms": 35168,
+          "end_ms": 42001,
+          "text": "They are an important part of our world."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 慢速英语 #15",
+      "difficulty": "L1",
+      "duration": 47,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------15.mp3",
+      "transcript": "Friends are important in our lives. Good friends listen to us and help us when we are sad. They also share happy moments with us. Making new friends can be easy if you are friendly. Smile and say hello to someone new today. You might make a new friend.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 5755,
+          "text": "Friends are important in our lives."
+        },
+        {
+          "index": 1,
+          "start_ms": 5955,
+          "end_ms": 17465,
+          "text": "Good friends listen to us and help us when we are sad."
+        },
+        {
+          "index": 2,
+          "start_ms": 17665,
+          "end_ms": 24379,
+          "text": "They also share happy moments with us."
+        },
+        {
+          "index": 3,
+          "start_ms": 24579,
+          "end_ms": 34171,
+          "text": "Making new friends can be easy if you are friendly."
+        },
+        {
+          "index": 4,
+          "start_ms": 34371,
+          "end_ms": 42044,
+          "text": "Smile and say hello to someone new today."
+        },
+        {
+          "index": 5,
+          "start_ms": 42244,
+          "end_ms": 47999,
+          "text": "You might make a new friend."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-slow"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #01",
+      "difficulty": "L2",
+      "duration": 82,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------01.mp3",
+      "transcript": "Scientists at a major university have announced a new discovery in the field of renewable energy. Their research focuses on improving the efficiency of solar panels. The team developed a new material that can capture more sunlight than traditional panels. This breakthrough could make solar energy more affordable for everyone. The findings were published in a leading scientific journal this week.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 21508,
+          "text": "Scientists at a major university have announced a new discovery in the field of renewable energy."
+        },
+        {
+          "index": 1,
+          "start_ms": 21708,
+          "end_ms": 35151,
+          "text": "Their research focuses on improving the efficiency of solar panels."
+        },
+        {
+          "index": 2,
+          "start_ms": 35351,
+          "end_ms": 54171,
+          "text": "The team developed a new material that can capture more sunlight than traditional panels."
+        },
+        {
+          "index": 3,
+          "start_ms": 54371,
+          "end_ms": 67814,
+          "text": "This breakthrough could make solar energy more affordable for everyone."
+        },
+        {
+          "index": 4,
+          "start_ms": 68014,
+          "end_ms": 82801,
+          "text": "The findings were published in a leading scientific journal this week."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #02",
+      "difficulty": "L2",
+      "duration": 86,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------02.mp3",
+      "transcript": "A new study suggests that spending time in nature can improve mental health. Researchers followed a group of people who walked in a park for twenty minutes each day. The participants reported feeling less stressed and more energetic. The study adds to growing evidence that nature has healing effects on the mind. Doctors are now considering nature prescriptions for patients with anxiety.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 18032,
+          "text": "A new study suggests that spending time in nature can improve mental health."
+        },
+        {
+          "index": 1,
+          "start_ms": 18232,
+          "end_ms": 40426,
+          "text": "Researchers followed a group of people who walked in a park for twenty minutes each day."
+        },
+        {
+          "index": 2,
+          "start_ms": 40626,
+          "end_ms": 53110,
+          "text": "The participants reported feeling less stressed and more energetic."
+        },
+        {
+          "index": 3,
+          "start_ms": 53310,
+          "end_ms": 72729,
+          "text": "The study adds to growing evidence that nature has healing effects on the mind."
+        },
+        {
+          "index": 4,
+          "start_ms": 72929,
+          "end_ms": 86800,
+          "text": "Doctors are now considering nature prescriptions for patients with anxiety."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #03",
+      "difficulty": "L2",
+      "duration": 70,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------03.mp3",
+      "transcript": "Education officials in several countries are concerned about declining reading rates among young people. Studies show that teenagers are reading fewer books than previous generations. Many young people prefer watching videos and using social media instead of reading. Some schools are starting programs to make reading more fun and engaging. The goal is to help students discover the joy of reading.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 16066,
+          "text": "Education officials in several countries are concerned about declining reading rates among young people."
+        },
+        {
+          "index": 1,
+          "start_ms": 16266,
+          "end_ms": 28889,
+          "text": "Studies show that teenagers are reading fewer books than previous generations."
+        },
+        {
+          "index": 2,
+          "start_ms": 29089,
+          "end_ms": 44007,
+          "text": "Many young people prefer watching videos and using social media instead of reading."
+        },
+        {
+          "index": 3,
+          "start_ms": 44207,
+          "end_ms": 57977,
+          "text": "Some schools are starting programs to make reading more fun and engaging."
+        },
+        {
+          "index": 4,
+          "start_ms": 58177,
+          "end_ms": 70800,
+          "text": "The goal is to help students discover the joy of reading."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #04",
+      "difficulty": "L2",
+      "duration": 73,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------04.mp3",
+      "transcript": "A small town in the mountains has become an unexpected tourist destination. Visitors are attracted by the town's beautiful natural scenery and friendly atmosphere. Local businesses have grown to serve the increasing number of tourists. The town government is working to balance tourism development with environmental protection. Residents hope to maintain their community's character while welcoming visitors.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 15368,
+          "text": "A small town in the mountains has become an unexpected tourist destination."
+        },
+        {
+          "index": 1,
+          "start_ms": 15568,
+          "end_ms": 30936,
+          "text": "Visitors are attracted by the town's beautiful natural scenery and friendly atmosphere."
+        },
+        {
+          "index": 2,
+          "start_ms": 31136,
+          "end_ms": 45224,
+          "text": "Local businesses have grown to serve the increasing number of tourists."
+        },
+        {
+          "index": 3,
+          "start_ms": 45424,
+          "end_ms": 60792,
+          "text": "The town government is working to balance tourism development with environmental protection."
+        },
+        {
+          "index": 4,
+          "start_ms": 60992,
+          "end_ms": 73799,
+          "text": "Residents hope to maintain their community's character while welcoming visitors."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #05",
+      "difficulty": "L2",
+      "duration": 63,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------05.mp3",
+      "transcript": "Health experts are warning about the dangers of sitting for long periods of time. Studies show that sitting for more than eight hours a day increases health risks. Experts recommend standing up and moving every hour. Even short walks can help reduce the negative effects of sitting. Some companies are now providing standing desks for their employees.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 15474,
+          "text": "Health experts are warning about the dangers of sitting for long periods of time."
+        },
+        {
+          "index": 1,
+          "start_ms": 15674,
+          "end_ms": 31148,
+          "text": "Studies show that sitting for more than eight hours a day increases health risks."
+        },
+        {
+          "index": 2,
+          "start_ms": 31348,
+          "end_ms": 40190,
+          "text": "Experts recommend standing up and moving every hour."
+        },
+        {
+          "index": 3,
+          "start_ms": 40390,
+          "end_ms": 52548,
+          "text": "Even short walks can help reduce the negative effects of sitting."
+        },
+        {
+          "index": 4,
+          "start_ms": 52748,
+          "end_ms": 63801,
+          "text": "Some companies are now providing standing desks for their employees."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #06",
+      "difficulty": "L2",
+      "duration": 48,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------06.mp3",
+      "transcript": "A recent report highlights the growing popularity of electric vehicles around the world. More consumers are choosing electric cars because they are better for the environment. Many governments are offering financial incentives to encourage people to buy electric vehicles. Car manufacturers are investing heavily in electric vehicle technology. The shift toward electric transportation is expected to accelerate in the coming years.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 10230,
+          "text": "A recent report highlights the growing popularity of electric vehicles around the world."
+        },
+        {
+          "index": 1,
+          "start_ms": 10430,
+          "end_ms": 20660,
+          "text": "More consumers are choosing electric cars because they are better for the environment."
+        },
+        {
+          "index": 2,
+          "start_ms": 20860,
+          "end_ms": 31090,
+          "text": "Many governments are offering financial incentives to encourage people to buy electric vehicles."
+        },
+        {
+          "index": 3,
+          "start_ms": 31290,
+          "end_ms": 38372,
+          "text": "Car manufacturers are investing heavily in electric vehicle technology."
+        },
+        {
+          "index": 4,
+          "start_ms": 38572,
+          "end_ms": 48802,
+          "text": "The shift toward electric transportation is expected to accelerate in the coming years."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #07",
+      "difficulty": "L2",
+      "duration": 73,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------07.mp3",
+      "transcript": "Online shopping has changed the way people buy goods and services. Consumers can now purchase almost anything from the comfort of their homes. Free shipping and easy returns have made online shopping even more attractive. However, traditional brick-and-mortar stores are struggling to compete with online retailers. Many physical stores are now offering online options to stay relevant.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 14088,
+          "text": "Online shopping has changed the way people buy goods and services."
+        },
+        {
+          "index": 1,
+          "start_ms": 14288,
+          "end_ms": 29656,
+          "text": "Consumers can now purchase almost anything from the comfort of their homes."
+        },
+        {
+          "index": 2,
+          "start_ms": 29856,
+          "end_ms": 45224,
+          "text": "Free shipping and easy returns have made online shopping even more attractive."
+        },
+        {
+          "index": 3,
+          "start_ms": 45424,
+          "end_ms": 59512,
+          "text": "However, traditional brick-and-mortar stores are struggling to compete with online retailers."
+        },
+        {
+          "index": 4,
+          "start_ms": 59712,
+          "end_ms": 73800,
+          "text": "Many physical stores are now offering online options to stay relevant."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #08",
+      "difficulty": "L2",
+      "duration": 80,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------08.mp3",
+      "transcript": "The World Health Organization has released new guidelines for physical activity. Adults should get at least one hundred fifty minutes of moderate exercise each week. This includes activities like brisk walking, swimming, or cycling. Children and teenagers need even more physical activity than adults. Regular exercise reduces the risk of many diseases and improves mental health.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 15714,
+          "text": "The World Health Organization has released new guidelines for physical activity."
+        },
+        {
+          "index": 1,
+          "start_ms": 15914,
+          "end_ms": 35914,
+          "text": "Adults should get at least one hundred fifty minutes of moderate exercise each week."
+        },
+        {
+          "index": 2,
+          "start_ms": 36114,
+          "end_ms": 48971,
+          "text": "This includes activities like brisk walking, swimming, or cycling."
+        },
+        {
+          "index": 3,
+          "start_ms": 49171,
+          "end_ms": 63457,
+          "text": "Children and teenagers need even more physical activity than adults."
+        },
+        {
+          "index": 4,
+          "start_ms": 63657,
+          "end_ms": 80800,
+          "text": "Regular exercise reduces the risk of many diseases and improves mental health."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #09",
+      "difficulty": "L2",
+      "duration": 71,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------09.mp3",
+      "transcript": "Artificial intelligence is being used in more industries than ever before. AI-powered tools can help doctors diagnose diseases more accurately. In agriculture, AI systems monitor crop health and optimize water usage. The technology is also transforming how companies provide customer service. While AI creates many opportunities, it also raises important questions about jobs and privacy.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 14200,
+          "text": "Artificial intelligence is being used in more industries than ever before."
+        },
+        {
+          "index": 1,
+          "start_ms": 14400,
+          "end_ms": 26018,
+          "text": "AI-powered tools can help doctors diagnose diseases more accurately."
+        },
+        {
+          "index": 2,
+          "start_ms": 26218,
+          "end_ms": 40418,
+          "text": "In agriculture, AI systems monitor crop health and optimize water usage."
+        },
+        {
+          "index": 3,
+          "start_ms": 40618,
+          "end_ms": 53527,
+          "text": "The technology is also transforming how companies provide customer service."
+        },
+        {
+          "index": 4,
+          "start_ms": 53727,
+          "end_ms": 71800,
+          "text": "While AI creates many opportunities, it also raises important questions about jobs and privacy."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #10",
+      "difficulty": "L2",
+      "duration": 57,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------10.mp3",
+      "transcript": "International trade plays a crucial role in the global economy. Countries export goods they produce efficiently and import goods they need. Trade agreements between nations help reduce barriers and create fair competition. However, trade disputes can arise when countries disagree about tariffs and regulations. Finding common ground is essential for maintaining stable trade relationships.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 10556,
+          "text": "International trade plays a crucial role in the global economy."
+        },
+        {
+          "index": 1,
+          "start_ms": 10756,
+          "end_ms": 22367,
+          "text": "Countries export goods they produce efficiently and import goods they need."
+        },
+        {
+          "index": 2,
+          "start_ms": 22567,
+          "end_ms": 34178,
+          "text": "Trade agreements between nations help reduce barriers and create fair competition."
+        },
+        {
+          "index": 3,
+          "start_ms": 34378,
+          "end_ms": 47045,
+          "text": "However, trade disputes can arise when countries disagree about tariffs and regulations."
+        },
+        {
+          "index": 4,
+          "start_ms": 47245,
+          "end_ms": 57801,
+          "text": "Finding common ground is essential for maintaining stable trade relationships."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #11",
+      "difficulty": "L2",
+      "duration": 50,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------11.mp3",
+      "transcript": "A new study has found that listening to music while studying can improve concentration. The researchers discovered that certain types of music help students focus better. Classical music and nature sounds were found to be most effective. However, music with lyrics can be distracting when reading or writing. Students are advised to experiment and find what works best for them.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 11667,
+          "text": "A new study has found that listening to music while studying can improve concentration."
+        },
+        {
+          "index": 1,
+          "start_ms": 11867,
+          "end_ms": 21867,
+          "text": "The researchers discovered that certain types of music help students focus better."
+        },
+        {
+          "index": 2,
+          "start_ms": 22067,
+          "end_ms": 31234,
+          "text": "Classical music and nature sounds were found to be most effective."
+        },
+        {
+          "index": 3,
+          "start_ms": 31434,
+          "end_ms": 40601,
+          "text": "However, music with lyrics can be distracting when reading or writing."
+        },
+        {
+          "index": 4,
+          "start_ms": 40801,
+          "end_ms": 50801,
+          "text": "Students are advised to experiment and find what works best for them."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #12",
+      "difficulty": "L2",
+      "duration": 49,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------12.mp3",
+      "transcript": "The number of people living in cities continues to grow each year. Urban areas offer more job opportunities and better access to services. However, rapid urbanization also creates challenges such as housing shortages and traffic congestion. City planners are working to make urban areas more sustainable and livable. Green spaces and public transportation are key priorities for modern cities.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 9966,
+          "text": "The number of people living in cities continues to grow each year."
+        },
+        {
+          "index": 1,
+          "start_ms": 10166,
+          "end_ms": 19302,
+          "text": "Urban areas offer more job opportunities and better access to services."
+        },
+        {
+          "index": 2,
+          "start_ms": 19502,
+          "end_ms": 30299,
+          "text": "However, rapid urbanization also creates challenges such as housing shortages and traffic congestion."
+        },
+        {
+          "index": 3,
+          "start_ms": 30499,
+          "end_ms": 40465,
+          "text": "City planners are working to make urban areas more sustainable and livable."
+        },
+        {
+          "index": 4,
+          "start_ms": 40665,
+          "end_ms": 49801,
+          "text": "Green spaces and public transportation are key priorities for modern cities."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #13",
+      "difficulty": "L2",
+      "duration": 49,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------13.mp3",
+      "transcript": "A recent archaeological discovery has shed new light on an ancient civilization. Researchers found well-preserved artifacts that date back more than three thousand years. The findings include pottery, tools, and remains of buildings. This discovery helps scientists understand how people lived in ancient times. The excavation site will continue to be studied for years to come.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 10500,
+          "text": "A recent archaeological discovery has shed new light on an ancient civilization."
+        },
+        {
+          "index": 1,
+          "start_ms": 10700,
+          "end_ms": 21200,
+          "text": "Researchers found well-preserved artifacts that date back more than three thousand years."
+        },
+        {
+          "index": 2,
+          "start_ms": 21400,
+          "end_ms": 29275,
+          "text": "The findings include pottery, tools, and remains of buildings."
+        },
+        {
+          "index": 3,
+          "start_ms": 29475,
+          "end_ms": 39100,
+          "text": "This discovery helps scientists understand how people lived in ancient times."
+        },
+        {
+          "index": 4,
+          "start_ms": 39300,
+          "end_ms": 49800,
+          "text": "The excavation site will continue to be studied for years to come."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #14",
+      "difficulty": "L2",
+      "duration": 67,
+      "audio_url": "https://audio.tingke.app/materials/VOA-------14.mp3",
+      "transcript": "Financial experts recommend that young people start saving money as early as possible. Even small amounts saved regularly can grow significantly over time. Compound interest allows savings to grow faster than simple interest. Many banks offer special accounts for students with lower fees. Learning good financial habits early in life can lead to greater financial security.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 15554,
+          "text": "Financial experts recommend that young people start saving money as early as possible."
+        },
+        {
+          "index": 1,
+          "start_ms": 15754,
+          "end_ms": 27718,
+          "text": "Even small amounts saved regularly can grow significantly over time."
+        },
+        {
+          "index": 2,
+          "start_ms": 27918,
+          "end_ms": 39882,
+          "text": "Compound interest allows savings to grow faster than simple interest."
+        },
+        {
+          "index": 3,
+          "start_ms": 40082,
+          "end_ms": 52046,
+          "text": "Many banks offer special accounts for students with lower fees."
+        },
+        {
+          "index": 4,
+          "start_ms": 52246,
+          "end_ms": 67800,
+          "text": "Learning good financial habits early in life can lead to greater financial security."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    },
+    {
+      "title": "VOA 常速英语 #15",
+      "difficulty": "L2",
+      "duration": 55,
+      "audio_url": "https://audio.tingke.app/materials/VOA-standard-15.mp3",
+      "transcript": "Community gardens are becoming popular in cities around the world. These gardens allow city residents to grow their own fruits and vegetables. They also create green spaces in urban areas and bring neighbors together. Many community gardens are located on unused land that was previously empty. Participating in a community garden is a rewarding experience that promotes healthy living and environmental awareness.",
+      "sentence_timeline": [
+        {
+          "index": 0,
+          "start_ms": 0,
+          "end_ms": 4000,
+          "text": "Community gardens are becoming popular in cities around the world."
+        },
+        {
+          "index": 1,
+          "start_ms": 4200,
+          "end_ms": 8000,
+          "text": "These gardens allow city residents to grow their own fruits and vegetables."
+        },
+        {
+          "index": 2,
+          "start_ms": 8200,
+          "end_ms": 12000,
+          "text": "They also create green spaces in urban areas and bring neighbors together."
+        },
+        {
+          "index": 3,
+          "start_ms": 12200,
+          "end_ms": 17000,
+          "text": "Many community gardens are located on unused land that was previously empty."
+        },
+        {
+          "index": 4,
+          "start_ms": 17200,
+          "end_ms": 22000,
+          "text": "Participating in a community garden is a rewarding experience that promotes healthy living and environmental awareness."
+        }
+      ],
+      "word_list": null,
+      "topics": [
+        "voa",
+        "voa-standard"
+      ],
+      "status": "published"
+    }
+  ]
+}
