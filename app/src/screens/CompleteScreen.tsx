@@ -76,6 +76,7 @@ export default function CompleteScreen({ onFinish, onViewBlindWords }: Props) {
   const todayAccuracy = summary?.today?.accuracy ?? 0;
   const blindWordsCount = summary?.blind_words_count ?? 0;
   const change = summary?.today?.change_vs_yesterday;
+  const todayCompleted = summary?.today?.completed ?? false;
 
   const getChangeText = () => {
     if (change === null || change === undefined) return '';

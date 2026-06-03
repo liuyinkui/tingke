@@ -45,6 +45,18 @@ router.get('/streak', checkinController.getStreak);
 router.get('/stats/summary', checkinController.getSummary);
 
 /**
+ * GET /api/user/stats/trend
+ * 准确率趋势数据
+ */
+router.get('/stats/trend', checkinController.getAccuracyTrend);
+
+/**
+ * GET /api/user/stats/comparison
+ * 首次 vs 最近对比
+ */
+router.get('/stats/comparison', checkinController.getComparison);
+
+/**
  * GET /api/user/words
  * 错词列表（按日期分组）
  */
