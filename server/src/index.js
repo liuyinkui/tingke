@@ -13,6 +13,7 @@ const userRouter = require('./routes/user');
 const adminRouter = require('./routes/admin');
 const materialsRouter = require('./routes/materials');
 const dictationRouter = require('./routes/dictation');
+const recordingRouter = require('./routes/recording');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,6 +30,10 @@ app.use('/api/user', userRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/materials', materialsRouter);
 app.use('/api/user/dictation', dictationRouter);
+app.use('/api/user/recording', recordingRouter);
+
+// Serve uploaded recordings
+app.use('/uploads', express.static(path.resolve(__dirname, '../uploads')));
 
 // ── 404 handler ────────────────────────────────────────────
 app.use((req, res) => {
