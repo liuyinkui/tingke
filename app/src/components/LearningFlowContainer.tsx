@@ -3,23 +3,41 @@ import BlindListeningScreen from '../screens/BlindListeningScreen';
 import DictationScreen from '../screens/DictationScreen';
 import FollowAlongScreen from '../screens/FollowAlongScreen';
 import CompleteScreen from '../screens/CompleteScreen';
-import { MaterialDetail } from '../services/materials';
+import { fetchMaterialDetail, MaterialDetail } from '../services/materials';
 
 type Step = 'blind' | 'dictation' | 'follow' | 'complete';
 
 interface LearningFlowContainerProps {
   onExit: () => void;
+  /** Optional: pre-select a material by ID */
+  materialId?: string;
 }
 
 /**
  * LearningFlowContainer
  *
- * Manages the complete learning flow state machine:
- *   BlindListening → Dictation → FollowAlong → Complete
+ * Manages the complete learning flow state machine.
+ * If materialId is provided, that specific material is used.
+ * Otherwise, the daily recommended material is fetched.
  */
-export default function LearningFlowContainer({ onExit }: LearningFlowContainerProps) {
+export default function LearningFlowContainer({ onExit, materialId }: LearningFlowContainerProps) {
   const [currentStep, setCurrentStep] = useState<Step>('blind');
   const [material, setMaterial] = useState<MaterialDetail | null>(null);
+  const [preloadedMaterial, setPreloadedMaterial] = useState<MaterialDetail | null>(null);
+
+  // Preload specific material if materialId is provided
+  React.useEffect(() => {
+    if (materialId) {
+      (async () => {
+        try {
+          const detail = await fetchMaterialDetail(materialId);
+          setPreloadedMaterial(detail);
+        } catch {
+          // Fall back to daily material
+        }
+      })();
+    }
+  }, [materialId]);
 
   const handleBlindComplete = useCallback((m: MaterialDetail) => {
     setMaterial(m);
@@ -43,6 +61,7 @@ export default function LearningFlowContainer({ onExit }: LearningFlowContainerP
     case 'blind':
       return (
         <BlindListeningScreen
+          preloadedMaterial={preloadedMaterial}
           onComplete={handleBlindComplete}
           onExit={onExit}
         />

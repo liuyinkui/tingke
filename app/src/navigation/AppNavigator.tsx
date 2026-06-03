@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, ActivityIndicator, View } from 'react-native';
 
@@ -22,7 +22,7 @@ function LoadingScreen() {
 }
 
 /**
- * Profile container — manages profile/settings/wordbook sub-navigation
+ * Profile container
  */
 function ProfileContainer() {
   const [showSettings, setShowSettings] = useState(false);
@@ -45,9 +45,9 @@ function ProfileContainer() {
 }
 
 /**
- * Main content with tab navigation — wrapped so we can swap in the learning flow
+ * Main content with tab navigation
  */
-function MainTabs({ onStartLearning }: { onStartLearning: () => void }) {
+function MainTabs({ onStartLearning }: { onStartLearning: (materialId?: string) => void }) {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -79,14 +79,15 @@ function MainTabs({ onStartLearning }: { onStartLearning: () => void }) {
       />
       <Tab.Screen
         name="Library"
-        component={LibraryScreen}
         options={{
           tabBarLabel: '素材库',
           tabBarIcon: ({ color, size }) => (
             <Text style={{ fontSize: size, color }}>📚</Text>
           ),
         }}
-      />
+      >
+        {() => <LibraryScreen onSelectMaterial={onStartLearning} />}
+      </Tab.Screen>
       <Tab.Screen
         name="Profile"
         component={ProfileContainer}
@@ -107,6 +108,12 @@ function MainTabs({ onStartLearning }: { onStartLearning: () => void }) {
 export default function AppNavigator() {
   const { isAuthenticated, isLoading } = useAuth();
   const [inLearningFlow, setInLearningFlow] = useState(false);
+  const [selectedMaterialId, setSelectedMaterialId] = useState<string | undefined>(undefined);
+
+  const handleStartLearning = useCallback((materialId?: string) => {
+    setSelectedMaterialId(materialId);
+    setInLearningFlow(true);
+  }, []);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -118,9 +125,12 @@ export default function AppNavigator() {
 
   if (inLearningFlow) {
     return (
-      <LearningFlowContainer onExit={() => setInLearningFlow(false)} />
+      <LearningFlowContainer
+        onExit={() => setInLearningFlow(false)}
+        materialId={selectedMaterialId}
+      />
     );
   }
 
-  return <MainTabs onStartLearning={() => setInLearningFlow(true)} />;
+  return <MainTabs onStartLearning={() => handleStartLearning()} />;
 }
