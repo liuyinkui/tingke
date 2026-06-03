@@ -10,6 +10,7 @@ const errorHandler = require('./middleware/errorHandler');
 const healthRouter = require('./routes/health');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
+const adminRouter = require('./routes/admin');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/health', healthRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
+app.use('/api/admin', adminRouter);
 
 // ── 404 handler ────────────────────────────────────────────
 app.use((req, res) => {
