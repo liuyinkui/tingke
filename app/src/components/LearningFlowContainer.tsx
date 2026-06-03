@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { MaterialDetail } from '../services/materials';
 import BlindListeningScreen from '../screens/BlindListeningScreen';
+import DictationScreen from '../screens/DictationScreen';
+import { MaterialDetail } from '../services/materials';
 
 type Step = 'blind' | 'dictation' | 'complete';
 
@@ -26,6 +27,10 @@ export default function LearningFlowContainer({ onExit }: LearningFlowContainerP
     setCurrentStep('dictation');
   }, []);
 
+  const handleDictationComplete = useCallback(() => {
+    setCurrentStep('complete');
+  }, []);
+
   // Render based on current step
   switch (currentStep) {
     case 'blind':
@@ -36,10 +41,26 @@ export default function LearningFlowContainer({ onExit }: LearningFlowContainerP
         />
       );
 
-    // Dictation and Complete steps will be implemented in subsequent issues
     case 'dictation':
+      if (!material) return null;
+      return (
+        <DictationScreen
+          material={material}
+          onComplete={handleDictationComplete}
+          onExit={onExit}
+        />
+      );
+
     case 'complete':
+      // Issue #13 will implement the completion screen
+      // For now, just exit back to home
+      if (material) {
+        // Placeholder: will be replaced by CompleteScreen
+        onExit();
+      }
+      return null;
+
     default:
-      return <BlindListeningScreen onComplete={handleBlindComplete} onExit={onExit} />;
+      return null;
   }
 }
