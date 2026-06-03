@@ -2,7 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
-export default function StartScreen() {
+interface Props {
+  onStartLearning: () => void;
+}
+
+export default function StartScreen({ onStartLearning }: Props) {
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
@@ -18,7 +22,11 @@ export default function StartScreen() {
       <Text style={styles.dailyTime}>0 分 0 秒</Text>
 
       {/* Start Button */}
-      <TouchableOpacity style={styles.startButton} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={styles.startButton}
+        onPress={onStartLearning}
+        activeOpacity={0.8}
+      >
         <Text style={styles.startButtonText}>开始今日练习</Text>
       </TouchableOpacity>
 

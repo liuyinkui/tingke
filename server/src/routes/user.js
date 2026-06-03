@@ -18,4 +18,10 @@ router.get('/profile', profileController.getProfile);
  */
 router.patch('/profile', profileController.updateProfile);
 
+/**
+ * GET /api/user/daily-material
+ * 获取今日推荐素材
+ */
+router.get('/daily-material', profileController.getDailyMaterial);
+
 module.exports = router;

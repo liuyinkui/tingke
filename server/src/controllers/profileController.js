@@ -3,7 +3,6 @@ const db = require('../db');
 /**
  * GET /api/user/profile
  * 返回当前用户信息 + 学习统计
- * Auth required
  */
 async function getProfile(req, res, next) {
   try {
@@ -17,16 +16,13 @@ async function getProfile(req, res, next) {
       return next(err);
     }
 
-    // Count total checkin days
     const checkinResult = await db('checkins').where({ user_id: userId }).count('*').first();
     const totalDays = parseInt(checkinResult?.count || '0', 10);
 
-    // Calculate this week's study time (in seconds)
     const weekStart = new Date();
     weekStart.setDate(weekStart.getDate() - weekStart.getDay());
     weekStart.setHours(0, 0, 0, 0);
 
-    // Study time = total duration of materials completed this week
     const weekRecords = await db('dictation_records')
       .join('materials', 'dictation_records.material_id', 'materials.id')
       .where('dictation_records.user_id', userId)
@@ -36,7 +32,6 @@ async function getProfile(req, res, next) {
 
     const weeklyMinutes = Math.round(parseInt(weekRecords[0]?.total || '0', 10) / 60);
 
-    // Get current streak
     const latestCheckin = await db('checkins')
       .where({ user_id: userId })
       .orderBy('checkin_date', 'desc')
@@ -65,8 +60,6 @@ async function getProfile(req, res, next) {
 /**
  * PATCH /api/user/profile
  * 更新用户设置
- * Auth required
- * Body: { daily_goal?, accent_pref?, level? }
  */
 async function updateProfile(req, res, next) {
   try {
@@ -75,7 +68,6 @@ async function updateProfile(req, res, next) {
 
     const updates = {};
 
-    // Validate daily_goal
     if (daily_goal !== undefined) {
       const validGoals = [15, 30, 45];
       if (!validGoals.includes(daily_goal)) {
@@ -87,7 +79,6 @@ async function updateProfile(req, res, next) {
       updates.daily_goal = daily_goal;
     }
 
-    // Validate accent_pref
     if (accent_pref !== undefined) {
       const validAccents = ['us', 'uk'];
       if (!validAccents.includes(accent_pref)) {
@@ -99,7 +90,6 @@ async function updateProfile(req, res, next) {
       updates.accent_pref = accent_pref;
     }
 
-    // Validate level
     if (level !== undefined) {
       const validLevels = ['L1', 'L2', 'L3', 'L4', 'L5'];
       if (!validLevels.includes(level)) {
@@ -125,13 +115,92 @@ async function updateProfile(req, res, next) {
       .update(updates)
       .returning(['id', 'nickname', 'level', 'daily_goal', 'accent_pref']);
 
-    res.json({
-      success: true,
-      data: updated,
-    });
+    res.json({ success: true, data: updated });
   } catch (err) {
     next(err);
   }
 }
 
-module.exports = { getProfile, updateProfile };
+/**
+ * GET /api/user/daily-material
+ * 获取今日推荐素材
+ * 优先推荐未练过 + 同等级素材
+ */
+async function getDailyMaterial(req, res, next) {
+  try {
+    const userId = req.user.id;
+
+    const user = await db('users').where({ id: userId }).first();
+    if (!user) {
+      const err = new Error('用户不存在');
+      err.statusCode = 404;
+      err.isOperational = true;
+      return next(err);
+    }
+
+    // Get completed material IDs
+    const completedRows = await db('dictation_records')
+      .where({ user_id: userId })
+      .distinct('material_id');
+    const completedIds = completedRows.map((r) => r.material_id);
+
+    let material = null;
+
+    // 1) Try uncompleted material at user's level
+    if (completedIds.length > 0) {
+      material = await db('materials')
+        .where({ difficulty: user.level, status: 'published' })
+        .whereNotIn('id', completedIds)
+        .orderByRaw('RANDOM()')
+        .first();
+    } else {
+      material = await db('materials')
+        .where({ difficulty: user.level, status: 'published' })
+        .orderByRaw('RANDOM()')
+        .first();
+    }
+
+    // 2) Fallback: any uncompleted published material
+    if (!material && completedIds.length > 0) {
+      material = await db('materials')
+        .where({ status: 'published' })
+        .whereNotIn('id', completedIds)
+        .orderByRaw('RANDOM()')
+        .first();
+    }
+
+    // 3) Last resort: any published material at all
+    if (!material) {
+      material = await db('materials')
+        .where({ status: 'published' })
+        .orderByRaw('RANDOM()')
+        .first();
+    }
+
+    if (!material) {
+      const err = new Error('暂时没有可用的素材');
+      err.statusCode = 404;
+      err.isOperational = true;
+      return next(err);
+    }
+
+    const result = {
+      ...material,
+      sentence_timeline:
+        typeof material.sentence_timeline === 'string'
+          ? JSON.parse(material.sentence_timeline)
+          : material.sentence_timeline,
+      word_list:
+        material.word_list && typeof material.word_list === 'string'
+          ? JSON.parse(material.word_list)
+          : material.word_list,
+      completed: completedIds.includes(material.id),
+    };
+
+    res.json({ success: true, data: result });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { getProfile, updateProfile, getDailyMaterial };
