@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const profileController = require('../controllers/profileController');
 const checkinController = require('../controllers/checkinController');
+const wordController = require('../controllers/wordController');
 
 // All profile routes require authentication
 router.use(auth);
@@ -42,5 +43,23 @@ router.get('/streak', checkinController.getStreak);
  * 学习统计概览
  */
 router.get('/stats/summary', checkinController.getSummary);
+
+/**
+ * GET /api/user/words
+ * 错词列表（按日期分组）
+ */
+router.get('/words', wordController.listWords);
+
+/**
+ * GET /api/user/words/stats
+ * 错词统计
+ */
+router.get('/words/stats', wordController.wordStats);
+
+/**
+ * DELETE /api/user/words/:id
+ * 标记单词为已掌握
+ */
+router.delete('/words/:id', wordController.removeWord);
 
 module.exports = router;

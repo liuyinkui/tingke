@@ -14,9 +14,10 @@ import { getProfile, UserProfile } from '../services/profile';
 
 interface Props {
   onNavigateToSettings: () => void;
+  onNavigateToWordBook: () => void;
 }
 
-export default function ProfileScreen({ onNavigateToSettings }: Props) {
+export default function ProfileScreen({ onNavigateToSettings, onNavigateToWordBook }: Props) {
   const { user } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
@@ -122,6 +123,20 @@ export default function ProfileScreen({ onNavigateToSettings }: Props) {
           </View>
         </TouchableOpacity>
       </View>
+
+      {/* Word Book Entry */}
+      <TouchableOpacity
+        style={styles.wordBookButton}
+        onPress={onNavigateToWordBook}
+        activeOpacity={0.8}
+      >
+        <Text style={styles.wordBookButtonEmoji}>📖</Text>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.wordBookButtonTitle}>单词本</Text>
+          <Text style={styles.wordBookButtonSub}>查看听写中写错的词</Text>
+        </View>
+        <Text style={styles.wordBookArrow}>→</Text>
+      </TouchableOpacity>
 
       {/* Edit Button */}
       <TouchableOpacity
@@ -231,6 +246,39 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     color: '#2D3436',
+  },
+  wordBookButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    marginHorizontal: 20,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  wordBookButtonEmoji: {
+    fontSize: 24,
+    marginRight: 12,
+  },
+  wordBookButtonTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#2D3436',
+    marginBottom: 2,
+  },
+  wordBookButtonSub: {
+    fontSize: 13,
+    color: '#636e72',
+  },
+  wordBookArrow: {
+    fontSize: 18,
+    color: '#b2bec3',
   },
   editButton: {
     marginHorizontal: 20,
