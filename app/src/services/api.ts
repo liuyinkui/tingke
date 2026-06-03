@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { getToken } from './storage';
 
 // Base URL for the Tingke backend API
-// Will be updated to production URL when deployed
 const apiClient = axios.create({
   baseURL: 'http://localhost:3000/api',
   timeout: 10000,
@@ -10,11 +10,10 @@ const apiClient = axios.create({
   },
 });
 
-// Request interceptor: attach auth token if available
+// Request interceptor: attach auth token from storage
 apiClient.interceptors.request.use(
-  (config) => {
-    // TODO: retrieve token from secure storage once login is implemented
-    const token = null;
+  async (config) => {
+    const token = await getToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -23,13 +22,14 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor: handle common errors
+// Response interceptor: handle 401 — clear auth & redirect to login
 apiClient.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
     if (error.response?.status === 401) {
-      // TODO: redirect to login when auth is implemented
-      console.warn('[API] Unauthorized — token may be expired');
+      // Token expired or invalid — clear stored auth
+      const { clearAuth } = await import('./storage');
+      await clearAuth();
     }
     return Promise.reject(error);
   }

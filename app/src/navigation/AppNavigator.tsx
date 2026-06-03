@@ -1,23 +1,40 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text } from 'react-native';
+import { Text, ActivityIndicator, View } from 'react-native';
 
+import { useAuth } from '../contexts/AuthContext';
+import AuthScreen from '../screens/AuthScreen';
 import StartScreen from '../screens/StartScreen';
 import LibraryScreen from '../screens/LibraryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
+function LoadingScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F7FA' }}>
+      <ActivityIndicator size="large" color="#1E3A5F" />
+    </View>
+  );
+}
+
 /**
- * AppNavigator — 3 个一级页面
- * - 首页（StartScreen）：今日练习入口
- * - 素材库（LibraryScreen）：浏览素材
- * - 个人中心（ProfileScreen）：统计 + 设置
+ * AppNavigator — 3 个一级页面 + 认证流程
  *
- * Tab bar 选用文字图标，不引入额外 icon 库以保持 MVP 轻量。
- * 后续可用 @expo/vector-icons 替换。
+ * 未登录时显示 AuthScreen（登录/注册）
+ * 登录后显示 Bottom Tab 导航
  */
 export default function AppNavigator() {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (!isAuthenticated) {
+    return <AuthScreen />;
+  }
+
   return (
     <Tab.Navigator
       screenOptions={{
