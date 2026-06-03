@@ -1,7 +1,8 @@
 version: '3.8'
 
 services:
-  postgres:
+  # ── PostgreSQL ──────────────────────────────────────────
+  db:
     image: postgres:16-alpine
     container_name: tingke-postgres
     environment:
@@ -12,12 +13,48 @@ services:
       - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
+  # ── Redis ───────────────────────────────────────────────
   redis:
     image: redis:7-alpine
     container_name: tingke-redis
     ports:
       - '6379:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Node.js API ─────────────────────────────────────────
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: tingke-api
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./server/.env
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NODE_ENV=development
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - audio-data:/app/uploads
 
 volumes:
   pgdata:
+  audio-data:
