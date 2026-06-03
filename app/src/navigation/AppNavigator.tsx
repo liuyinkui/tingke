@@ -8,6 +8,7 @@ import StartScreen from '../screens/StartScreen';
 import LibraryScreen from '../screens/LibraryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import WordBookScreen from '../screens/WordBookScreen';
 import LearningFlowContainer from '../components/LearningFlowContainer';
 
 const Tab = createBottomTabNavigator();
@@ -21,16 +22,26 @@ function LoadingScreen() {
 }
 
 /**
- * Profile container — 在 ProfileScreen 和 SettingsScreen 之间切换
+ * Profile container — manages profile/settings/wordbook sub-navigation
  */
 function ProfileContainer() {
   const [showSettings, setShowSettings] = useState(false);
+  const [showWordBook, setShowWordBook] = useState(false);
 
   if (showSettings) {
     return <SettingsScreen onBack={() => setShowSettings(false)} />;
   }
 
-  return <ProfileScreen onNavigateToSettings={() => setShowSettings(true)} />;
+  if (showWordBook) {
+    return <WordBookScreen onBack={() => setShowWordBook(false)} />;
+  }
+
+  return (
+    <ProfileScreen
+      onNavigateToSettings={() => setShowSettings(true)}
+      onNavigateToWordBook={() => setShowWordBook(true)}
+    />
+  );
 }
 
 /**
@@ -92,10 +103,6 @@ function MainTabs({ onStartLearning }: { onStartLearning: () => void }) {
 
 /**
  * AppNavigator — 3 个一级页面 + 认证流程 + 学习流
- *
- * 未登录 → AuthScreen
- * 已登录 → MainTabs（含 Start/Library/Profile）
- * 学习中 → LearningFlowContainer（隐藏 tab bar）
  */
 export default function AppNavigator() {
   const { isAuthenticated, isLoading } = useAuth();
