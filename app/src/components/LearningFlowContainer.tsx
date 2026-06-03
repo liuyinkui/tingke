@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import BlindListeningScreen from '../screens/BlindListeningScreen';
 import DictationScreen from '../screens/DictationScreen';
 import FollowAlongScreen from '../screens/FollowAlongScreen';
+import CompleteScreen from '../screens/CompleteScreen';
 import { MaterialDetail } from '../services/materials';
 
 type Step = 'blind' | 'dictation' | 'follow' | 'complete';
@@ -32,6 +33,10 @@ export default function LearningFlowContainer({ onExit }: LearningFlowContainerP
   const handleFollowComplete = useCallback(() => {
     setCurrentStep('complete');
   }, []);
+
+  const handleFinish = useCallback(() => {
+    onExit();
+  }, [onExit]);
 
   // Render based on current step
   switch (currentStep) {
@@ -64,9 +69,9 @@ export default function LearningFlowContainer({ onExit }: LearningFlowContainerP
       );
 
     case 'complete':
-      // Issue #13 will implement the completion screen
-      onExit();
-      return null;
+      return (
+        <CompleteScreen onFinish={handleFinish} />
+      );
 
     default:
       return null;
