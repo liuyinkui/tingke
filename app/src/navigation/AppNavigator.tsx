@@ -8,6 +8,7 @@ import StartScreen from '../screens/StartScreen';
 import LibraryScreen from '../screens/LibraryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import LearningFlowContainer from '../components/LearningFlowContainer';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,22 +34,9 @@ function ProfileContainer() {
 }
 
 /**
- * AppNavigator — 3 个一级页面 + 认证流程
- *
- * 未登录时显示 AuthScreen（登录/注册）
- * 登录后显示 Bottom Tab 导航
+ * Main content with tab navigation — wrapped so we can swap in the learning flow
  */
-export default function AppNavigator() {
-  const { isAuthenticated, isLoading } = useAuth();
-
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
-
-  if (!isAuthenticated) {
-    return <AuthScreen />;
-  }
-
+function MainTabs({ onStartLearning }: { onStartLearning: () => void }) {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -70,7 +58,7 @@ export default function AppNavigator() {
     >
       <Tab.Screen
         name="Start"
-        component={StartScreen}
+        children={() => <StartScreen onStartLearning={onStartLearning} />}
         options={{
           tabBarLabel: '首页',
           tabBarIcon: ({ color, size }) => (
@@ -100,4 +88,32 @@ export default function AppNavigator() {
       />
     </Tab.Navigator>
   );
+}
+
+/**
+ * AppNavigator — 3 个一级页面 + 认证流程 + 学习流
+ *
+ * 未登录 → AuthScreen
+ * 已登录 → MainTabs（含 Start/Library/Profile）
+ * 学习中 → LearningFlowContainer（隐藏 tab bar）
+ */
+export default function AppNavigator() {
+  const { isAuthenticated, isLoading } = useAuth();
+  const [inLearningFlow, setInLearningFlow] = useState(false);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (!isAuthenticated) {
+    return <AuthScreen />;
+  }
+
+  if (inLearningFlow) {
+    return (
+      <LearningFlowContainer onExit={() => setInLearningFlow(false)} />
+    );
+  }
+
+  return <MainTabs onStartLearning={() => setInLearningFlow(true)} />;
 }
