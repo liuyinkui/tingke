@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const profileController = require('../controllers/profileController');
+const checkinController = require('../controllers/checkinController');
 
 // All profile routes require authentication
 router.use(auth);
@@ -23,5 +24,23 @@ router.patch('/profile', profileController.updateProfile);
  * 获取今日推荐素材
  */
 router.get('/daily-material', profileController.getDailyMaterial);
+
+/**
+ * POST /api/user/checkin
+ * 每日打卡
+ */
+router.post('/checkin', checkinController.checkin);
+
+/**
+ * GET /api/user/streak
+ * 打卡 streak 数据
+ */
+router.get('/streak', checkinController.getStreak);
+
+/**
+ * GET /api/user/stats/summary
+ * 学习统计概览
+ */
+router.get('/stats/summary', checkinController.getSummary);
 
 module.exports = router;
