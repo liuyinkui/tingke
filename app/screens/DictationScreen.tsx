@@ -18,7 +18,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, spacing, fontSize, fontWeight, radius, shadows } from '../theme';
 import { StepIndicator } from '../components/StepIndicator';
 import { DictationInput } from '../components/DictationInput';
-import { speechService } from '../services/speechService';
+import { audioService } from '../services/speechService';
 import { DictationResult } from '../types';
 
 interface DictationScreenProps {
@@ -56,17 +56,16 @@ export const DictationScreen: React.FC<DictationScreenProps> = ({ navigation, ro
   const handlePlaySentence = useCallback(
     async (index: number) => {
       currentSentenceRef.current = index;
-      const text = SENTENCES[index];
-      if (!text) return;
+      if (!SENTENCES[index]) return;
 
-      speechService.stop();
+      await audioService.stop();
       setIsPlaying(true);
 
-      speechService.onEnd = () => {
+      audioService.onEnd = () => {
         setIsPlaying(false);
       };
 
-      await speechService.playText(text);
+      await audioService.playSentence(index);
     },
     [],
   );

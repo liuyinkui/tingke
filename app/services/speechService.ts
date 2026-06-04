@@ -1,190 +1,243 @@
 /**
- * speechService — Web Speech API 语音合成服务
+ * audioService — expo-av 本地 WAV 音频管理服务
  *
- * 使用浏览器内置的 SpeechSynthesis 引擎，将英文文本实时转语音。
- * 无需外部音频文件，完美匹配精听练习场景。
+ * 使用 expo-av Audio.Sound 播放 assets/audio/sentence_N.wav 本地文件。
+ * 不再依赖 Web Speech TTS，保证 Expo web 构建后正常工作。
  *
  * 功能:
- *   playText(text, rate?, pitch?)   — 朗读文本
- *   pause()                         — 暂停
- *   resume()                        — 恢复
- *   stop()                          — 停止
- *   setRate(rate)                   — 变速 (0.5~2.0)
- *   isSpeaking() → boolean          — 是否正在播放
- *   onBoundary?                     — 逐词高亮回调
+ *   loadSentences(count)      — 预加载所有句子音频
+ *   playSentence(index)       — 播放某一句
+ *   pause()                   — 暂停
+ *   resume()                  — 恢复
+ *   stop()                    — 停止
+ *   setSpeed(rate)            — 变速 (0.5~2.0)
+ *   seekTo(positionMillis)    — 跳转到指定位置
+ *   getDurationMillis()       — 当前音频时长
+ *   getPositionMillis()       — 当前播放位置
+ *
+ * 状态:
+ *   isPlaying                 — 是否正在播放
+ *   currentIndex              — 当前播放句索引
+ *   onEnd                     — 播放完成回调
+ *   onPlaybackStatusUpdate    — 播放状态变化回调 (位置/进度)
  */
 
-type BoundaryCallback = (charIndex: number, charLength: number) => void;
+import { Audio, AVPlaybackStatus, AVPlaybackStatusSuccess } from 'expo-av';
 
-interface SpeechServiceState {
+// 音频源映射：assets/audio/sentence_{n}.wav
+const audioSources = [
+  require('../../assets/audio/sentence_0.wav'),
+  require('../../assets/audio/sentence_1.wav'),
+  require('../../assets/audio/sentence_2.wav'),
+  require('../../assets/audio/sentence_3.wav'),
+  require('../../assets/audio/sentence_4.wav'),
+  require('../../assets/audio/sentence_5.wav'),
+];
+
+export interface AudioServiceState {
   isPlaying: boolean;
-  paused: boolean;
+  isPaused: boolean;
+  currentIndex: number;
   rate: number;
-  pitch: number;
-  voice: SpeechSynthesisVoice | null;
+  durationMillis: number;
+  positionMillis: number;
 }
 
-class SpeechService {
-  private utterance: SpeechSynthesisUtterance | null = null;
-  private state: SpeechServiceState = {
+class AudioService {
+  /** 所有预加载的 Sound 实例 */
+  private sounds: (Audio.Sound | null)[] = [];
+  /** 当前播放中的 Sound 实例 */
+  private currentSound: Audio.Sound | null = null;
+  /** 当前状态 */
+  private state: AudioServiceState = {
     isPlaying: false,
-    paused: false,
+    isPaused: false,
+    currentIndex: -1,
     rate: 1.0,
-    pitch: 1.0,
-    voice: null,
+    durationMillis: 0,
+    positionMillis: 0,
   };
 
-  /** 外界注册的边界回调（用于逐词高亮） */
-  onBoundary: BoundaryCallback | null = null;
-
-  /** 外界注册的结束回调 */
+  /** 播放完成回调 */
   onEnd: (() => void) | null = null;
+  /** 播放状态变化回调 (位置/进度更新) */
+  onPlaybackStatusUpdate: ((status: AudioServiceState) => void) | null = null;
+
+  private sentenceCount: number = 0;
 
   constructor() {
-    this.initVoice();
-  }
-
-  /**
-   * 初始化美式英语语音
-   */
-  private initVoice(): void {
-    // 如果语音列表已经加载，直接选
-    const voices = window.speechSynthesis.getVoices();
-    if (voices.length > 0) {
-      this.selectVoice(voices);
-    }
-    // 否则等 onvoiceschanged 事件
-    window.speechSynthesis.onvoiceschanged = () => {
-      const allVoices = window.speechSynthesis.getVoices();
-      this.selectVoice(allVoices);
-    };
-  }
-
-  private selectVoice(voices: SpeechSynthesisVoice[]): void {
-    // 优先选美式英语
-    this.state.voice =
-      voices.find((v) => v.lang.startsWith('en-US') && v.name.includes('Google')) ||
-      voices.find((v) => v.lang.startsWith('en-US') && v.name.includes('Samantha')) ||
-      voices.find((v) => v.lang.startsWith('en-US')) ||
-      voices.find((v) => v.lang.startsWith('en')) ||
-      voices[0] ||
-      null;
-
-    if (this.state.voice) {
-      console.log(`[SpeechService] Selected voice: ${this.state.voice.name} (${this.state.voice.lang})`);
-    }
-  }
-
-  /**
-   * 朗读文本
-   * @param text  要朗读的英文文本
-   * @param rate  语速 (0.5~2.0，默认 1.0)
-   * @param pitch 音高 (0.5~2.0，默认 1.0)
-   */
-  playText(text: string, rate?: number, pitch?: number): Promise<void> {
-    return new Promise((resolve) => {
-      // 停止当前朗读
-      this.stopInternal();
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US';
-      utterance.voice = this.state.voice;
-
-      // 应用语速和音高
-      if (rate !== undefined) {
-        this.state.rate = rate;
-      }
-      if (pitch !== undefined) {
-        this.state.pitch = pitch;
-      }
-      utterance.rate = this.state.rate;
-      utterance.pitch = this.state.pitch;
-
-      // 绑定额外的 end 回调
-      let externalEndFired = false;
-      utterance.onend = () => {
-        this.state.isPlaying = false;
-        this.state.paused = false;
-        this.utterance = null;
-        if (this.onEnd && !externalEndFired) {
-          externalEndFired = true;
-          this.onEnd();
-        }
-        resolve();
-      };
-
-      utterance.onerror = (e) => {
-        console.warn('[SpeechService] Error:', e.error);
-        this.state.isPlaying = false;
-        this.state.paused = false;
-        this.utterance = null;
-        if (this.onEnd && !externalEndFired) {
-          externalEndFired = true;
-          this.onEnd();
-        }
-        resolve();
-      };
-
-      // 逐词高亮回调
-      utterance.onboundary = (e) => {
-        if (e.name === 'word' && this.onBoundary) {
-          this.onBoundary(e.charIndex, e.charLength);
-        }
-      };
-
-      this.utterance = utterance;
-      this.state.isPlaying = true;
-      this.state.paused = false;
-
-      // Chrome 需要这个小延迟来让语音引擎就绪
-      window.speechSynthesis.speak(utterance);
+    Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      staysActiveInBackground: false,
+      playThroughEarpieceAndroid: false,
     });
   }
 
-  /** 暂停朗读 */
-  pause(): void {
-    if (this.state.isPlaying && !this.state.paused) {
-      window.speechSynthesis.pause();
-      this.state.paused = true;
-    }
-  }
+  /**
+   * 预加载指定数量的句子音频
+   * @param count 句子数量 (默认 audioSources.length)
+   */
+  async loadSentences(count: number = audioSources.length): Promise<void> {
+    this.sentenceCount = Math.min(count, audioSources.length);
+    this.sounds = new Array(this.sentenceCount).fill(null);
 
-  /** 恢复朗读 */
-  resume(): void {
-    if (this.state.isPlaying && this.state.paused) {
-      window.speechSynthesis.resume();
-      this.state.paused = false;
-    }
-  }
-
-  /** 停止朗读 */
-  stop(): void {
-    this.stopInternal();
-  }
-
-  private stopInternal(): void {
-    window.speechSynthesis.cancel();
-    this.state.isPlaying = false;
-    this.state.paused = false;
-    this.utterance = null;
-  }
-
-  /** 设置语速 (0.5 ~ 2.0) */
-  setRate(rate: number): void {
-    this.state.rate = Math.max(0.5, Math.min(2.0, rate));
-    // 如果当前正在播放，需要重启才能生效
-    if (this.state.isPlaying) {
-      // 记下当前文本
-      const text = this.utterance?.text;
-      const wasPlaying = this.state.isPlaying;
-      if (text && wasPlaying) {
-        const wasPaused = this.state.paused;
-        this.stopInternal();
-        if (!wasPaused) {
-          this.playText(text);
-        }
+    for (let i = 0; i < this.sentenceCount; i++) {
+      try {
+        const { sound } = await Audio.Sound.createAsync(
+          audioSources[i],
+          { shouldPlay: false, rate: this.state.rate },
+          (status) => this.handlePlaybackStatus(i, status),
+        );
+        this.sounds[i] = sound;
+      } catch (error) {
+        console.warn(`[AudioService] Failed to load sentence ${i}:`, error);
       }
     }
+    console.log(`[AudioService] Loaded ${this.sentenceCount} sentences`);
+  }
+
+  /**
+   * 单个 Sound 实例的播放状态回调
+   */
+  private handlePlaybackStatus(index: number, status: AVPlaybackStatus): void {
+    if (!status.isLoaded) return;
+
+    const s = status as AVPlaybackStatusSuccess;
+
+    // 只在当前播放的句子上分发状态
+    if (index === this.state.currentIndex) {
+      this.state.durationMillis = s.durationMillis ?? 0;
+      this.state.positionMillis = s.positionMillis ?? 0;
+      this.state.isPlaying = s.isPlaying;
+
+      if (s.didJustFinish) {
+        this.state.isPlaying = false;
+        this.state.isPaused = false;
+        this.currentSound = null;
+        if (this.onEnd) {
+          this.onEnd();
+        }
+      }
+
+      if (this.onPlaybackStatusUpdate) {
+        this.onPlaybackStatusUpdate({ ...this.state });
+      }
+    }
+  }
+
+  /**
+   * 播放指定索引的句子
+   * @param index 句子索引 (0-based)
+   */
+  async playSentence(index: number): Promise<void> {
+    if (index < 0 || index >= this.sentenceCount) {
+      console.warn(`[AudioService] Invalid sentence index: ${index}`);
+      return;
+    }
+
+    // 停止当前播放
+    await this.stopInternal();
+
+    const sound = this.sounds[index];
+    if (!sound) {
+      console.warn(`[AudioService] Sound ${index} not loaded`);
+      return;
+    }
+
+    this.state.currentIndex = index;
+    this.currentSound = sound;
+
+    try {
+      // 设置当前语速
+      await sound.setRateAsync(this.state.rate, false);
+      await sound.playAsync();
+    } catch (error) {
+      console.warn(`[AudioService] Failed to play sentence ${index}:`, error);
+    }
+  }
+
+  /** 暂停 */
+  async pause(): Promise<void> {
+    if (this.currentSound && this.state.isPlaying) {
+      try {
+        await this.currentSound.pauseAsync();
+        this.state.isPaused = true;
+      } catch (error) {
+        console.warn('[AudioService] Pause failed:', error);
+      }
+    }
+  }
+
+  /** 恢复 */
+  async resume(): Promise<void> {
+    if (this.currentSound && this.state.isPaused) {
+      try {
+        await this.currentSound.playAsync();
+        this.state.isPaused = false;
+      } catch (error) {
+        console.warn('[AudioService] Resume failed:', error);
+      }
+    }
+  }
+
+  /** 停止 */
+  async stop(): Promise<void> {
+    await this.stopInternal();
+  }
+
+  private async stopInternal(): Promise<void> {
+    if (this.currentSound) {
+      try {
+        await this.currentSound.stopAsync();
+      } catch {
+        // ignore
+      }
+    }
+    this.state.isPlaying = false;
+    this.state.isPaused = false;
+    this.state.positionMillis = 0;
+    this.currentSound = null;
+  }
+
+  /**
+   * 设置语速 (0.5 ~ 2.0)
+   * expo-av 可以直接在播放中更改速率
+   */
+  async setSpeed(rate: number): Promise<void> {
+    this.state.rate = Math.max(0.5, Math.min(2.0, rate));
+    if (this.currentSound) {
+      try {
+        // shouldCorrectPitch = false 保持音调不变（类似 Web Speech 效果）
+        await this.currentSound.setRateAsync(this.state.rate, false);
+      } catch (error) {
+        console.warn('[AudioService] Set rate failed:', error);
+      }
+    }
+  }
+
+  /**
+   * 跳转到指定位置（毫秒）
+   */
+  async seekTo(positionMillis: number): Promise<void> {
+    if (this.currentSound) {
+      try {
+        await this.currentSound.setPositionAsync(positionMillis);
+      } catch (error) {
+        console.warn('[AudioService] Seek failed:', error);
+      }
+    }
+  }
+
+  /** 获取当前音频总时长 (毫秒) */
+  getDurationMillis(): number {
+    return this.state.durationMillis;
+  }
+
+  /** 获取当前播放位置 (毫秒) */
+  getPositionMillis(): number {
+    return this.state.positionMillis;
   }
 
   /** 获取当前语速 */
@@ -192,25 +245,52 @@ class SpeechService {
     return this.state.rate;
   }
 
-  /** 是否正在说话 */
-  isSpeaking(): boolean {
-    return this.state.isPlaying || window.speechSynthesis.speaking;
+  /** 是否正在播放 */
+  isPlaying(): boolean {
+    return this.state.isPlaying;
   }
 
   /** 是否处于暂停状态 */
   isPaused(): boolean {
-    return this.state.paused;
+    return this.state.isPaused;
+  }
+
+  /** 获取当前播放索引 */
+  getCurrentIndex(): number {
+    return this.state.currentIndex;
+  }
+
+  /**
+   * 重新加载所有音频 (例如重新进入页面时调用)
+   */
+  async reload(): Promise<void> {
+    await this.unloadAll();
+    await this.loadSentences(this.sentenceCount || audioSources.length);
+  }
+
+  /** 卸载所有 Sound 实例 */
+  async unloadAll(): Promise<void> {
+    await this.stopInternal();
+    for (const sound of this.sounds) {
+      if (sound) {
+        try {
+          await sound.unloadAsync();
+        } catch {
+          // ignore
+        }
+      }
+    }
+    this.sounds = [];
+    this.state.currentIndex = -1;
   }
 
   /** 销毁清理 */
-  dispose(): void {
-    this.stopInternal();
-    this.onBoundary = null;
+  async dispose(): Promise<void> {
+    await this.unloadAll();
     this.onEnd = null;
-    window.speechSynthesis.onvoiceschanged = null;
+    this.onPlaybackStatusUpdate = null;
   }
 }
 
 /** 单例导出 */
-export const speechService = new SpeechService();
-export type { BoundaryCallback };
+export const audioService = new AudioService();

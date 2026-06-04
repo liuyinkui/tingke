@@ -16,7 +16,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, spacing, fontSize, fontWeight, radius, shadows } from '../theme';
 import { StepIndicator } from '../components/StepIndicator';
-import { speechService } from '../services/speechService';
+import { audioService } from '../services/speechService';
 
 interface ShadowingScreenProps {
   navigation?: any;
@@ -56,34 +56,35 @@ export const ShadowingScreen: React.FC<ShadowingScreenProps> = ({ navigation, ro
 
   /** 播放原音 */
   const handlePlayOriginal = useCallback(async () => {
-    speechService.stop();
+    await audioService.stop();
     setIsPlaying(true);
     setMode('listen');
 
-    speechService.onEnd = () => {
+    audioService.onEnd = () => {
       setIsPlaying(false);
       setMode('record');
     };
 
-    await speechService.playText(currentSentence);
-  }, [currentSentence]);
+    await audioService.playSentence(sentenceIndex);
+  }, [sentenceIndex]);
 
-  /** 播放录音（模拟 — 实际应播放录音文件，这里用 TTS 模拟） */
-  const handlePlayRecording = useCallback(() => {
-    // 模拟录音回放：低速播放当前句子
-    speechService.stop();
+  /** 播放录音（模拟 — 低速播放原音模拟录音回放） */
+  const handlePlayRecording = useCallback(async () => {
+    await audioService.stop();
     setIsPlaying(true);
+    await audioService.setSpeed(0.85);
 
-    speechService.onEnd = () => {
+    audioService.onEnd = () => {
       setIsPlaying(false);
+      audioService.setSpeed(1.0);
     };
 
-    speechService.playText(currentSentence, 0.85, 1.1);
-  }, [currentSentence]);
+    await audioService.playSentence(sentenceIndex);
+  }, [sentenceIndex]);
 
   /** 停止播放 */
-  const handleStop = useCallback(() => {
-    speechService.stop();
+  const handleStop = useCallback(async () => {
+    await audioService.stop();
     setIsPlaying(false);
   }, []);
 
@@ -116,7 +117,7 @@ export const ShadowingScreen: React.FC<ShadowingScreenProps> = ({ navigation, ro
       setMode('listen');
       setIsPlaying(false);
       setIsRecording(false);
-      speechService.stop();
+      audioService.stop();
     } else {
       // 全部完成 → 跳转到完成页
       const accuracy = route?.params?.accuracy ?? 72;

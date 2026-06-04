@@ -1,14 +1,14 @@
 /**
- * AudioPlayer — 语音合成播放器（基于 Web Speech API）
+ * AudioPlayer — 本地 WAV 音频播放器（基于 expo-av）
  *
- * 使用 Web Speech TTS 引擎朗读英文文本，无需外部音频文件。
- * 完美匹配听刻的精听练习场景：逐句朗读、变速、逐词高亮。
+ * 使用 expo-av Audio.Sound 播放 assets/audio/sentence_N.wav 本地音频文件。
+ * 不再依赖 Web Speech TTS，保证 Expo web / native 正常工作。
  *
  * 视觉: v2-minimal 绿白灰极简风，品牌色 #02B47F
  *
  * Props:
- *   sentences     - 要朗读的句子数组
- *   currentIndex  - 当前朗读的句子索引 (0-based)
+ *   sentences     - 句子数组 (保持兼容，内部通过索引映射到 sentence_N.wav)
+ *   currentIndex  - 当前播放的句子索引 (0-based)
  *   onIndexChange - 句子切换回调
  *   autoPlay      - 自动开始播放
  */
@@ -22,7 +22,7 @@ import {
   PanResponder,
   LayoutChangeEvent,
 } from 'react-native';
-import { speechService } from '../services/speechService';
+import { audioService } from '../services/speechService';
 import { colors, spacing, fontSize, radius, shadows } from '../theme';
 
 const SPEED_OPTIONS = ['0.5×', '0.75×', '1.0×', '1.25×', '1.5×'] as const;
@@ -57,13 +57,15 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   const sentencesRef = useRef(sentences);
   const speedRef = useRef(1.0);
   const mountedRef = useRef(true);
+  const autoPlayedRef = useRef(false);
 
   // UI state
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [speed, setSpeed] = useState<string>('1.0×');
-  const [highlightIndex, setHighlightIndex] = useState<number>(-1);
   const [progress, setProgress] = useState(0); // 0~100
+  const [duration, setDuration] = useState(0);  // ms
+  const [position, setPosition] = useState(0);  // ms
 
   // Sync refs
   useEffect(() => {
@@ -76,15 +78,45 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
   useEffect(() => {
     mountedRef.current = true;
+
+    // 加载所有音频
+    audioService.loadSentences();
+
+    // 注册播放状态更新
+    audioService.onPlaybackStatusUpdate = (status) => {
+      if (!mountedRef.current) return;
+      setIsPlaying(status.isPlaying);
+      setDuration(status.durationMillis);
+      setPosition(status.positionMillis);
+
+      const dur = status.durationMillis;
+      const pos = status.positionMillis;
+      if (dur > 0 && pos >= 0) {
+        setProgress(Math.min((pos / dur) * 100, 99.5));
+      }
+    };
+
+    // 注册播放完成回调
+    audioService.onEnd = () => {
+      if (!mountedRef.current) return;
+      setIsPlaying(false);
+      setIsPaused(false);
+      isPlayingRef.current = false;
+      setProgress(100);
+    };
+
     return () => {
       mountedRef.current = false;
-      speechService.stop();
+      audioService.onPlaybackStatusUpdate = null;
+      audioService.onEnd = null;
+      audioService.stop();
     };
   }, []);
 
   // Auto-play
   useEffect(() => {
-    if (autoPlay && sentences.length > 0) {
+    if (autoPlay && !autoPlayedRef.current && sentences.length > 0) {
+      autoPlayedRef.current = true;
       const timer = setTimeout(() => {
         playCurrent();
       }, 300);
@@ -99,47 +131,21 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
     const text = sentencesRef.current[idx];
     if (!text) return;
 
-    // Stop any ongoing speech
-    speechService.stop();
-
-    speechService.onEnd = () => {
-      if (!mountedRef.current) return;
-      setIsPlaying(false);
-      setIsPaused(false);
-      isPlayingRef.current = false;
-      setHighlightIndex(-1);
-      setProgress(100);
-    };
-
-    speechService.onBoundary = (charIndex, charLength) => {
-      if (!mountedRef.current) return;
-      // Estimate word index from char position (rough)
-      const textBefore = text.substring(0, charIndex);
-      const wordCount = textBefore.split(/\s+/).filter(Boolean).length;
-      setHighlightIndex(wordCount);
-
-      // Update progress
-      const totalChars = text.length;
-      const pct = totalChars > 0 ? (charIndex / totalChars) * 100 : 0;
-      setProgress(Math.min(pct, 98));
-    };
-
+    isPlayingRef.current = true;
     setIsPlaying(true);
     setIsPaused(false);
-    isPlayingRef.current = true;
     setProgress(0);
-    setHighlightIndex(-1);
 
-    await speechService.playText(text, speedRef.current);
+    await audioService.playSentence(idx);
   }, []);
 
   const handlePlayPause = useCallback(() => {
     if (isPlayingRef.current) {
-      if (speechService.isPaused()) {
-        speechService.resume();
+      if (audioService.isPaused()) {
+        audioService.resume();
         setIsPaused(false);
       } else {
-        speechService.pause();
+        audioService.pause();
         setIsPaused(true);
       }
     } else {
@@ -168,7 +174,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
     const val = SPEED_VALUES[s] ?? 1.0;
     speedRef.current = val;
     setSpeed(s);
-    speechService.setRate(val);
+    audioService.setSpeed(val);
   }, []);
 
   // —— Seek progress bar ——
@@ -181,18 +187,12 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
   const seekTo = useCallback(
     (ratio: number) => {
-      const idx = currentIndexRef.current;
-      const text = sentencesRef.current[idx];
-      if (!text) return;
-
-      const totalChars = text.length;
-      const targetChar = Math.floor(ratio * totalChars);
-
-      // Rough word index
-      const textBefore = text.substring(0, targetChar);
-      const wordCount = textBefore.split(/\s+/).filter(Boolean).length;
-      setHighlightIndex(wordCount);
-      setProgress(ratio * 100);
+      const dur = audioService.getDurationMillis();
+      if (dur > 0) {
+        const targetMs = Math.floor(ratio * dur);
+        audioService.seekTo(targetMs);
+        setProgress(ratio * 100);
+      }
     },
     [],
   );
@@ -220,21 +220,15 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
   // —— Helpers ——
 
-  const currentSentence = sentences[currentIndex] ?? '';
-  const words = currentSentence.split(/(\s+)/);
-
-  const formatTime = (progress: number): string => {
-    // Rough estimate: ~150 words/min for speech
-    const text = sentences[currentIndex] ?? '';
-    const wordCount = text.split(/\s+/).filter(Boolean).length;
-    const totalSec = Math.ceil((wordCount / 150) * 60);
-    const currentSec = Math.floor((progress / 100) * totalSec);
-    const m = Math.floor(currentSec / 60);
-    const s = currentSec % 60;
-    const tM = Math.floor(totalSec / 60);
-    const tS = totalSec % 60;
-    return `${m}:${s.toString().padStart(2, '0')} / ${tM}:${tS.toString().padStart(2, '0')}`;
+  const formatTime = (ms: number): string => {
+    if (ms <= 0) return '0:00';
+    const totalSec = Math.floor(ms / 1000);
+    const m = Math.floor(totalSec / 60);
+    const s = totalSec % 60;
+    return `${m}:${s.toString().padStart(2, '0')}`;
   };
+
+  const currentSentence = sentences[currentIndex] ?? '';
 
   return (
     <View style={styles.container}>
@@ -244,30 +238,18 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
           正在播放 · 第 {currentIndex + 1}/{sentences.length} 句
         </Text>
 
-        {/* 当前句子（逐词显示 + 高亮） */}
+        {/* 当前句子 */}
         <View style={styles.sentenceBox}>
-          <View style={styles.sentenceRow}>
-            {words.map((word, i) => {
-              // Count word-only indices (skip whitespace tokens)
-              return (
-                <Text
-                  key={`${i}-${word}`}
-                  style={[
-                    styles.wordDefault,
-                    // Highlight the current word being spoken
-                    i === highlightIndex && styles.wordHighlight,
-                  ]}
-                >
-                  {word}
-                </Text>
-              );
-            })}
-          </View>
+          <Text style={styles.sentenceText} numberOfLines={3}>
+            {currentSentence}
+          </Text>
         </View>
 
         {/* 时间显示 */}
         <View style={styles.timeRow}>
-          <Text style={styles.timeText}>{formatTime(progress)}</Text>
+          <Text style={styles.timeText}>
+            {formatTime(position)} / {formatTime(duration)}
+          </Text>
         </View>
 
         {/* 可拖拽进度条 */}
@@ -366,24 +348,12 @@ const styles = StyleSheet.create({
     borderRadius: radius.md,
     padding: spacing.base,
     marginBottom: spacing.sm,
-    minHeight: 60,
+    minHeight: 56,
   },
-  sentenceRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  wordDefault: {
+  sentenceText: {
     fontSize: fontSize.bodyS,
     lineHeight: 22,
-    color: colors.textSecondary,
-  },
-  wordHighlight: {
-    fontSize: fontSize.bodyS,
-    lineHeight: 22,
-    color: colors.brand,
-    fontWeight: '600',
-    backgroundColor: 'rgba(2,180,127,0.08)',
-    borderRadius: 2,
+    color: colors.textPrimary,
   },
   timeRow: {
     flexDirection: 'row',
