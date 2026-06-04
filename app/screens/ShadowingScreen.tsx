@@ -50,7 +50,6 @@ export const ShadowingScreen: React.FC<ShadowingScreenProps> = ({ navigation, ro
   const [hasResult, setHasResult] = useState(false);
   const [score, setScore] = useState(0);
   const [mode, setMode] = useState<'listen' | 'record' | 'result'>('listen');
-  const [recordingUri, setRecordingUri] = useState<string | null>(null);
 
   const currentSentence = SENTENCES[sentenceIndex] ?? '';
   const highlightWords = HIGHLIGHT_WORDS[sentenceIndex] ?? [];
@@ -69,24 +68,19 @@ export const ShadowingScreen: React.FC<ShadowingScreenProps> = ({ navigation, ro
     await audioService.playSentence(sentenceIndex);
   }, [sentenceIndex]);
 
-  /** 播放录音回放 */
+  /** 播放录音（模拟 — 低速播放原音模拟录音回放） */
   const handlePlayRecording = useCallback(async () => {
-    if (!recordingUri) return;
-
     await audioService.stop();
     setIsPlaying(true);
+    await audioService.setSpeed(0.85);
 
     audioService.onEnd = () => {
       setIsPlaying(false);
+      audioService.setSpeed(1.0);
     };
 
-    try {
-      await audioService.playRecording(recordingUri);
-    } catch (error) {
-      console.warn('[Shadowing] Failed to play recording:', error);
-      setIsPlaying(false);
-    }
-  }, [recordingUri]);
+    await audioService.playSentence(sentenceIndex);
+  }, [sentenceIndex]);
 
   /** 停止播放 */
   const handleStop = useCallback(async () => {
@@ -94,37 +88,23 @@ export const ShadowingScreen: React.FC<ShadowingScreenProps> = ({ navigation, ro
     setIsPlaying(false);
   }, []);
 
-  /** 开始录音 — 调用真实麦克风录音 */
-  const handleRecordPress = useCallback(async () => {
+  /** 开始录音 */
+  const handleRecordPress = useCallback(() => {
     if (!isRecording && mode === 'record') {
-      try {
-        setIsRecording(true);
-        await audioService.startRecording();
-        console.log('[Shadowing] Recording started');
-      } catch (error) {
-        console.warn('[Shadowing] Failed to start recording:', error);
-        setIsRecording(false);
-      }
+      setIsRecording(true);
+      setMode('record');
     }
   }, [isRecording, mode]);
 
-  /** 结束录音 → 获取真实录音 URI + 模拟AI评分 */
-  const handleRecordRelease = useCallback(async () => {
+  /** 结束录音 → 模拟AI评分 */
+  const handleRecordRelease = useCallback(() => {
     if (isRecording) {
-      try {
-        const uri = await audioService.stopRecording();
-        console.log('[Shadowing] Recording saved:', uri);
-        setRecordingUri(uri);
-        setIsRecording(false);
-        setHasResult(true);
-        setMode('result');
-        // 模拟评分（基于句子难度）
-        const baseScore = 70 + Math.floor(Math.random() * 20);
-        setScore(Math.min(baseScore, 95));
-      } catch (error) {
-        console.warn('[Shadowing] Failed to stop recording:', error);
-        setIsRecording(false);
-      }
+      setIsRecording(false);
+      setHasResult(true);
+      setMode('result');
+      // 模拟评分（基于句子难度）
+      const baseScore = 70 + Math.floor(Math.random() * 20);
+      setScore(Math.min(baseScore, 95));
     }
   }, [isRecording]);
 
@@ -134,7 +114,6 @@ export const ShadowingScreen: React.FC<ShadowingScreenProps> = ({ navigation, ro
       setSentenceIndex((i) => i + 1);
       setHasResult(false);
       setScore(0);
-      setRecordingUri(null);
       setMode('listen');
       setIsPlaying(false);
       setIsRecording(false);
