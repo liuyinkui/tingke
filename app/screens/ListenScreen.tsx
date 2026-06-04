@@ -2,10 +2,10 @@
  * ListenScreen — 盲听页面
  *
  * 视觉参考: v2-minimal/listen.html
- * 功能: Step 1/3, 音频播放器, 原文脚本显示, 变速控制
+ * 功能: Step 1/3, Web Speech TTS 语音朗读, 原文脚本展示, 变速控制
  */
 
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   View,
   Text,
@@ -23,21 +23,30 @@ interface ListenScreenProps {
   route?: any;
 }
 
-const MOCK_SENTENCES = [
-  'The anthropocene is a proposed geological epoch dating from the commencement of significant human impact on Earth\'s geology and ecosystems.',
-  'This term was popularized by Nobel Prize-winning atmospheric chemist Paul Crutzen in the early 2000s.',
-  'The concept challenges the traditional Holocene epoch classification.',
-  'Scientists continue to debate the exact starting point of this new epoch.',
+/** 使用 seed 中的真实英语句子 */
+const SENTENCES = [
+  'In modern society, communication plays a vital role in our daily lives.',
+  'With the development of technology, people can now connect with each other more easily than ever before.',
+  'However, many young people still find it difficult to express their thoughts clearly.',
+  'This is especially true when they need to speak in public.',
+  'The key to improving communication skills is practice and confidence building.',
+  'Everyone can become a good communicator with enough effort.',
 ];
 
 export const ListenScreen: React.FC<ListenScreenProps> = ({ navigation, route }) => {
-  const handleSkip = () => {
-    navigation?.navigate('Dictation', { materialId: route?.params?.materialId ?? '1' });
-  };
+  const [sentenceIndex, setSentenceIndex] = useState(0);
 
-  const handleNext = () => {
+  const handleSkip = useCallback(() => {
     navigation?.navigate('Dictation', { materialId: route?.params?.materialId ?? '1' });
-  };
+  }, [navigation, route]);
+
+  const handleNext = useCallback(() => {
+    navigation?.navigate('Dictation', { materialId: route?.params?.materialId ?? '1' });
+  }, [navigation, route]);
+
+  const handleIndexChange = useCallback((index: number) => {
+    setSentenceIndex(index);
+  }, []);
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
@@ -56,26 +65,33 @@ export const ListenScreen: React.FC<ListenScreenProps> = ({ navigation, route })
         {/* 三步指示器 */}
         <StepIndicator currentStep={1} />
 
-        {/* 音频播放器 */}
+        {/* 语音合成播放器 — Web Speech TTS */}
         <AudioPlayer
-          segmentIndex={1}
-          totalSegments={4}
-          progress={35}
-          currentTime="0:23"
-          totalTime="1:30"
+          sentences={SENTENCES}
+          currentIndex={sentenceIndex}
+          onIndexChange={handleIndexChange}
+          autoPlay={true}
         />
 
         {/* 原文脚本 */}
         <ScrollView style={styles.script} contentContainerStyle={styles.scriptContent}>
-          {MOCK_SENTENCES.map((sentence, i) => (
+          {SENTENCES.map((sentence, i) => (
             <View
               key={i}
-              style={[styles.scriptParagraph, i === 0 && styles.scriptParagraphCurrent]}
+              style={[
+                styles.scriptParagraph,
+                i === sentenceIndex && styles.scriptParagraphCurrent,
+              ]}
             >
               <Text style={styles.scriptIndex}>
-                {i === 0 ? '当前段' : i === 1 ? '下一段' : `第${i + 1}段`}
+                {i === sentenceIndex ? '当前句' : `第 ${i + 1} 句`}
               </Text>
-              <Text style={[styles.scriptText, i === 0 && styles.scriptTextCurrent]}>
+              <Text
+                style={[
+                  styles.scriptText,
+                  i === sentenceIndex && styles.scriptTextCurrent,
+                ]}
+              >
                 {sentence}
               </Text>
             </View>
@@ -84,9 +100,10 @@ export const ListenScreen: React.FC<ListenScreenProps> = ({ navigation, route })
 
         {/* 底部操作栏 */}
         <View style={styles.bottom}>
-          <View style={styles.timeDisplay}>
-            <Text style={styles.timeIcon}>⏱</Text>
-            <Text style={styles.timeText}> 0:23 / 1:30</Text>
+          <View style={styles.sentenceCount}>
+            <Text style={styles.countText}>
+              {sentenceIndex + 1} / {SENTENCES.length} 句
+            </Text>
           </View>
           <TouchableOpacity style={styles.nextBtn} onPress={handleNext} activeOpacity={0.8}>
             <Text style={styles.nextText}>进入听写 →</Text>
@@ -159,6 +176,7 @@ const styles = StyleSheet.create({
     borderColor: colors.divider,
     borderLeftWidth: 3,
     borderLeftColor: colors.brand,
+    backgroundColor: colors.brandLight,
   },
   scriptIndex: {
     fontSize: fontSize.captionM,
@@ -184,14 +202,11 @@ const styles = StyleSheet.create({
     marginTop: spacing.md,
     flexShrink: 0,
   },
-  timeDisplay: {
+  sentenceCount: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  timeIcon: {
-    fontSize: 14,
-  },
-  timeText: {
+  countText: {
     fontSize: fontSize.captionL,
     color: colors.textTertiary,
   },

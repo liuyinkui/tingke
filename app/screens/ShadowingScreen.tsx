@@ -2,10 +2,11 @@
  * ShadowingScreen — 跟读页面
  *
  * 视觉参考: v2-minimal/shadowing.html
- * 功能: Step 3/3, 原文展示, 长按录音, 评分展示
+ * 功能: Step 3/3, 原文展示, 原音播放 + 录音回放, 评分展示
+ * 使用 Web Speech API 播放原音
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import {
   View,
   Text,
@@ -15,42 +16,109 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, spacing, fontSize, fontWeight, radius, shadows } from '../theme';
 import { StepIndicator } from '../components/StepIndicator';
+import { speechService } from '../services/speechService';
 
 interface ShadowingScreenProps {
   navigation?: any;
   route?: any;
 }
 
-const MOCK_CURRENT_SENTENCE =
-  'The anthropocene is a proposed geological epoch dating from the commencement of significant human impact on Earth\'s geology and ecosystems.';
+/** 使用 seed 中的真实英语句子 */
+const SENTENCES = [
+  'In modern society, communication plays a vital role in our daily lives.',
+  'With the development of technology, people can now connect with each other more easily than ever before.',
+  'However, many young people still find it difficult to express their thoughts clearly.',
+  'This is especially true when they need to speak in public.',
+  'The key to improving communication skills is practice and confidence building.',
+  'Everyone can become a good communicator with enough effort.',
+];
 
-// 高亮词汇（原文中加粗的生词）
-const HIGHLIGHT_WORDS = ['anthropocene', 'commencement', 'significant'];
+// 高亮词汇（原文中较难的生词）
+const HIGHLIGHT_WORDS: Record<number, string[]> = {
+  0: ['communication', 'vital'],
+  1: ['development', 'technology'],
+  2: ['difficult', 'express'],
+  3: ['especially', 'public'],
+  4: ['improving', 'confidence'],
+  5: ['communicator'],
+};
 
 export const ShadowingScreen: React.FC<ShadowingScreenProps> = ({ navigation, route }) => {
+  const [sentenceIndex, setSentenceIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [hasResult, setHasResult] = useState(false);
   const [score, setScore] = useState(0);
+  const [mode, setMode] = useState<'listen' | 'record' | 'result'>('listen');
 
+  const currentSentence = SENTENCES[sentenceIndex] ?? '';
+  const highlightWords = HIGHLIGHT_WORDS[sentenceIndex] ?? [];
+
+  /** 播放原音 */
+  const handlePlayOriginal = useCallback(async () => {
+    speechService.stop();
+    setIsPlaying(true);
+    setMode('listen');
+
+    speechService.onEnd = () => {
+      setIsPlaying(false);
+      setMode('record');
+    };
+
+    await speechService.playText(currentSentence);
+  }, [currentSentence]);
+
+  /** 播放录音（模拟 — 实际应播放录音文件，这里用 TTS 模拟） */
+  const handlePlayRecording = useCallback(() => {
+    // 模拟录音回放：低速播放当前句子
+    speechService.stop();
+    setIsPlaying(true);
+
+    speechService.onEnd = () => {
+      setIsPlaying(false);
+    };
+
+    speechService.playText(currentSentence, 0.85, 1.1);
+  }, [currentSentence]);
+
+  /** 停止播放 */
+  const handleStop = useCallback(() => {
+    speechService.stop();
+    setIsPlaying(false);
+  }, []);
+
+  /** 开始录音 */
   const handleRecordPress = useCallback(() => {
-    if (!isRecording) {
-      // 开始录音
+    if (!isRecording && mode === 'record') {
       setIsRecording(true);
+      setMode('record');
     }
-  }, [isRecording]);
+  }, [isRecording, mode]);
 
+  /** 结束录音 → 模拟AI评分 */
   const handleRecordRelease = useCallback(() => {
     if (isRecording) {
-      // 结束录音 → 模拟AI评分
       setIsRecording(false);
       setHasResult(true);
-      setScore(Math.floor(Math.random() * 30) + 65); // 65-95
+      setMode('result');
+      // 模拟评分（基于句子难度）
+      const baseScore = 70 + Math.floor(Math.random() * 20);
+      setScore(Math.min(baseScore, 95));
     }
   }, [isRecording]);
 
-  const handleNext = () => {
-    if (hasResult) {
-      // 完成跟读 → 跳转到完成页
+  /** 下一句 */
+  const handleNext = useCallback(() => {
+    if (sentenceIndex < SENTENCES.length - 1) {
+      setSentenceIndex((i) => i + 1);
+      setHasResult(false);
+      setScore(0);
+      setMode('listen');
+      setIsPlaying(false);
+      setIsRecording(false);
+      speechService.stop();
+    } else {
+      // 全部完成 → 跳转到完成页
       const accuracy = route?.params?.accuracy ?? 72;
       navigation?.navigate('Complete', {
         materialId: route?.params?.materialId ?? '1',
@@ -58,14 +126,14 @@ export const ShadowingScreen: React.FC<ShadowingScreenProps> = ({ navigation, ro
         streak: 12,
       });
     }
-  };
+  }, [sentenceIndex, navigation, route]);
 
   /** 渲染原文（含高亮词） */
   const renderText = () => {
-    const parts = MOCK_CURRENT_SENTENCE.split(/(\s+)/);
+    const parts = currentSentence.split(/(\s+)/);
     return parts.map((part, i) => {
-      const isHighlight = HIGHLIGHT_WORDS.some(
-        (w) => part.toLowerCase().includes(w) && part.length === w.length,
+      const isHighlight = highlightWords.some(
+        (w) => part.toLowerCase().replace(/[^a-zA-Z'-]/g, '') === w.toLowerCase(),
       );
       return (
         <Text
@@ -90,7 +158,9 @@ export const ShadowingScreen: React.FC<ShadowingScreenProps> = ({ navigation, ro
             <Text style={styles.backText}>‹</Text>
           </TouchableOpacity>
           <Text style={styles.ttl}>跟读</Text>
-          <View style={styles.backBtn} />
+          <Text style={styles.stepText}>
+            {sentenceIndex + 1} / {SENTENCES.length}
+          </Text>
         </View>
 
         {/* 三步指示器 */}
@@ -98,51 +168,97 @@ export const ShadowingScreen: React.FC<ShadowingScreenProps> = ({ navigation, ro
 
         {/* 原文展示 */}
         <View style={styles.textBox}>
-          <Text style={styles.textBoxLabel}>跟读原文 · 第 1/4 句</Text>
+          <Text style={styles.textBoxLabel}>
+            跟读原文 · 第 {sentenceIndex + 1}/{SENTENCES.length} 句
+          </Text>
           <View style={styles.textRow}>
             {renderText()}
           </View>
         </View>
 
-        {/* 录音区域 */}
-        <View style={styles.recordingArea}>
-          {/* 录音按钮 */}
-          <TouchableOpacity
-            style={[
-              styles.recordBtn,
-              isRecording && styles.recordBtnActive,
-            ]}
-            onPressIn={handleRecordPress}
-            onPressOut={handleRecordRelease}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.recordIcon}>
-              {isRecording ? '🔴' : '🎤'}
-            </Text>
-          </TouchableOpacity>
+        {/* 操作区域 */}
+        <View style={styles.actionArea}>
+          {/* 模式指示器 */}
+          <View style={styles.stepIndicators}>
+            <View style={[styles.stepDot, mode === 'listen' && styles.stepDotActive]}>
+              <Text style={[styles.stepDotText, mode === 'listen' && styles.stepDotTextActive]}>
+                ① 听原音
+              </Text>
+            </View>
+            <View style={styles.stepArrow}>→</View>
+            <View style={[styles.stepDot, mode === 'record' && styles.stepDotActive]}>
+              <Text style={[styles.stepDotText, mode === 'record' && styles.stepDotTextActive]}>
+                ② 跟读
+              </Text>
+            </View>
+            <View style={styles.stepArrow}>→</View>
+            <View style={[styles.stepDot, mode === 'result' && styles.stepDotActive]}>
+              <Text style={[styles.stepDotText, mode === 'result' && styles.stepDotTextActive]}>
+                ③ 评分
+              </Text>
+            </View>
+          </View>
 
-          <View style={styles.recordingHint}>
-            <Text style={styles.hintText}>
-              {isRecording ? '正在录音...' : hasResult ? '录音完成' : '轻触开始录音'}
-            </Text>
-            <Text style={styles.hintSub}>
-              {isRecording
-                ? '松手提交评分'
-                : hasResult
-                ? ''
-                : '照着上面的句子跟读'}
+          {/* 播放原音按钮 */}
+          {mode === 'listen' && (
+            <TouchableOpacity
+              style={styles.playBtn}
+              onPress={isPlaying ? handleStop : handlePlayOriginal}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.playIcon}>{isPlaying ? '⏹' : '▶'}</Text>
+              <Text style={styles.playBtnText}>
+                {isPlaying ? '停止播放' : '播放原音'}
+              </Text>
+            </TouchableOpacity>
+          )}
+
+          {/* 录音按钮 */}
+          {mode === 'record' && (
+            <TouchableOpacity
+              style={[
+                styles.recordBtn,
+                isRecording && styles.recordBtnActive,
+              ]}
+              onPressIn={handleRecordPress}
+              onPressOut={handleRecordRelease}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.recordIcon}>
+                {isRecording ? '🔴' : '🎤'}
+              </Text>
+            </TouchableOpacity>
+          )}
+
+          {/* 状态提示 */}
+          <View style={styles.statusArea}>
+            <Text style={styles.statusText}>
+              {mode === 'listen'
+                ? isPlaying
+                  ? '正在播放原音，请仔细听...'
+                  : '点击播放原音，然后跟读'
+                : mode === 'record'
+                ? isRecording
+                  ? '正在录音... 松手提交评分'
+                  : '长按🎤按钮开始跟读录'
+                : '录音完成，查看评分'}
             </Text>
           </View>
 
-          {/* 评分结果 */}
-          {hasResult && (
+          {/* 评分 + 录音回放 */}
+          {mode === 'result' && (
             <View style={styles.resultBox}>
+              {/* 评分 */}
               <View style={styles.resultRow}>
                 <Text style={styles.resultLabel}>AI 评分</Text>
                 <Text
                   style={[
                     styles.resultScore,
-                    score >= 80 ? styles.scoreHigh : score >= 70 ? styles.scoreMid : styles.scoreLow,
+                    score >= 80
+                      ? styles.scoreHigh
+                      : score >= 70
+                      ? styles.scoreMid
+                      : styles.scoreLow,
                   ]}
                 >
                   {score}
@@ -156,11 +272,29 @@ export const ShadowingScreen: React.FC<ShadowingScreenProps> = ({ navigation, ro
                     {
                       width: `${score}%`,
                       backgroundColor:
-                        score >= 80 ? colors.success : score >= 70 ? colors.brand : colors.warning,
+                        score >= 80
+                          ? colors.success
+                          : score >= 70
+                          ? colors.brand
+                          : colors.warning,
                     },
                   ]}
                 />
               </View>
+
+              {/* 录音回放 */}
+              <TouchableOpacity
+                style={styles.replayBtn}
+                onPress={isPlaying ? handleStop : handlePlayRecording}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.replayBtnIcon}>
+                  {isPlaying ? '⏹' : '🔊'}
+                </Text>
+                <Text style={styles.replayBtnText}>
+                  {isPlaying ? '停止回放' : '回放我的录音'}
+                </Text>
+              </TouchableOpacity>
             </View>
           )}
         </View>
@@ -168,13 +302,13 @@ export const ShadowingScreen: React.FC<ShadowingScreenProps> = ({ navigation, ro
         {/* 底部按钮 */}
         <View style={styles.bottom}>
           <TouchableOpacity
-            style={[styles.nextBtn, !hasResult && styles.nextBtnDisabled]}
+            style={[styles.nextBtn, mode !== 'result' && styles.nextBtnDisabled]}
             onPress={handleNext}
-            disabled={!hasResult}
+            disabled={mode !== 'result'}
             activeOpacity={0.8}
           >
-            <Text style={[styles.nextText, !hasResult && styles.nextTextDisabled]}>
-              {hasResult ? '查看结果 →' : '下一句 →'}
+            <Text style={[styles.nextText, mode !== 'result' && styles.nextTextDisabled]}>
+              {sentenceIndex < SENTENCES.length - 1 ? '下一句 →' : '查看结果 →'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -217,6 +351,10 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
     flex: 1,
   },
+  stepText: {
+    fontSize: fontSize.bodyS,
+    color: colors.textTertiary,
+  },
   // —— 原文展示 ——
   textBox: {
     backgroundColor: colors.surface,
@@ -226,6 +364,7 @@ const styles = StyleSheet.create({
     borderColor: colors.divider,
     marginBottom: fontSize.titleL,
     flexShrink: 0,
+    ...shadows.sm,
   },
   textBoxLabel: {
     fontSize: fontSize.captionM,
@@ -248,13 +387,62 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: colors.brandLight,
   },
-  // —— 录音区域 ——
-  recordingArea: {
+  // —— 操作区域 ——
+  actionArea: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacing.lg,
   },
+  // —— 步骤指示器 ——
+  stepIndicators: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    marginBottom: spacing.lg,
+  },
+  stepDot: {
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.sm,
+    borderRadius: radius.full,
+    backgroundColor: colors.neutral2,
+  },
+  stepDotActive: {
+    backgroundColor: colors.brandLight,
+  },
+  stepDotText: {
+    fontSize: fontSize.captionM,
+    color: colors.textTertiary,
+  },
+  stepDotTextActive: {
+    color: colors.brand,
+    fontWeight: '500',
+  },
+  stepArrow: {
+    fontSize: fontSize.captionL,
+    color: colors.textTertiary,
+  },
+  // —— 播放原音 ——
+  playBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    paddingVertical: spacing.base,
+    paddingHorizontal: spacing['3xl'],
+    backgroundColor: colors.brand,
+    borderRadius: radius.full,
+    ...shadows.sm,
+  },
+  playIcon: {
+    fontSize: 16,
+    color: '#fff',
+  },
+  playBtnText: {
+    fontSize: fontSize.bodyS,
+    color: '#fff',
+    fontWeight: '600',
+  },
+  // —— 录音按钮 ——
   recordBtn: {
     width: 72,
     height: 72,
@@ -275,17 +463,14 @@ const styles = StyleSheet.create({
   recordIcon: {
     fontSize: 26,
   },
-  recordingHint: {
+  // —— 状态提示 ——
+  statusArea: {
     alignItems: 'center',
   },
-  hintText: {
+  statusText: {
     fontSize: fontSize.bodyS,
     color: colors.textSecondary,
-  },
-  hintSub: {
-    fontSize: fontSize.captionL,
-    color: colors.textTertiary,
-    marginTop: spacing.sm,
+    textAlign: 'center',
   },
   // —— 评分结果 ——
   resultBox: {
@@ -295,6 +480,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.divider,
     width: '100%',
+    ...shadows.sm,
   },
   resultRow: {
     flexDirection: 'row',
@@ -329,10 +515,31 @@ const styles = StyleSheet.create({
     backgroundColor: colors.divider,
     borderRadius: radius.full,
     overflow: 'hidden',
+    marginBottom: spacing.lg,
   },
   progressFillSmall: {
     height: '100%',
     borderRadius: radius.full,
+  },
+  // —— 录音回放按钮 ——
+  replayBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.lg,
+    backgroundColor: colors.brandLight,
+    borderRadius: radius.full,
+  },
+  replayBtnIcon: {
+    fontSize: 14,
+    color: colors.brand,
+  },
+  replayBtnText: {
+    fontSize: fontSize.bodyS,
+    color: colors.brand,
+    fontWeight: '500',
   },
   // —— 底部 ——
   bottom: {
