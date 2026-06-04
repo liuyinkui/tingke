@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听刻 · 首页 V1 — 轻薄荷</title>
+<style>
+  /* ═══════════════════════════════════════════════
+     DESIGN SYSTEM TOKENS
+     ═══════════════════════════════════════════════ */
+  :root {
+    --color-brand-primary: #02B47F;
+    --color-brand-primary-dark: #019A6C;
+    --color-brand-secondary: #F8D9D6;
+    --color-success: #2ECC71;
+    --color-error: #E74C3C;
+    --color-warning: #F39C12;
+    --color-info: #3498DB;
+
+    --color-text-primary: rgba(0,0,0,0.9);
+    --color-text-secondary: rgba(0,0,0,0.6);
+    --color-text-tertiary: rgba(0,0,0,0.3);
+    --color-text-quaternary: rgba(0,0,0,0.2);
+    --color-text-inverse: #FFFFFF;
+
+    --color-neutral-1: #FFFFFF;
+    --color-neutral-2: #F1F3F5;
+    --color-neutral-3: #F2F4F7;
+    --color-neutral-4: #E9ECF0;
+    --color-neutral-5: #DCE2E8;
+    --color-neutral-6: #BEC5CD;
+    --color-neutral-7: #8E9AAB;
+    --color-neutral-8: #5A6E8A;
+    --color-neutral-9: rgba(0,0,0,0.9);
+    --color-neutral-10: #000000;
+
+    --color-background-page: #F1F3F5;
+    --color-background-surface: #FFFFFF;
+    --color-background-overlay: rgba(0,0,0,0.5);
+
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-mg: 12px;
+    --border-radius-lg: 16px;
+    --border-radius-xl: 24px;
+    --border-radius-2xl: 32px;
+    --border-radius-full: 9999px;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.08);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.12);
+
+    --spacing-4: 4px;
+    --spacing-8: 8px;
+    --spacing-12: 12px;
+    --spacing-16: 16px;
+    --spacing-20: 20px;
+    --spacing-24: 24px;
+    --spacing-32: 32px;
+    --spacing-40: 40px;
+    --spacing-48: 48px;
+
+    --font-family-sans: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+    --font-size-display-s: 24px;
+    --font-size-title-l: 22px;
+    --font-size-title-m: 20px;
+    --font-size-title-s: 18px;
+    --font-size-body-l: 18px;
+    --font-size-body-m: 16px;
+    --font-size-body-s: 14px;
+    --font-size-caption-l: 12px;
+
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1A1A2E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: var(--font-family-sans);
+    padding: 20px;
+  }
+
+  /* ═══════════════════════════════════════════════
+     iPhone 14 Pro FRAME 390×844
+     ═══════════════════════════════════════════════ */
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: var(--color-neutral-1);
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 0 0 8px #222,
+      0 0 0 10px #444,
+      0 24px 80px rgba(0,0,0,0.35);
+  }
+
+  .dynamic-island {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 126px;
+    height: 36px;
+    background: #111;
+    border-radius: 20px;
+    z-index: 20;
+    pointer-events: none;
+  }
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    background: var(--color-background-page);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ═══════════════════════════════════════════════
+     轻薄荷 THEME: Green top gradient + soft blobs
+     ═══════════════════════════════════════════════ */
+  .screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 280px;
+    background: linear-gradient(180deg, #02B47F 0%, rgba(2,180,127,0.85) 40%, rgba(2,180,127,0.4) 70%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .screen::after {
+    content: '';
+    position: absolute;
+    top: 60px;
+    right: -60px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ═══════════════════════════════════════════════
+     STATUS BAR
+     ═══════════════════════════════════════════════ */
+  .status-bar {
+    height: 54px;
+    padding: 54px 32px 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    z-index: 15;
+    position: relative;
+  }
+  .status-bar .time {
+    font-size: 15px;
+    font-weight: 590;
+    color: var(--color-text-inverse);
+    letter-spacing: 0.3px;
+  }
+  .status-icons svg { display: block; }
+  .status-icons .st0 { fill: var(--color-text-inverse); }
+
+  /* ═══════════════════════════════════════════════
+     CONTENT
+     ═══════════════════════════════════════════════ */
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Header: Logo + Date ── */
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+  .logo-area {
+    display: flex;
+    flex-direction: column;
+  }
+  .logo-text {
+    font-size: 24px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-inverse);
+    letter-spacing: 2px;
+  }
+  .logo-sub {
+    font-size: var(--font-size-caption-l);
+    color: rgba(255,255,255,0.75);
+    margin-top: 2px;
+    letter-spacing: 1px;
+  }
+  .date-area {
+    text-align: right;
+  }
+  .date-main {
+    font-size: var(--font-size-body-s);
+    color: rgba(255,255,255,0.9);
+    font-weight: var(--font-weight-medium);
+  }
+  .date-sub {
+    font-size: var(--font-size-caption-l);
+    color: rgba(255,255,255,0.6);
+    margin-top: 1px;
+  }
+
+  /* ── Streak Badge ── */
+  .streak-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.95);
+    border-radius: var(--border-radius-full);
+    padding: 6px 16px 6px 8px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 20px;
+    cursor: default;
+  }
+  .streak-badge .flame {
+    color: #FF6B35;
+    font-size: 18px;
+  }
+  .streak-badge .label {
+    font-size: var(--font-size-caption-l);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+  }
+  .streak-badge .num {
+    font-size: var(--font-size-title-s);
+    font-weight: var(--font-weight-bold);
+    color: #FF6B35;
+  }
+
+  /* ── Today's Practice Card ── */
+  .practice-card {
+    width: 100%;
+    background: var(--color-background-surface);
+    border-radius: var(--border-radius-lg);
+    padding: 28px 24px;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    margin-bottom: 24px;
+    border: 1px solid rgba(2,180,127,0.1);
+  }
+  .practice-card .card-label {
+    font-size: var(--font-size-body-s);
+    color: var(--color-text-tertiary);
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+    font-weight: var(--font-weight-medium);
+  }
+  .practice-card .card-time {
+    font-size: 52px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-brand-primary);
+    line-height: 1.1;
+  }
+  .practice-card .card-time .unit {
+    font-size: 20px;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    margin-left: 4px;
+  }
+  .practice-card .card-sub {
+    margin-top: 12px;
+    font-size: var(--font-size-caption-l);
+    color: var(--color-text-tertiary);
+  }
+
+  /* ── Difficulty Tag ── */
+  .difficulty-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #E8FBF4;
+    color: var(--color-brand-primary);
+    font-size: var(--font-size-caption-l);
+    font-weight: var(--font-weight-medium);
+    padding: 4px 12px;
+    border-radius: var(--border-radius-full);
+    margin-bottom: 20px;
+  }
+  .difficulty-tag .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-brand-primary);
+  }
+  .difficulty-tag .dot.l2 { opacity: 0.5; }
+
+  /* ── Primary CTA ── */
+  .btn-primary {
+    width: 100%;
+    height: 52px;
+    background: var(--color-brand-primary);
+    color: #FFF;
+    border: none;
+    border-radius: var(--border-radius-mg);
+    font-size: 17px;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    box-shadow: 0 4px 14px rgba(2,180,127,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+  .btn-primary:hover {
+    background: var(--color-brand-primary-dark);
+    box-shadow: 0 6px 20px rgba(2,180,127,0.4);
+  }
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+  .btn-primary:focus-visible {
+    outline: 3px solid rgba(2,180,127,0.4);
+    outline-offset: 3px;
+  }
+
+  .spacer-flex { flex: 1; min-height: 16px; }
+
+  /* ── Bottom Links ── */
+  .bottom-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 4px 0 0;
+    flex-shrink: 0;
+  }
+  .bottom-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    padding: 11px 12px;
+    min-height: 44px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    border-radius: var(--border-radius-sm);
+  }
+  .bottom-link:hover {
+    color: var(--color-brand-primary);
+  }
+  .bottom-link .arrow-icon {
+    transition: transform 0.2s ease;
+  }
+  .bottom-link:hover .arrow-icon {
+    transform: translateX(3px);
+  }
+
+  .safe-area {
+    height: 34px;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="screen">
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="status-icons">
+        <svg width="17" height="12" viewBox="0 0 17 12">
+          <rect x="0" y="8" width="3" height="4" rx="0.5" class="st0"/>
+          <rect x="4.5" y="5" width="3" height="7" rx="0.5" class="st0"/>
+          <rect x="9" y="2.5" width="3" height="9.5" rx="0.5" class="st0"/>
+          <rect x="13.5" y="0" width="3" height="12" rx="0.5" class="st0"/>
+        </svg>
+        <svg width="15" height="12" viewBox="0 0 15 12">
+          <circle cx="7.5" cy="10.5" r="1.2" class="st0"/>
+          <path d="M7.5 6.5C9.09 6.5 10.5 7.12 11.54 8.14L10.48 9.2C9.72 8.44 8.66 8 7.5 8C6.34 8 5.28 8.44 4.52 9.2L3.46 8.14C4.5 7.12 5.91 6.5 7.5 6.5Z" class="st0"/>
+          <path d="M7.5 3.5C10.08 3.5 12.42 4.5 14.14 6.21L13.08 7.27C11.64 5.83 9.68 5 7.5 5C5.32 5 3.36 5.83 1.92 7.27L0.86 6.21C2.58 4.5 4.92 3.5 7.5 3.5Z" class="st0"/>
+        </svg>
+        <svg width="25" height="12" viewBox="0 0 25 12">
+          <rect x="0.5" y="0.5" width="21" height="11" rx="2" fill="none" stroke="white" stroke-width="1"/>
+          <rect x="2" y="2" width="18" height="8" rx="1.5" fill="white"/>
+          <rect x="22" y="4" width="3" height="4" rx="1" fill="white"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- Header: Logo + Date -->
+      <div class="header-row">
+        <div class="logo-area">
+          <div class="logo-text">听刻</div>
+          <div class="logo-sub">把声音刻进脑子里</div>
+        </div>
+        <div class="date-area">
+          <div class="date-main">6月4日 周四</div>
+          <div class="date-sub">练习第 12 天</div>
+        </div>
+      </div>
+
+      <!-- Streak Badge -->
+      <div class="streak-badge">
+        <span class="flame">🔥</span>
+        <span class="num">7</span>
+        <span class="label">天连续打卡</span>
+      </div>
+
+      <!-- Today's Practice Card -->
+      <div class="practice-card">
+        <div class="card-label">今日练习</div>
+        <div class="card-time">3<span class="unit">分</span>12<span class="unit">秒</span></div>
+        <div class="card-sub">VOA 慢速 · 气候变化的影响</div>
+      </div>
+
+      <!-- Difficulty Tag -->
+      <div class="difficulty-tag">
+        <span class="dot l1"></span><span class="dot l2"></span><span class="dot"></span>
+        L2 中级
+      </div>
+
+      <!-- Primary CTA -->
+      <button class="btn-primary" aria-label="开始今日练习">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M4 2L13 8L4 14V2Z" fill="white"/>
+        </svg>
+        开始今日练习
+      </button>
+
+      <div class="spacer-flex"></div>
+
+      <!-- Bottom Links -->
+      <div class="bottom-links">
+        <a class="bottom-link" role="button" tabindex="0">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+            <rect x="2.5" y="3.5" width="6" height="13" rx="1"/>
+            <rect x="11.5" y="3.5" width="6" height="13" rx="1"/>
+            <line x1="2.5" y1="7.5" x2="8.5" y2="7.5"/>
+            <line x1="11.5" y1="7.5" x2="17.5" y2="7.5"/>
+          </svg>
+          素材库
+          <svg class="arrow-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M4.5 2.5L8.5 6L4.5 9.5"/>
+          </svg>
+        </a>
+        <a class="bottom-link" role="button" tabindex="0">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="10" cy="7" r="3.5"/>
+            <path d="M2.5 18C2.5 13.86 5.86 10.5 10 10.5C14.14 10.5 17.5 13.86 17.5 18" stroke-linecap="round"/>
+          </svg>
+          个人中心
+          <svg class="arrow-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M4.5 2.5L8.5 6L4.5 9.5"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="safe-area"></div>
+
+  </div>
+</div>
+
+</body>
+</html>

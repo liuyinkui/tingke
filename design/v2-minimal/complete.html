@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>听刻 · V2极简 · 完成</title><style>
+:root{--brand:#02B47F;--brand-light:rgba(2,180,127,0.06);--success:#2ECC71;--bg:#F5F6F8;--surface:#fff;--divider:#EFF1F4;--text-primary:rgba(0,0,0,.85);--text-secondary:rgba(0,0,0,.5);--text-tertiary:rgba(0,0,0,.28);--radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px;--font:'PingFang SC',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;--ease:cubic-bezier(.25,.1,.25,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#E8EBE8;font-family:var(--font)}
+.phone{position:relative;width:390px;height:844px;background:#fff;border-radius:32px;overflow:hidden;box-shadow:0 0 0 2px #2C2C2E,0 0 0 6px #1C1C1E,0 20px 60px rgba(0,0,0,.5)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:126px;height:36px;background:#111;border-radius:999px;z-index:100}
+.status{height:54px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 4px;font-size:15px;color:var(--text-primary);font-weight:600}.status .t{font-size:16px;font-weight:700}
+.content{padding:48px 32px 34px;display:flex;flex-direction:column;align-items:center;height:calc(100% - 54px)}
+.cele{text-align:center}
+.cele .emoji{font-size:56px;display:block;margin-bottom:12px}
+.cele .ttl{font-size:26px;font-weight:700;color:var(--text-primary)}
+.cele .sub{font-size:14px;color:var(--text-secondary);margin-top:4px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;margin:32px 0}
+.c{background:var(--bg);border-radius:var(--radius-lg);padding:16px;text-align:center}
+.c .v{font-size:28px;font-weight:700;color:var(--text-primary)}.c .v.g{color:var(--success)}.c .v.b{color:var(--brand)}
+.c .l{font-size:12px;color:var(--text-secondary);margin-top:4px}
+.c.full{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding:14px 16px;text-align:left}
+.c.full .v{font-size:22px}.c.full .l{font-size:11px;margin-top:2px}
+.streak-bg{background:linear-gradient(135deg,var(--brand),#019A6C);border-radius:var(--radius-xl);padding:16px 20px;color:#fff;width:100%;display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.streak-bg .emo{font-size:24px}
+.streak-bg .info{flex:1}
+.streak-bg .info .n{font-size:20px;font-weight:700}
+.streak-bg .info .d{font-size:12px;opacity:.7;margin-top:2px}
+.streak-bg .b{padding:4px 10px;background:rgba(255,255,255,.15);border-radius:999px;font-size:12px}
+.spacer{flex:1}
+.actions{width:100%;display:flex;flex-direction:column;gap:10px}
+.act{width:100%;height:48px;border:none;border-radius:var(--radius-md);font-size:15px;font-weight:600;cursor:pointer;transition:all .2s}
+.act.prim{background:var(--brand);color:#fff;box-shadow:0 2px 8px rgba(2,180,127,.15)}
+.act.prim:hover{background:#019A6C}
+.act.sec{background:transparent;color:var(--text-secondary)}
+.act.sec:hover{background:var(--divider)}
+</style></head><body>
+<div class="phone"><div class="island"></div>
+<div class="status"><span class="t">9:41</span></div>
+<div class="content">
+<div class="cele"><span class="emoji">🎉</span><div class="ttl">太棒了！</div><div class="sub">今天的练习全部完成</div></div>
+<div class="cards">
+<div class="c"><div class="v g">92%</div><div class="l">辨音准确率</div></div>
+<div class="c"><div class="v b">3</div><div class="l">盲区词汇</div></div>
+<div class="c"><div class="v">15</div><div class="l">学习分钟</div></div>
+<div class="c"><div class="v">4</div><div class="l">完成句子</div></div>
+</div>
+<div class="streak-bg">
+<div class="emo">🔥</div>
+<div class="info"><div class="n">13 天连续打卡</div><div class="d">又坚持了一天，棒！</div></div>
+<div class="b">+1</div>
+</div>
+<div class="card c full" style="background:var(--brand-light);border:1px solid rgba(2,180,127,.12)">
+<div style="font-size:20px">📝</div>
+<div><div class="v" style="color:var(--brand);font-size:16px">3 个待复习词汇</div><div class="l">anthropocene · commencement · geological</div></div>
+</div>
+<div class="spacer"></div>
+<div class="actions">
+<button class="act prim">分享今日打卡</button>
+<button class="act sec">明天继续 →</button>
+</div>
+</div></div></body></html>

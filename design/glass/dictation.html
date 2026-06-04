@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听刻 · 听写页 毛玻璃风格</title>
+<style>
+  :root {
+    --glass-bg: rgba(255,255,255,0.75);
+    --glass-border: rgba(255,255,255,0.3);
+    --glass-shadow: 0 8px 32px rgba(30,58,95,0.12);
+    --primary: #1E3A5F;
+    --primary-light: #2D5A8E;
+    --accent: #FF6B35;
+    --success: #00B894;
+    --error: #FF6B6B;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-hint: #94A3B8;
+    --font: -apple-system, "PingFang SC", "Segoe UI", system-ui, sans-serif;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: var(--font);
+    padding: 20px;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: transparent;
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 0 8px #1a1a2e, 0 0 0 10px #2a2a3e, 0 30px 80px rgba(0,0,0,0.5);
+  }
+
+  .dynamic-island {
+    position: absolute; top: 11px; left: 50%;
+    transform: translateX(-50%);
+    width: 126px; height: 36px;
+    background: #111; border-radius: 20px; z-index: 10;
+  }
+
+  .screen {
+    width: 100%; height: 100%;
+    background: transparent;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+
+  .screen::before {
+    content: '';
+    position: absolute; top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: linear-gradient(45deg, rgba(102,126,234,0.15), rgba(118,75,162,0.1), rgba(255,107,53,0.08), rgba(102,126,234,0.15));
+    animation: screenShift 12s ease infinite; z-index: 0;
+  }
+
+  @keyframes screenShift {
+    0% { transform: translate(0,0); }
+    50% { transform: translate(-5%,5%); }
+    100% { transform: translate(0,0); }
+  }
+
+  .status-bar {
+    position: relative; z-index: 2;
+    height: 54px; padding: 54px 28px 0 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 600;
+  }
+
+  .status-time { font-size: 16px; font-weight: 700; }
+
+  .content {
+    position: relative; z-index: 1;
+    flex: 1; padding: 12px 20px 100px;
+    display: flex; flex-direction: column; gap: 12px;
+    overflow-y: auto;
+  }
+
+  /* Step Indicator — glass */
+  .step-indicator {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 14px 20px;
+    box-shadow: var(--glass-shadow);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .steps { display: flex; gap: 8px; align-items: center; }
+  .step-dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(30,58,95,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; color: var(--text-hint);
+  }
+  .step-dot.active {
+    background: var(--primary); color: white;
+    box-shadow: 0 2px 8px rgba(30,58,95,0.3);
+  }
+  .step-dot.done {
+    background: var(--success); color: white;
+  }
+  .step-line { width: 16px; height: 2px; background: rgba(30,58,95,0.15); border-radius: 1px; }
+
+  .step-label { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+  .step-count { font-size: 13px; color: var(--text-secondary); }
+
+  /* Audio Player — glass */
+  .audio-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    box-shadow: var(--glass-shadow);
+  }
+
+  .audio-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .play-btn {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(30,58,95,0.3);
+    transition: transform 0.2s;
+  }
+  .play-btn:hover { transform: scale(1.05); }
+  .play-btn svg { width: 22px; height: 22px; fill: white; }
+
+  .audio-info { flex: 1; }
+  .audio-title { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+  .audio-time { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+
+  /* Waveform */
+  .waveform {
+    display: flex; align-items: center; gap: 3px; height: 40px;
+    margin-bottom: 8px;
+  }
+  .wave-bar {
+    flex: 1; background: linear-gradient(to top, var(--primary-light), var(--primary));
+    border-radius: 2px; opacity: 0.3;
+    transition: opacity 0.2s;
+  }
+  .wave-bar.active { opacity: 0.8; }
+  .wave-bar.playhead { opacity: 1; background: var(--accent); }
+
+  .controls { display: flex; gap: 8px; }
+  .speed-btn, .loop-btn {
+    padding: 4px 10px; border-radius: 6px;
+    border: 1px solid rgba(30,58,95,0.15); background: rgba(255,255,255,0.5);
+    font-size: 12px; color: var(--text-secondary); cursor: pointer;
+    transition: all 0.2s;
+  }
+  .speed-btn:hover, .loop-btn:hover {
+    background: var(--primary); color: white; border-color: var(--primary);
+  }
+
+  /* Dictation Card — glass */
+  .dictation-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--glass-shadow);
+    flex: 1;
+    display: flex; flex-direction: column;
+  }
+
+  .sentence-counter {
+    font-size: 13px; color: var(--text-secondary);
+    margin-bottom: 12px; text-align: center;
+  }
+
+  /* Word grid */
+  .word-grid {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center; margin-bottom: 16px;
+  }
+
+  .word-slot {
+    min-width: 60px; height: 40px;
+    border-bottom: 2px solid var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; font-weight: 500; color: var(--text-primary);
+    background: rgba(30,58,95,0.03);
+    border-radius: 4px 4px 0 0;
+  }
+
+  .word-slot.correct {
+    border-bottom-color: var(--success);
+    color: var(--success);
+    background: rgba(0,184,148,0.05);
+  }
+  .word-slot.error {
+    border-bottom-color: var(--error);
+    color: var(--error);
+    background: rgba(255,107,107,0.05);
+  }
+  .word-slot.blank {
+    border-bottom-color: var(--text-hint);
+    color: var(--text-hint);
+    font-style: italic;
+  }
+  .word-slot.active {
+    border-bottom-color: var(--accent);
+    box-shadow: 0 2px 8px rgba(255,107,53,0.2);
+    animation: pulse 1.5s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 2px 8px rgba(255,107,53,0.2); }
+    50% { box-shadow: 0 2px 16px rgba(255,107,53,0.4); }
+  }
+
+  /* Action buttons */
+  .action-row {
+    display: flex; gap: 10px; margin-top: auto; padding-top: 12px;
+  }
+
+  .secondary-btn {
+    flex: 1; height: 48px;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: var(--radius-md);
+    font-size: 14px; font-weight: 500; color: var(--text-secondary);
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
+    transition: all 0.2s;
+  }
+
+  .secondary-btn:hover {
+    background: rgba(255,255,255,0.8);
+    color: var(--text-primary);
+  }
+
+  .primary-btn {
+    flex: 2; height: 48px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border: none; border-radius: var(--radius-md);
+    font-size: 15px; font-weight: 600; color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(30,58,95,0.25);
+    transition: all 0.2s;
+  }
+
+  .primary-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(30,58,95,0.35);
+  }
+  .primary-btn:disabled {
+    opacity: 0.5; cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Hint text */
+  .hint-text {
+    font-size: 12px; color: var(--text-hint); text-align: center;
+    margin-top: 8px;
+  }
+
+  .bottom-nav {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    z-index: 5;
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(255,255,255,0.3);
+    padding: 8px 20px 30px;
+    display: flex; justify-content: space-around; align-items: center;
+  }
+
+  .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; padding: 4px 12px; border-radius: var(--radius-sm); }
+  .nav-item svg { width: 24px; height: 24px; fill: var(--text-hint); }
+  .nav-item.active svg { fill: var(--primary); }
+  .nav-label { font-size: 11px; color: var(--text-hint); }
+  .nav-item.active .nav-label { color: var(--primary); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="dynamic-island"></div>
+  <div class="screen">
+    <div class="status-bar">
+      <div class="status-left"><span class="status-time">9:41</span></div>
+      <div class="status-right"><span>📶</span><span>🔋</span></div>
+    </div>
+
+    <div class="content">
+      <!-- Step Indicator -->
+      <div class="step-indicator">
+        <div class="steps">
+          <div class="step-dot done">✓</div>
+          <div class="step-line"></div>
+          <div class="step-dot active">2</div>
+          <div class="step-line"></div>
+          <div class="step-dot">3</div>
+        </div>
+        <span class="step-label">Step 2/3 · 听写</span>
+      </div>
+
+      <!-- Audio Player -->
+      <div class="audio-card">
+        <div class="audio-top">
+          <button class="play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div class="audio-info">
+            <div class="audio-title">The Power of Habit</div>
+            <div class="audio-time">0:12 / 0:50 · 1.0x</div>
+          </div>
+        </div>
+        <div class="waveform">
+          <div class="wave-bar active" style="height:20%"></div>
+          <div class="wave-bar active" style="height:35%"></div>
+          <div class="wave-bar active" style="height:50%"></div>
+          <div class="wave-bar active" style="height:65%"></div>
+          <div class="wave-bar playhead" style="height:80%"></div>
+          <div class="wave-bar" style="height:55%"></div>
+          <div class="wave-bar" style="height:40%"></div>
+          <div class="wave-bar" style="height:25%"></div>
+          <div class="wave-bar" style="height:45%"></div>
+          <div class="wave-bar" style="height:70%"></div>
+          <div class="wave-bar" style="height:55%"></div>
+          <div class="wave-bar" style="height:30%"></div>
+          <div class="wave-bar" style="height:15%"></div>
+          <div class="wave-bar" style="height:40%"></div>
+          <div class="wave-bar" style="height:60%"></div>
+        </div>
+        <div class="controls">
+          <button class="speed-btn">1.0x</button>
+          <button class="loop-btn">🔂 单句</button>
+          <button class="loop-btn" style="margin-left:auto">🔁 AB段</button>
+        </div>
+      </div>
+
+      <!-- Dictation Card -->
+      <div class="dictation-card">
+        <div class="sentence-counter">第 3 / 6 句</div>
+        <div class="word-grid">
+          <div class="word-slot correct">Habits</div>
+          <div class="word-slot correct">shape</div>
+          <div class="word-slot active"></div>
+          <div class="word-slot blank"></div>
+          <div class="word-slot blank"></div>
+        </div>
+        <div class="hint-text">输入你听到的单词 · 空格切换下一词</div>
+
+        <div class="action-row">
+          <button class="secondary-btn">🔁 再听本句</button>
+          <button class="primary-btn" disabled>提交 ✓</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span class="nav-label">首页</span></div>
+      <div class="nav-item active"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg><span class="nav-label">素材库</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span class="nav-label">个人</span></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

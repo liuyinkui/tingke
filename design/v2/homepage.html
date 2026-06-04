@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听刻 · 首页 — 高保真设计稿</title>
+<style>
+  :root {
+    --primary: #1E3A5F;
+    --primary-light: #2D5A8E;
+    --accent: #FF6B35;
+    --bg: #F5F7FA;
+    --surface: #FFFFFF;
+    --text-primary: #2D3436;
+    --text-secondary: #636E72;
+    --text-hint: #B2BEC3;
+    --success: #00B894;
+    --error: #FF6B6B;
+    --divider: #DFE6E9;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow-card: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1A1A2E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: -apple-system, "PingFang SC", "SF Pro", "Helvetica Neue", sans-serif;
+    padding: 20px;
+  }
+
+  /* iPhone 14 Pro frame */
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: var(--surface);
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 0 0 8px #333,
+      0 0 0 10px #555,
+      0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  /* Dynamic Island */
+  .dynamic-island {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 126px;
+    height: 36px;
+    background: #111;
+    border-radius: 20px;
+    z-index: 10;
+  }
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    padding: 0 0 34px 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* Status Bar */
+  .status-bar {
+    height: 54px;
+    padding: 54px 28px 0 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 5;
+    flex-shrink: 0;
+  }
+  .status-bar .time {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.3px;
+  }
+  .status-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .status-icons svg {
+    display: block;
+  }
+
+  /* Content */
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px 0;
+  }
+
+  /* Streak Badge */
+  .streak-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #FFF5F0;
+    border-radius: 20px;
+    padding: 7px 16px 7px 12px;
+    user-select: none;
+  }
+  .streak-badge .flame {
+    font-size: 16px;
+    line-height: 1;
+  }
+  .streak-badge .text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .streak-badge .num {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  /* Divider spacing */
+  .spacer-40 { height: 40px; flex-shrink: 0; }
+
+  /* Today's practice */
+  .today-label {
+    font-size: 14px;
+    color: var(--text-hint);
+    text-align: center;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+  .today-value {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 1.1;
+  }
+  .today-value .unit {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-left: 4px;
+  }
+
+  .spacer-48 { height: 48px; flex-shrink: 0; }
+
+  /* Primary CTA */
+  .btn-primary {
+    width: 100%;
+    height: 56px;
+    background: var(--primary);
+    color: #FFF;
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 4px 16px rgba(30,58,95,0.30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-primary:active {
+    background: var(--primary-light);
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(30,58,95,0.20);
+  }
+  .btn-primary .icon {
+    font-size: 20px;
+  }
+
+  .spacer-auto { flex: 1; min-height: 20px; }
+
+  /* Bottom links */
+  .bottom-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 8px 0 0;
+    flex-shrink: 0;
+  }
+  .bottom-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 10px 4px;
+    min-height: 44px;
+    cursor: pointer;
+    transition: color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .bottom-link:active {
+    color: var(--primary);
+  }
+  .bottom-link .emoji-icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+  .bottom-link .arrow {
+    font-size: 12px;
+    color: var(--text-hint);
+    margin-left: 2px;
+  }
+
+  /* Decorative elements - subtle */
+  .decor-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--primary);
+    opacity: 0.03;
+    pointer-events: none;
+  }
+  .decor-1 {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+    right: -80px;
+  }
+  .decor-2 {
+    width: 200px;
+    height: 200px;
+    bottom: 60px;
+    left: -60px;
+  }
+
+  /* Safe area */
+  .safe-area-bottom {
+    height: 34px;
+    flex-shrink: 0;
+  }
+
+  /* Empty state (no practice today) alternative */
+  .empty-hint {
+    font-size: 13px;
+    color: var(--text-hint);
+    text-align: center;
+    margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="screen">
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="status-icons">
+        <!-- Signal bars -->
+        <svg width="17" height="12" viewBox="0 0 17 12" fill="none">
+          <rect x="0" y="8" width="3" height="4" rx="0.5" fill="#2D3436"/>
+          <rect x="4.5" y="5" width="3" height="7" rx="0.5" fill="#2D3436"/>
+          <rect x="9" y="2.5" width="3" height="9.5" rx="0.5" fill="#2D3436"/>
+          <rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="#2D3436"/>
+        </svg>
+        <!-- WiFi -->
+        <svg width="15" height="12" viewBox="0 0 15 12" fill="none">
+          <path d="M7.5 9.5C8.05 9.5 8.5 9.95 8.5 10.5C8.5 11.05 8.05 11.5 7.5 11.5C6.95 11.5 6.5 11.05 6.5 10.5C6.5 9.95 6.95 9.5 7.5 9.5Z" fill="#2D3436"/>
+          <path d="M7.5 6.5C9.09 6.5 10.5 7.12 11.54 8.14L10.48 9.2C9.72 8.44 8.66 8 7.5 8C6.34 8 5.28 8.44 4.52 9.2L3.46 8.14C4.5 7.12 5.91 6.5 7.5 6.5Z" fill="#2D3436"/>
+          <path d="M7.5 3.5C10.08 3.5 12.42 4.5 14.14 6.21L13.08 7.27C11.64 5.83 9.68 5 7.5 5C5.32 5 3.36 5.83 1.92 7.27L0.86 6.21C2.58 4.5 4.92 3.5 7.5 3.5Z" fill="#2D3436"/>
+          <path d="M7.5 0.5C11.08 0.5 14.33 1.89 16.71 4.27L15.65 5.33C13.55 3.23 10.68 2 7.5 2C4.32 2 1.45 3.23 0.35 5.33L-0.71 4.27C1.67 1.89 4.92 0.5 7.5 0.5Z" fill="#2D3436"/>
+        </svg>
+        <!-- Battery -->
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
+          <rect x="0.5" y="0.5" width="21" height="11" rx="2" fill="none" stroke="#2D3436" stroke-width="1"/>
+          <rect x="2" y="2" width="12" height="8" rx="1.5" fill="#00B894"/>
+          <rect x="14.5" y="2" width="6" height="8" rx="1.5" fill="#00B894"/>
+          <rect x="22" y="4" width="3" height="4" rx="1" fill="#2D3436"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Decorative -->
+    <div class="decor-circle decor-1"></div>
+    <div class="decor-circle decor-2"></div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- Streak Badge -->
+      <div class="streak-badge">
+        <span class="flame">🔥</span>
+        <span class="text">连续打卡</span>
+        <span class="num">7</span>
+        <span class="text">天</span>
+      </div>
+
+      <div class="spacer-40"></div>
+
+      <!-- Today's Practice -->
+      <div class="today-label">今日练习</div>
+      <div class="today-value">
+        3<span class="unit">分</span>12<span class="unit">秒</span>
+      </div>
+
+      <div class="spacer-48"></div>
+
+      <!-- Primary CTA -->
+      <button class="btn-primary">
+        <span class="icon">▶</span>
+        开始今日练习
+      </button>
+
+      <div class="spacer-auto"></div>
+
+      <!-- Bottom Links -->
+      <div class="bottom-links">
+        <a class="bottom-link">
+          <span class="emoji-icon">📚</span>
+          素材库
+          <span class="arrow">→</span>
+        </a>
+        <a class="bottom-link">
+          <span class="emoji-icon">👤</span>
+          个人中心
+          <span class="arrow">→</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Safe Area -->
+    <div class="safe-area-bottom"></div>
+
+  </div>
+</div>
+
+</body>
+</html>

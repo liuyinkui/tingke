@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>听刻 · V2极简 · 跟读</title><style>
+:root{--brand:#02B47F;--brand-light:rgba(2,180,127,0.06);--success:#2ECC71;--bg:#F5F6F8;--surface:#fff;--divider:#EFF1F4;--text-primary:rgba(0,0,0,.85);--text-secondary:rgba(0,0,0,.5);--text-tertiary:rgba(0,0,0,.28);--radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px;--font:'PingFang SC',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;--ease:cubic-bezier(.25,.1,.25,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#E8EBE8;font-family:var(--font)}
+.phone{position:relative;width:390px;height:844px;background:var(--bg);border-radius:32px;overflow:hidden;box-shadow:0 0 0 2px #2C2C2E,0 0 0 6px #1C1C1E,0 20px 60px rgba(0,0,0,.5)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:126px;height:36px;background:#111;border-radius:999px;z-index:100}
+.status{height:54px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 4px;font-size:15px;color:var(--text-primary);font-weight:600}.status .t{font-size:16px;font-weight:700}
+.content{height:calc(100% - 54px);padding:8px 24px 24px;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;padding:4px 0 12px;gap:12px}
+.top .back{font-size:20px;border:none;background:none;cursor:pointer;color:var(--text-primary)}
+.top .ttl{font-size:16px;font-weight:600;color:var(--text-primary);flex:1}
+.steps{display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.sg{display:flex;flex-direction:column;align-items:center}
+.sc{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
+.sc.done{background:var(--success);color:#fff}.sc.act{background:var(--brand);color:#fff}.sc.pen{background:var(--divider);color:var(--text-tertiary)}
+.sl{width:28px;height:1.5px;margin:0 4px}.sl.done{background:var(--success)}.sl.act{background:var(--brand)}.sl.pen{background:var(--divider)}
+.slb{font-size:10px;margin-top:4px;color:var(--text-tertiary)}.slb.act{color:var(--brand);font-weight:600}.slb.done{color:var(--success)}
+.tbox{background:var(--surface);border-radius:var(--radius-lg);padding:20px;border:1px solid var(--divider);margin-bottom:20px;flex-shrink:0}
+.tbox .lbl{font-size:10px;color:var(--text-tertiary);letter-spacing:1px;margin-bottom:8px}
+.tbox .tx{font-size:15px;line-height:1.7;color:var(--text-primary)}
+.tbox .hl{color:var(--brand);font-weight:500;border-bottom:2px solid var(--brand-light)}
+.rec{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.rec-btn{width:72px;height:72px;border-radius:50%;border:none;cursor:pointer;background:var(--surface);color:var(--brand);font-size:26px;box-shadow:0 2px 12px rgba(2,180,127,.12);border:2px solid var(--brand);transition:all .25s;display:flex;align-items:center;justify-content:center}
+.rec-btn:hover{background:var(--brand);color:#fff;transform:scale(1.03)}
+.rec-btn.ing{background:#E74C3C;color:#fff;border-color:#E74C3C;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 2px 12px rgba(231,76,60,.2)}50%{box-shadow:0 2px 20px rgba(231,76,60,.4)}}
+.rec-hint{text-align:center;font-size:13px;color:var(--text-secondary)}
+.rec-hint .s{font-size:11px;color:var(--text-tertiary);margin-top:2px}
+.result{background:var(--surface);border-radius:var(--radius-lg);padding:16px 20px;border:1px solid var(--divider);flex-shrink:0;display:none}
+.bottom{display:flex;justify-content:center;padding-top:12px;border-top:1px solid var(--divider);flex-shrink:0}
+.nxt{height:40px;padding:0 28px;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border:none;border-radius:var(--radius-md);cursor:pointer;transition:all .2s}
+.nxt:hover{background:#019A6C}
+</style></head><body>
+<div class="phone"><div class="island"></div>
+<div class="status"><span class="t">9:41</span></div>
+<div class="content">
+<div class="top"><button class="back">‹</button><span class="ttl">跟读</span></div>
+<div class="steps">
+<div class="sg"><div class="sc done">✓</div><span class="slb done">盲听</span></div><div class="sl done"></div>
+<div class="sg"><div class="sc done">✓</div><span class="slb done">听写</span></div><div class="sl act"></div>
+<div class="sg"><div class="sc act">3</div><span class="slb act">跟读</span></div>
+</div>
+<div class="tbox">
+<div class="lbl">跟读原文 · 第 1/4 句</div>
+<div class="tx">The <span class="hl">anthropocene</span> is a proposed geological epoch dating from the commencement of <span class="hl">significant</span> human impact on Earth's geology and ecosystems.</div>
+</div>
+<div class="rec">
+<button class="rec-btn">🎤</button>
+<div class="rec-hint">轻触开始录音<br><span class="s">照着上面的句子跟读</span></div>
+</div>
+<div class="bottom"><button class="nxt">下一句 →</button></div>
+</div></div></body></html>

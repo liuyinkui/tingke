@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>听刻 · V1沉浸 · 素材库</title><style>
+:root{--brand:#02B47F;--brand-dark:#019A6C;--brand-light:rgba(2,180,127,0.08);--success:#2ECC71;--bg:#F1F3F5;--surface:#fff;--divider:#E9ECF0;--text-primary:rgba(0,0,0,.9);--text-secondary:rgba(0,0,0,.6);--text-tertiary:rgba(0,0,0,.3);--radius-sm:4px;--radius-md:8px;--radius-mg:12px;--radius-lg:16px;--radius-xl:24px;--font:'PingFang SC',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#DDE0DD;font-family:var(--font)}
+.phone{position:relative;width:390px;height:844px;background:var(--bg);border-radius:32px;overflow:hidden;box-shadow:0 0 0 2px #2C2C2E,0 0 0 6px #1C1C1E,0 20px 60px rgba(0,0,0,.5)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:126px;height:36px;background:#111;border-radius:999px;z-index:100}
+.status{height:54px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 4px;font-size:15px;font-weight:600;color:var(--text-primary)}.status .t{font-size:16px;font-weight:700}
+.content{height:calc(100% - 54px);padding:8px 24px 0;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;justify-content:space-between;padding:4px 0 8px}
+.top .ttl{font-size:18px;font-weight:700;color:var(--text-primary)}
+.top .act{font-size:14px;color:var(--brand);font-weight:500;border:none;background:none;cursor:pointer;padding:4px 8px;border-radius:var(--radius-sm);transition:background .2s}
+.top .act:hover{background:var(--brand-light)}
+.search{display:flex;align-items:center;gap:8px;background:var(--surface);border-radius:var(--radius-xl);padding:0 16px;border:1.5px solid var(--divider);margin-bottom:12px;transition:border-color .2s}
+.search:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(2,180,127,.07)}
+.search .ico{font-size:14px;color:var(--text-tertiary)}
+.search input{flex:1;height:42px;border:none;background:transparent;font-size:15px;font-family:var(--font);color:var(--text-primary);outline:none}
+.search input::placeholder{color:var(--text-tertiary)}
+
+.filters{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;flex-shrink:0}
+.filters::-webkit-scrollbar{display:none}
+.filt{padding:6px 14px;border-radius:999px;border:none;background:var(--surface);color:var(--text-secondary);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .2s;border:1px solid var(--divider)}
+.filt.act{background:var(--brand);color:#fff;border-color:var(--brand)}
+.filt:hover:not(.act){background:var(--divider)}
+
+.list{flex:1;overflow-y:auto;padding-right:4px}
+.list::-webkit-scrollbar{width:3px}.list::-webkit-scrollbar-thumb{background:var(--divider);border-radius:2px}
+.mcard{background:var(--surface);border-radius:var(--radius-lg);padding:16px;box-shadow:0 4px 6px rgba(0,0,0,.08);border:1px solid var(--divider);margin-bottom:12px;cursor:pointer;transition:all .2s}
+.mcard:hover{border-color:var(--brand);box-shadow:0 4px 12px rgba(2,180,127,.1)}
+.mcard .row{display:flex;justify-content:space-between;align-items:flex-start}
+.mcard .ttl{font-size:16px;font-weight:600;color:var(--text-primary)}.mcard .en{font-size:12px;color:var(--text-tertiary);margin-top:2px}
+.mcard .diff{padding:2px 8px;border-radius:999px;font-size:11px;font-weight:500}
+.mcard .diff.e{background:var(--success);color:#fff}.diff.m{background:var(--brand);color:#fff}.diff.h{background:#E74C3C;color:#fff}
+.mcard .btm{display:flex;justify-content:space-between;margin-top:10px;font-size:12px;color:var(--text-tertiary)}
+.mcard .done-tag{font-size:11px;color:var(--success)}.mcard .tag{font-size:11px;color:var(--brand)}
+
+.tab-bar{display:flex;height:56px;background:var(--surface);border-top:1px solid var(--divider);margin:0 -24px;flex-shrink:0}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:none;background:none;cursor:pointer;font-size:10px;color:var(--text-tertiary);transition:color .2s}
+.tab .ico{font-size:20px;line-height:1}
+.tab.act{color:var(--brand)}.tab:hover{color:var(--text-secondary)}
+</style></head><body>
+<div class="phone"><div class="island"></div>
+<div class="status"><span class="t">9:41</span></div>
+<div class="content">
+<div class="top"><span class="ttl">素材库</span><button class="act">我的收藏</button></div>
+<div class="search"><span class="ico">🔍</span><input placeholder="搜索素材标题或关键词..."></div>
+<div class="filters">
+<button class="filt act">全部</button><button class="filt">CET-4</button><button class="filt">CET-6</button>
+<button class="filt">VOA慢速</button><button class="filt">VOA常速</button><button class="filt">学术</button><button class="filt">生活</button>
+</div>
+<div class="list">
+<div class="mcard"><div class="row"><div><div class="ttl">人类世的终结</div><div class="en">The End of the Anthropocene</div></div><span class="diff m">中高级</span></div>
+<div class="btm"><span>🎧 盲听 · ✍️ 听写 · 🗣️ 跟读</span><span>⏱ 15min · <span class="done-tag">已学</span></span></div></div>
+<div class="mcard"><div class="row"><div><div class="ttl">火星移民计划</div><div class="en">The Mars Colonization Plan</div></div><span class="diff h">高级</span></div>
+<div class="btm"><span>🎧 盲听 · ✍️ 听写</span><span>⏱ 12min · <span class="tag">新增</span></span></div></div>
+<div class="mcard"><div class="row"><div><div class="ttl">气候变化的影响</div><div class="en">Impacts of Climate Change</div></div><span class="diff e">初级</span></div>
+<div class="btm"><span>🎧 盲听 · ✍️ 听写 · 🗣️ 跟读</span><span>⏱ 10min</span></div></div>
+<div class="mcard"><div class="row"><div><div class="ttl">人工智能的未来</div><div class="en">The Future of AI</div></div><span class="diff m">中高级</span></div>
+<div class="btm"><span>🎧 盲听 · ✍️ 听写</span><span>⏱ 18min · <span class="tag">热门</span></span></div></div>
+<div class="mcard"><div class="row"><div><div class="ttl">全球化与本土文化</div><div class="en">Globalization and Local Culture</div></div><span class="diff e">初级</span></div>
+<div class="btm"><span>🎧 盲听 · ✍️ 听写 · 🗣️ 跟读</span><span>⏱ 8min</span></div></div>
+</div>
+<div class="tab-bar">
+<button class="tab act"><span class="ico">🏠</span>首页</button><button class="tab"><span class="ico">📚</span>素材库</button><button class="tab"><span class="ico">📊</span>统计</button><button class="tab"><span class="ico">👤</span>我的</button>
+</div>
+</div></div></body></html>

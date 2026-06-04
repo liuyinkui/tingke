@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>听刻 · 听写（设计系统版）</title>
+<style>
+/* ═══════════════════════════════════════════════
+   听刻 - 基于 base-guide.md 设计系统
+   品牌主色: #02B47F | 品牌辅助色: #F8D9D6
+   画布: 390×844 (iPhone 14 Pro)
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --color-brand-primary: #02B47F;
+  --color-brand-primary-dark: #019A6C;
+  --color-brand-secondary: #F8D9D6;
+  --color-success: #2ECC71;
+  --color-warning: #F39C12;
+  --color-error: #E74C3C;
+  --color-info: #3498DB;
+  --color-text-primary: rgba(0,0,0,0.9);
+  --color-text-secondary: rgba(0,0,0,0.6);
+  --color-text-tertiary: rgba(0,0,0,0.3);
+  --color-text-quaternary: rgba(0,0,0,0.2);
+  --color-text-inverse: #FFFFFF;
+  --color-text-on-primary: rgba(255,255,255,1.0);
+  --color-text-on-secondary: rgba(255,255,255,0.6);
+  --color-neutral-1: #FFFFFF;
+  --color-neutral-2: #F1F3F5;
+  --color-neutral-3: #F2F4F7;
+  --color-neutral-4: #E9ECF0;
+  --color-neutral-5: #DCE2E8;
+  --color-neutral-6: #BEC5CD;
+  --color-neutral-7: #8E9AAB;
+  --color-background-page: #F1F3F5;
+  --color-background-surface: #FFFFFF;
+  --color-border-light: #F2F4F7;
+  --color-border-default: #E9ECF0;
+  --spacing-0: 0; --spacing-2: 2px; --spacing-4: 4px; --spacing-6: 6px;
+  --spacing-8: 8px; --spacing-12: 12px; --spacing-16: 16px; --spacing-20: 20px;
+  --spacing-24: 24px; --spacing-32: 32px; --spacing-40: 40px; --spacing-48: 48px;
+  --border-radius-sm: 4px; --border-radius-md: 8px; --border-radius-mg: 12px;
+  --border-radius-lg: 16px; --border-radius-xl: 24px; --border-radius-2xl: 32px;
+  --border-radius-full: 9999px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.12);
+  --font-family-sans: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --transition-default: all var(--duration-base) var(--ease-out);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #DDE0DD;
+  font-family: var(--font-family-sans);
+}
+
+.phone-frame {
+  position: relative;
+  width: 390px;
+  height: 844px;
+  background: var(--color-background-page);
+  border-radius: var(--border-radius-2xl);
+  overflow: hidden;
+  box-shadow: 0 0 0 2px #2C2C2E, 0 0 0 6px #1C1C1E, 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.dynamic-island {
+  position: absolute; top: 10px; left: 50%;
+  transform: translateX(-50%);
+  width: 126px; height: 36px;
+  background: #111; border-radius: var(--border-radius-full);
+  z-index: 100;
+}
+
+.status-bar {
+  position: relative; height: 54px;
+  display: flex; justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 var(--spacing-32) var(--spacing-4);
+  font-size: 15px; font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.status-bar .time { font-size: 16px; font-weight: var(--font-weight-bold); }
+
+/* ═══ Content ═══ */
+.content {
+  height: calc(100% - 54px);
+  padding: var(--spacing-8) var(--spacing-24) var(--spacing-24);
+  display: flex; flex-direction: column;
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-4) 0 var(--spacing-12);
+}
+.top-bar .back {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: transparent;
+  cursor: pointer; border-radius: 50%;
+  color: var(--color-text-secondary);
+  transition: background var(--duration-fast);
+}
+.top-bar .back:hover { background: var(--color-neutral-2); }
+.top-bar .title { font-size: 16px; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); }
+.top-bar .done {
+  font-size: 14px; font-weight: var(--font-weight-medium);
+  color: var(--color-brand-primary); border: none; background: none;
+  cursor: pointer; padding: var(--spacing-4) var(--spacing-8);
+  border-radius: var(--border-radius-sm);
+  transition: background var(--duration-fast);
+}
+.top-bar .done:hover { background: rgba(2,180,127,0.08); }
+
+/* Step Progress */
+.step-progress {
+  display: flex; align-items: center;
+  justify-content: center;
+  padding: var(--spacing-4) 0 var(--spacing-16);
+  animation: fadeUp 0.4s var(--ease-out);
+}
+.step-group { display: flex; flex-direction: column; align-items: center; }
+.step-circle {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: var(--font-weight-semibold);
+  transition: all 0.35s ease;
+}
+.step-circle.done { background: var(--color-success); color: #fff; }
+.step-circle.active { background: var(--color-brand-primary); color: #fff; box-shadow: 0 0 0 4px rgba(2,180,127,0.12); }
+.step-circle.pending { background: var(--color-neutral-4); color: var(--color-text-tertiary); }
+.step-line {
+  width: 36px; height: 2px; margin: 0 var(--spacing-4); border-radius: 1px;
+  transition: background 0.35s;
+}
+.step-line.done { background: var(--color-success); }
+.step-line.active { background: var(--color-brand-primary); }
+.step-line.pending { background: var(--color-border-default); }
+.step-label { font-size: 11px; margin-top: var(--spacing-6); color: var(--color-text-tertiary); }
+.step-label.active-label { color: var(--color-brand-primary); font-weight: var(--font-weight-semibold); }
+.step-label.done-label { color: var(--color-success); }
+
+/* Audio Area */
+.audio-area {
+  background: var(--color-background-surface);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-16) var(--spacing-20);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border-light);
+  text-align: center;
+  animation: fadeUp 0.4s var(--ease-out) 0.1s both;
+}
+.audio-area .s-label { font-size: 11px; color: var(--color-text-tertiary); letter-spacing: 2px; }
+.audio-area .s-num { font-size: 14px; color: var(--color-text-secondary); margin: var(--spacing-2) 0 var(--spacing-12); }
+.audio-controls {
+  display: flex; align-items: center; justify-content: center; gap: var(--spacing-16);
+}
+.audio-controls button {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--duration-fast);
+  background: var(--color-neutral-2); color: var(--color-brand-primary);
+}
+.audio-controls button:hover { background: var(--color-brand-primary); color: #fff; }
+.audio-controls .play-btn {
+  width: 50px; height: 50px;
+  background: var(--color-brand-primary); color: #fff;
+  box-shadow: 0 2px 8px rgba(2,180,127,0.25);
+}
+.audio-controls .play-btn:hover { background: var(--color-brand-primary-dark); transform: scale(1.04); }
+
+/* Dictation */
+.dictation-area {
+  flex: 1; overflow-y: auto;
+  margin-top: var(--spacing-12);
+  padding-right: var(--spacing-4);
+  animation: fadeUp 0.4s var(--ease-out) 0.15s both;
+}
+.dictation-area::-webkit-scrollbar { width: 3px; }
+.dictation-area::-webkit-scrollbar-thumb { background: var(--color-border-default); border-radius: 2px; }
+
+.d-sentence {
+  margin-bottom: var(--spacing-12);
+  animation: fadeUp 0.35s var(--ease-out) both;
+}
+.d-sentence:nth-child(1) { animation-delay: 0.15s; }
+.d-sentence:nth-child(2) { animation-delay: 0.22s; }
+.d-sentence:nth-child(3) { animation-delay: 0.29s; }
+.d-sentence .s-num { font-size: 11px; color: var(--color-text-tertiary); margin-bottom: var(--spacing-4); letter-spacing: 0.5px; }
+
+.input-wrap {
+  display: flex; align-items: center;
+  background: var(--color-background-surface);
+  border: 1.5px solid var(--color-border-default);
+  border-radius: var(--border-radius-mg);
+  padding: 0 var(--spacing-14, 14px);
+  transition: var(--transition-default);
+}
+.input-wrap:focus-within {
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 3px rgba(2,180,127,0.08);
+}
+.input-wrap.correct { border-color: var(--color-success); background: rgba(46,204,113,0.06); }
+.input-wrap.wrong { border-color: var(--color-error); background: rgba(231,76,60,0.06); animation: shake 0.35s ease; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(2px); }
+}
+
+.d-input {
+  flex: 1; height: 46px;
+  border: none; background: transparent;
+  font-size: 16px; font-family: var(--font-family-sans);
+  color: var(--color-text-primary); outline: none;
+}
+.d-input::placeholder { color: var(--color-text-tertiary); }
+
+.s-icon {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0;
+  opacity: 0; transition: opacity 0.2s;
+}
+.s-icon.show { opacity: 1; }
+.s-icon.ok { background: rgba(46,204,113,0.1); color: var(--color-success); }
+.s-icon.fail { background: rgba(231,76,60,0.1); color: var(--color-error); }
+
+.check-btn {
+  flex-shrink: 0;
+  width: 30px; height: 30px;
+  border: none; background: rgba(2,180,127,0.08);
+  color: var(--color-brand-primary);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer; font-size: 13px; font-weight: var(--font-weight-semibold);
+  margin-left: var(--spacing-6);
+  transition: all var(--duration-fast);
+}
+.check-btn:hover { background: var(--color-brand-primary); color: #fff; }
+
+.answer-hint {
+  font-size: 12px; color: var(--color-success);
+  margin-top: var(--spacing-4);
+  padding-left: var(--spacing-4);
+  animation: fadeUp 0.25s ease;
+}
+
+/* Bottom Bar */
+.bottom-bar {
+  padding-top: var(--spacing-12);
+  border-top: 1px solid var(--color-border-light);
+  display: flex; align-items: center;
+  justify-content: space-between;
+  animation: fadeUp 0.4s var(--ease-out) 0.3s both;
+}
+.score { display: flex; align-items: baseline; gap: var(--spacing-4); }
+.score .num { font-size: 24px; font-weight: var(--font-weight-bold); color: var(--color-text-primary); }
+.score .total { font-size: 14px; color: var(--color-text-tertiary); }
+.score .lbl { font-size: 13px; color: var(--color-text-secondary); margin-left: var(--spacing-4); }
+
+.btn-next {
+  height: 42px; padding: 0 var(--spacing-24);
+  background: var(--color-brand-primary);
+  color: var(--color-text-inverse);
+  font-size: 15px; font-weight: var(--font-weight-semibold);
+  border: none; border-radius: var(--border-radius-mg);
+  cursor: pointer; display: flex; align-items: center; gap: var(--spacing-6);
+  box-shadow: 0 2px 8px rgba(2,180,127,0.2);
+  transition: var(--transition-default);
+}
+.btn-next:hover { background: var(--color-brand-primary-dark); transform: translateY(-1px); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+        <rect x="0.5" y="0.5" width="15" height="11" rx="2" stroke="#000" stroke-opacity="0.4"/>
+        <rect x="12" y="4" width="3" height="2" rx="0.5" fill="#000" fill-opacity="0.25"/>
+      </svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none">
+        <rect x="0" y="1" width="18" height="10" rx="4" fill="#000"/>
+        <rect x="2" y="3" width="6" height="6" rx="2" fill="#000" fill-opacity="0.25"/>
+        <rect x="9" y="3.5" width="4" height="5" rx="1.5" fill="#000" fill-opacity="0.25"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="top-bar">
+      <button class="back" aria-label="返回">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <span class="title">听写训练</span>
+      <button class="done">完成</button>
+    </div>
+
+    <div class="step-progress">
+      <div class="step-group">
+        <div class="step-circle done">✓</div>
+        <div class="step-label done-label">盲听</div>
+      </div>
+      <div class="step-line done"></div>
+      <div class="step-group">
+        <div class="step-circle active">2</div>
+        <div class="step-label active-label">听写</div>
+      </div>
+      <div class="step-line pending"></div>
+      <div class="step-group">
+        <div class="step-circle pending">3</div>
+        <div class="step-label">跟读</div>
+      </div>
+    </div>
+
+    <div class="audio-area">
+      <div class="s-label">当前句子</div>
+      <div class="s-num">第 1 / 4 句</div>
+      <div class="audio-controls">
+        <button aria-label="重播">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+        </button>
+        <button class="play-btn" aria-label="播放">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </button>
+        <button aria-label="慢速">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="dictation-area">
+      <div class="d-sentence">
+        <div class="s-num">句子 1</div>
+        <div class="input-wrap correct">
+          <input class="d-input" type="text" value="The anthropocene is a proposed geological epoch" readonly>
+          <span class="s-icon ok show">✓</span>
+        </div>
+      </div>
+      <div class="d-sentence">
+        <div class="s-num">句子 2</div>
+        <div class="input-wrap">
+          <input class="d-input" type="text" placeholder="听到后输入..." value="dating from the commencement">
+          <button class="check-btn">↵</button>
+        </div>
+      </div>
+      <div class="d-sentence">
+        <div class="s-num">句子 3</div>
+        <div class="input-wrap">
+          <input class="d-input" type="text" placeholder="听到后输入..." style="caret-color: var(--color-brand-primary);">
+          <button class="check-btn">↵</button>
+        </div>
+      </div>
+      <div class="d-sentence">
+        <div class="s-num">句子 4</div>
+        <div class="input-wrap wrong">
+          <input class="d-input" type="text" value="of significant human impact" readonly style="text-decoration: line-through; text-decoration-color: var(--color-error); text-decoration-thickness: 1.5px;">
+          <span class="s-icon fail show">✗</span>
+        </div>
+        <div class="answer-hint">✓ significant human impact on Earth's geology</div>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="score">
+        <span class="num">2</span>
+        <span class="total">/ 4</span>
+        <span class="lbl">句正确</span>
+      </div>
+      <button class="btn-next">
+        <span>下一句</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

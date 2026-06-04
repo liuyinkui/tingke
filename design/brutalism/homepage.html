@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听刻 · 粗野主义 首页</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #E8E8E8;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; font-family: "Helvetica Neue", "Arial Black", "PingFang SC", sans-serif;
+    padding: 20px;
+  }
+
+  .phone {
+    width: 390px; height: 844px;
+    background: #FFFFFF;
+    border: 4px solid #000;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .screen {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+  }
+
+  .status-bar {
+    height: 50px; padding: 28px 16px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    background: #000; color: #FFF;
+    font-size: 14px; font-weight: 700;
+  }
+
+  .status-time { font-size: 16px; }
+
+  .content {
+    flex: 1; padding: 16px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  /* Streak — raw and bold */
+  .streak {
+    border: 4px solid #000;
+    padding: 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: #FFF;
+    transform: rotate(-0.5deg);
+  }
+
+  .streak-left { display: flex; align-items: center; gap: 12px; }
+  .streak-fire { font-size: 40px; }
+  .streak-days { font-size: 44px; font-weight: 900; color: #000; line-height: 1; }
+  .streak-sub { font-size: 14px; font-weight: 700; color: #000; }
+  .streak-gain { font-size: 28px; font-weight: 900; color: #FF3366; }
+
+  /* Main hero */
+  .hero {
+    border: 4px solid #000;
+    padding: 24px 20px;
+    flex: 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 16px;
+    background: #FFD700;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: repeating-linear-gradient(90deg, #000 0, #000 8px, #FFD700 8px, #FFD700 16px);
+  }
+
+  .hero-icon {
+    width: 72px; height: 72px;
+    background: #000;
+    display: flex; align-items: center; justify-content: center;
+    transform: rotate(5deg);
+  }
+
+  .hero-icon svg { width: 40px; height: 40px; fill: #FFD700; }
+
+  .hero-title {
+    font-size: 32px; font-weight: 900; color: #000;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+  }
+
+  .hero-desc {
+    font-size: 14px; font-weight: 700; color: #000;
+    text-align: center; line-height: 1.4;
+    max-width: 280px;
+  }
+
+  .cta-btn {
+    width: 100%; height: 56px;
+    background: #000;
+    border: none;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    cursor: pointer;
+    transform: rotate(-1deg);
+    transition: transform 0.1s;
+  }
+
+  .cta-btn:hover { transform: rotate(1deg) scale(1.02); }
+  .cta-btn:active { transform: rotate(0); }
+
+  .cta-btn svg { width: 20px; height: 20px; fill: #FFD700; }
+  .cta-text { font-size: 18px; font-weight: 900; color: #FFD700; letter-spacing: 2px; }
+
+  /* Stats — brutalist grid */
+  .stats {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+    border: 4px solid #000;
+    background: #FFF;
+  }
+
+  .stat-item {
+    padding: 12px 8px;
+    text-align: center;
+    border-right: 2px solid #000;
+    background: #FFF;
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num { font-size: 22px; font-weight: 900; color: #000; }
+  .stat-lbl { font-size: 11px; font-weight: 700; color: #000; margin-top: 2px; }
+
+  /* Bottom nav — brutalist */
+  .bottom-nav {
+    border-top: 4px solid #000;
+    background: #FFF;
+    padding: 8px 16px 24px;
+    display: flex; justify-content: space-around;
+  }
+
+  .nav-item {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 4px 16px; cursor: pointer;
+  }
+
+  .nav-item.active { background: #000; }
+  .nav-item.active svg { fill: #FFF; }
+  .nav-item.active .nav-lbl { color: #FFF; }
+  .nav-item svg { width: 24px; height: 24px; fill: #000; }
+  .nav-lbl { font-size: 11px; font-weight: 700; color: #000; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="screen">
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <span>📶 🔋</span>
+    </div>
+    <div class="content">
+      <!-- Streak -->
+      <div class="streak">
+        <div class="streak-left">
+          <span class="streak-fire">🔥</span>
+          <div>
+            <div class="streak-days">7</div>
+            <div class="streak-sub">STREAK</div>
+          </div>
+        </div>
+        <div class="streak-gain">+39%</div>
+      </div>
+
+      <!-- Hero -->
+      <div class="hero">
+        <div class="hero-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        </div>
+        <div class="hero-title">READY?</div>
+        <div class="hero-desc">盲听 → 听写 → 跟读<br/>每天15分钟，听懂世界</div>
+        <button class="cta-btn">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span class="cta-text">▶ 开始</span>
+        </button>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat-item"><div class="stat-num">14</div><div class="stat-lbl">天</div></div>
+        <div class="stat-item"><div class="stat-num">72%</div><div class="stat-lbl">准确率</div></div>
+        <div class="stat-item"><div class="stat-num">48</div><div class="stat-lbl">分钟</div></div>
+        <div class="stat-item"><div class="stat-num">32</div><div class="stat-lbl">词</div></div>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span class="nav-lbl">首页</span>
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+        <span class="nav-lbl">素材</span>
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <span class="nav-lbl">我的</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

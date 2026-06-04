@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>听刻 · 听写</title>
+<style>
+  /* ============================================
+     Design System Tokens (from base-guide.md)
+     ============================================ */
+  :root {
+    /* Brand */
+    --color-brand-primary: #02B47F;
+    --color-brand-primary-dark: #02B47F;
+    --color-brand-secondary: #F8D9D6;
+
+    /* Semantic */
+    --color-success: #2ECC71;
+    --color-warning: #F39C12;
+    --color-error: #E74C3C;
+    --color-info: #3498DB;
+
+    /* Text */
+    --color-text-primary: rgba(0,0,0,0.9);
+    --color-text-secondary: rgba(0,0,0,0.6);
+    --color-text-tertiary: rgba(0,0,0,0.3);
+    --color-text-inverse: #FFFFFF;
+
+    /* Neutral */
+    --color-neutral-1: #FFFFFF;
+    --color-neutral-2: #F1F3F5;
+    --color-neutral-3: #F2F4F7;
+    --color-neutral-4: #E9ECF0;
+    --color-neutral-5: #DCE2E8;
+    --color-neutral-6: #BEC5CD;
+    --color-neutral-7: #8E9AAB;
+
+    /* Background */
+    --color-background-page: #F1F3F5;
+    --color-background-surface: #FFFFFF;
+    --color-background-overlay: rgba(0,0,0,0.5);
+    --color-border-default: #E9ECF0;
+    --color-border-light: #F2F4F7;
+
+    /* Spacing (8px grid) */
+    --spacing-4: 4px;
+    --spacing-8: 8px;
+    --spacing-12: 12px;
+    --spacing-16: 16px;
+    --spacing-20: 20px;
+    --spacing-24: 24px;
+    --spacing-32: 32px;
+    --spacing-40: 40px;
+    --spacing-48: 48px;
+    --spacing-64: 64px;
+
+    /* Border Radius */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-mg: 12px;
+    --border-radius-lg: 16px;
+    --border-radius-xl: 24px;
+    --border-radius-2xl: 32px;
+    --border-radius-full: 9999px;
+
+    /* Shadow */
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.08);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.12);
+
+    /* Typography */
+    --font-family-sans: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Font Sizes */
+    --font-size-Display-L: 32px;
+    --font-size-Display-M: 28px;
+    --font-size-Display-S: 24px;
+    --font-size-Title-L: 22px;
+    --font-size-Title-M: 20px;
+    --font-size-Title-S: 18px;
+    --font-size-Subtitle-L: 18px;
+    --font-size-Subtitle-M: 16px;
+    --font-size-Subtitle-S: 14px;
+    --font-size-Body-L: 18px;
+    --font-size-Body-M: 16px;
+    --font-size-Body-S: 14px;
+    --font-size-Caption-L: 12px;
+    --font-size-Caption-M: 10px;
+    --font-size-Caption-S: 8px;
+
+    /* Line heights */
+    --line-height-base: 1.5;
+
+    /* Component specific */
+    --component-button-border-radius: var(--border-radius-mg);
+    --component-button-background-primary: var(--color-brand-primary);
+    --component-button-font-weight: var(--font-weight-medium);
+    --component-button-size-lg-height: 48px;
+    --component-button-size-md-height: 40px;
+    --component-button-padding-horizontal: var(--spacing-16);
+
+    --component-card-padding: var(--spacing-24);
+    --component-card-border-radius: var(--border-radius-lg);
+    --component-card-shadow: var(--shadow-md);
+    --component-card-border: 1px solid var(--color-border-default);
+    --component-card-background: var(--color-background-surface);
+
+    --component-input-height: 40px;
+    --component-input-border-radius: var(--border-radius-md);
+    --component-input-border: 1px solid var(--color-border-default);
+    --component-input-border-focus: 1px solid var(--color-brand-primary);
+    --component-input-background: var(--color-background-surface);
+    --component-input-padding-horizontal: var(--spacing-16);
+
+    /* Transitions */
+    --duration-fast: 150ms;
+    --duration-base: 250ms;
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-default: all var(--duration-base) var(--ease-in-out);
+  }
+
+  /* Reset */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-family-sans);
+    background: #E8ECEF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============================================
+     iPhone 14 Pro Frame
+     ============================================ */
+  .iphone-frame {
+    width: 390px;
+    height: 844px;
+    background: var(--color-background-page);
+    border-radius: var(--border-radius-2xl);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.08), var(--shadow-lg);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Dynamic Island */
+  .dynamic-island {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 126px;
+    height: 36px;
+    background: #111;
+    border-radius: var(--border-radius-full);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .dynamic-island .camera-dot { width: 10px; height: 10px; background: #1E2A3A; border-radius: 50%; border: 1.5px solid #2A3A4A; }
+  .dynamic-island .sensor-dot { width: 22px; height: 6px; background: #1E2A3A; border-radius: 3px; }
+
+  /* Status Bar */
+  .status-bar {
+    height: 54px;
+    padding: 0 var(--spacing-24);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 6px;
+    font-size: 14px;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    background: transparent;
+    z-index: 40;
+    position: relative;
+  }
+  .status-bar .time { font-weight: var(--font-weight-bold); }
+  .status-bar .icons { display: flex; gap: 6px; align-items: center; }
+
+  /* ============================================
+     Top Navigation
+     ============================================ */
+  .top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-8) var(--spacing-20);
+    min-height: 52px;
+    flex-shrink: 0;
+    background: var(--color-background-surface);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  .top-nav .nav-left {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    cursor: pointer;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-Body-M);
+    font-weight: var(--font-weight-medium);
+    opacity: 0.8;
+    transition: var(--transition-default);
+  }
+  .top-nav .nav-left:hover { opacity: 1; }
+  .top-nav .nav-left .back-arrow {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .top-nav .nav-title {
+    font-size: var(--font-size-Title-S);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+  }
+  .top-nav .nav-right {
+    font-size: var(--font-size-Body-S);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-brand-primary);
+    cursor: pointer;
+    opacity: 0.85;
+    transition: var(--transition-default);
+  }
+  .top-nav .nav-right:hover { opacity: 1; }
+
+  /* ============================================
+     Content (scrollable)
+     ============================================ */
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-20) var(--spacing-20) var(--spacing-16);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-20);
+    scrollbar-width: none;
+  }
+  .content::-webkit-scrollbar { display: none; }
+
+  /* ============================================
+     Three-Step Progress
+     ============================================ */
+  .step-progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--spacing-8);
+  }
+  .step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-6);
+    flex: 1;
+    position: relative;
+  }
+  .step-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-Caption-L);
+    font-weight: var(--font-weight-semibold);
+    background: var(--color-neutral-3);
+    color: var(--color-text-tertiary);
+    border: 2px solid transparent;
+    transition: var(--transition-default);
+    position: relative;
+    z-index: 2;
+  }
+  .step-dot.active {
+    background: var(--color-brand-primary);
+    color: var(--color-text-inverse);
+    box-shadow: 0 0 0 4px rgba(2, 180, 127, 0.15);
+  }
+  .step-dot.completed {
+    background: var(--color-brand-primary);
+    color: var(--color-text-inverse);
+  }
+  .step-label {
+    font-size: var(--font-size-Caption-L);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-tertiary);
+    text-align: center;
+    transition: var(--transition-default);
+  }
+  .step-label.active { color: var(--color-brand-primary); font-weight: var(--font-weight-semibold); }
+  .step-label.completed { color: var(--color-text-secondary); }
+
+  /* Connecting line */
+  .step-connector {
+    flex: 1;
+    height: 2px;
+    background: var(--color-neutral-4);
+    position: relative;
+    top: -16px; /* align with dot center */
+    margin: 0 -4px;
+    z-index: 1;
+  }
+  .step-connector.filled { background: var(--color-brand-primary); }
+
+  /* ============================================
+     Audio Player Card
+     ============================================ */
+  .audio-card {
+    background: var(--color-background-surface);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-24);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border-default);
+  }
+  .audio-card .audio-header {
+    font-size: var(--font-size-Subtitle-S);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-16);
+    text-align: center;
+  }
+  .audio-wave {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 40px;
+    margin-bottom: var(--spacing-16);
+  }
+  .audio-wave .bar {
+    width: 3px;
+    background: var(--color-neutral-5);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .audio-wave .bar:nth-child(1) { height: 12px; }
+  .audio-wave .bar:nth-child(2) { height: 20px; }
+  .audio-wave .bar:nth-child(3) { height: 28px; }
+  .audio-wave .bar:nth-child(4) { height: 34px; }
+  .audio-wave .bar:nth-child(5) { height: 30px; }
+  .audio-wave .bar:nth-child(6) { height: 22px; }
+  .audio-wave .bar:nth-child(7) { height: 16px; }
+  .audio-wave .bar:nth-child(8) { height: 28px; }
+  .audio-wave .bar:nth-child(9) { height: 20px; }
+  .audio-wave .bar:nth-child(10) { height: 14px; }
+  .audio-wave .bar:nth-child(11) { height: 24px; }
+  .audio-wave .bar:nth-child(12) { height: 32px; }
+  .audio-wave .bar:nth-child(13) { height: 18px; }
+  .audio-wave .bar:nth-child(14) { height: 26px; }
+  .audio-wave .bar:nth-child(15) { height: 12px; }
+  .audio-wave.playing .bar:nth-child(even) { background: var(--color-brand-primary); }
+  .audio-wave.playing .bar:nth-child(odd) { background: rgba(2, 180, 127, 0.4); }
+
+  .audio-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-24);
+  }
+  .audio-controls .ctrl-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-neutral-3);
+    color: var(--color-text-primary);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-default);
+    opacity: 0.75;
+  }
+  .audio-controls .ctrl-btn:hover { opacity: 1; background: var(--color-neutral-4); }
+  .audio-controls .ctrl-btn:active { transform: scale(0.92); }
+  .audio-controls .ctrl-btn.primary {
+    width: 52px;
+    height: 52px;
+    background: var(--color-brand-primary);
+    color: var(--color-text-inverse);
+    opacity: 1;
+    box-shadow: 0 4px 10px rgba(2, 180, 127, 0.25);
+  }
+  .audio-controls .ctrl-btn.primary:hover { box-shadow: 0 6px 14px rgba(2, 180, 127, 0.35); }
+  .audio-controls .ctrl-btn .slow-label {
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.5px;
+  }
+  .audio-timer {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-size-Caption-L);
+    color: var(--color-text-tertiary);
+    margin-top: var(--spacing-12);
+  }
+
+  /* ============================================
+     Dictation Section
+     ============================================ */
+  .dictation-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-12);
+  }
+  .dictation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .dictation-header .sentence-label {
+    font-size: var(--font-size-Subtitle-S);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+  }
+  .dictation-header .sentence-count {
+    font-size: var(--font-size-Caption-L);
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Sentence Display */
+  .sentence-display {
+    font-size: var(--font-size-Body-M);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-base);
+    background: var(--color-neutral-2);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-16);
+    text-align: center;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+  }
+
+  /* Dictation Input */
+  .dictation-input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  .dictation-input-wrapper textarea,
+  .dictation-input-wrapper .input-field {
+    width: 100%;
+    height: 56px;
+    padding: var(--spacing-16);
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-Body-M);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-primary);
+    background: var(--color-background-surface);
+    border: var(--component-input-border);
+    border-radius: var(--component-input-border-radius);
+    outline: none;
+    resize: none;
+    transition: var(--transition-default);
+    line-height: 1.4;
+  }
+  .dictation-input-wrapper .input-field:focus {
+    border: var(--component-input-border-focus);
+    box-shadow: 0 0 0 3px rgba(2, 180, 127, 0.12);
+  }
+  .dictation-input-wrapper .input-field::placeholder {
+    color: var(--color-neutral-6);
+  }
+
+  /* Result tags */
+  .dictation-result-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    padding: var(--spacing-8) 0 0;
+  }
+  .result-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4) var(--spacing-10);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-Caption-L);
+    font-weight: var(--font-weight-medium);
+  }
+  .result-tag.correct {
+    background: rgba(46, 204, 113, 0.1);
+    color: var(--color-success);
+  }
+  .result-tag.error {
+    background: rgba(231, 76, 60, 0.1);
+    color: var(--color-error);
+  }
+
+  /* Word-by-word comparison */
+  .word-comparison {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-6);
+    padding: var(--spacing-12) 0;
+  }
+  .word-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-Body-S);
+    line-height: 1.6;
+  }
+  .word-chip.correct { background: rgba(46, 204, 113, 0.12); color: #1A9E5E; }
+  .word-chip.error { background: rgba(231, 76, 60, 0.1); color: var(--color-error); text-decoration: line-through; }
+  .word-chip.missed { background: rgba(231, 76, 60, 0.06); color: var(--color-error); border: 1px dashed rgba(231, 76, 60, 0.3); }
+  .word-chip.correct-answer { color: var(--color-success); font-weight: var(--font-weight-medium); }
+
+  /* ============================================
+     Bottom: Score + Button
+     ============================================ */
+  .bottom-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    padding: var(--spacing-16) var(--spacing-20) var(--spacing-32);
+    background: var(--color-background-surface);
+    border-top: 1px solid var(--color-border-light);
+    flex-shrink: 0;
+  }
+  .score-display {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    flex-shrink: 0;
+  }
+  .score-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-4) var(--spacing-12);
+    border-radius: var(--border-radius-md);
+    background: rgba(2, 180, 127, 0.08);
+    min-width: 60px;
+  }
+  .score-badge .score-value {
+    font-size: var(--font-size-Title-M);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-brand-primary);
+    line-height: 1.2;
+  }
+  .score-badge .score-label {
+    font-size: var(--font-size-Caption-M);
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .bottom-bar .btn-next {
+    flex: 1;
+    height: var(--component-button-size-lg-height);
+    background: var(--component-button-background-primary);
+    border: none;
+    border-radius: var(--component-button-border-radius);
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-Body-M);
+    font-weight: var(--component-button-font-weight);
+    color: var(--color-text-inverse);
+    cursor: pointer;
+    transition: var(--transition-default);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-8);
+    box-shadow: 0 4px 12px rgba(2, 180, 127, 0.3);
+  }
+  .bottom-bar .btn-next:hover {
+    box-shadow: 0 6px 16px rgba(2, 180, 127, 0.4);
+    transform: translateY(-1px);
+  }
+  .bottom-bar .btn-next:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(2, 180, 127, 0.25);
+  }
+
+  /* Safe area spacer */
+  .safe-area { height: 0; }
+</style>
+</head>
+<body>
+
+<div class="iphone-frame">
+
+  <!-- Dynamic Island -->
+  <div class="dynamic-island">
+    <div class="camera-dot"></div>
+    <div class="sensor-dot"></div>
+  </div>
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0.5" y="4.5" width="3" height="7" rx="0.5" stroke="currentColor" stroke-opacity="0.9"/><rect x="4.5" y="2.5" width="3" height="9" rx="0.5" stroke="currentColor" stroke-opacity="0.9"/><rect x="8.5" y="0.5" width="3" height="11" rx="0.5" stroke="currentColor" stroke-opacity="0.9"/><rect x="12.5" y="2" width="3" height="8" rx="0.5" stroke="currentColor" stroke-opacity="0.4"/></svg>
+      <svg width="14" height="12" viewBox="0 0 14 12" fill="none"><path d="M7 0.5L9.5 4.5L14 5.5L10.5 9L11.5 13.5L7 11L2.5 13.5L3.5 9L0 5.5L4.5 4.5L7 0.5Z" fill="currentColor" opacity="0.9"/></svg>
+    </div>
+  </div>
+
+  <!-- Top Navigation -->
+  <div class="top-nav">
+    <div class="nav-left">
+      <div class="back-arrow">←</div>
+      <span>返回</span>
+    </div>
+    <div class="nav-title">听写训练</div>
+    <div class="nav-right">完成</div>
+  </div>
+
+  <!-- Scrollable Content -->
+  <div class="content">
+
+    <!-- Three-Step Progress (盲听→听写→跟读) -->
+    <div style="display: flex; align-items: flex-start; position: relative;">
+      <div class="step-progress" style="flex:1; gap:0;">
+        <div class="step-item">
+          <div class="step-dot completed">✓</div>
+          <div class="step-label completed">盲听</div>
+        </div>
+        <div class="step-connector filled" style="top:16px;"></div>
+        <div class="step-item">
+          <div class="step-dot active">2</div>
+          <div class="step-label active">听写</div>
+        </div>
+        <div class="step-connector" style="top:16px;"></div>
+        <div class="step-item">
+          <div class="step-dot">3</div>
+          <div class="step-label">跟读</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio Player Card -->
+    <div class="audio-card">
+      <div class="audio-header">第 3 句 · 点击播放</div>
+      <div class="audio-wave playing">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      </div>
+      <div class="audio-controls">
+        <button class="ctrl-btn" title="重播">⟳</button>
+        <button class="ctrl-btn" title="慢速"><span class="slow-label">0.5×</span></button>
+        <button class="ctrl-btn primary" title="播放/暂停">▶</button>
+        <button class="ctrl-btn" title="上一句">⏮</button>
+        <button class="ctrl-btn" title="下一句">⏭</button>
+      </div>
+      <div class="audio-timer">
+        <span>00:03 / 00:08</span>
+        <span>—0.5×—</span>
+      </div>
+    </div>
+
+    <!-- Dictation Section -->
+    <div class="dictation-section">
+      <div class="dictation-header">
+        <span class="sentence-label">你的听写</span>
+        <span class="sentence-count">第 3 / 8 句</span>
+      </div>
+
+      <!-- Hint / original sentence (hidden before listening) -->
+      <div class="sentence-display">
+        "..." 点击播放音频开始听写
+      </div>
+
+      <!-- Input -->
+      <div class="dictation-input-wrapper">
+        <textarea class="input-field" placeholder="写下你听到的内容..." rows="2"></textarea>
+      </div>
+
+      <!-- Results comparison (shown after submission) -->
+      <div class="dictation-result-row">
+        <span class="result-tag correct">✓ 拼写正确</span>
+        <span class="result-tag error">✗ 3 处错误</span>
+      </div>
+
+      <div class="word-comparison">
+        <span class="word-chip correct">I</span>
+        <span class="word-chip correct">really</span>
+        <span class="word-chip error">appriciate</span>
+        <span class="word-chip correct">your</span>
+        <span class="word-chip error">efferts</span>
+        <span class="word-chip correct">on</span>
+        <span class="word-chip correct">this</span>
+        <span class="word-chip missed">project</span>
+        <span class="word-chip correct-answer">→ appreciate</span>
+        <span class="word-chip correct-answer">→ efforts</span>
+        <span class="word-chip correct-answer">→ project</span>
+      </div>
+
+      <!-- Right answer reference -->
+      <div style="font-size: var(--font-size-Body-S); color: var(--color-text-secondary); padding: var(--spacing-8) 0; border-top: 1px solid var(--color-border-light);">
+        <span style="font-weight:var(--font-weight-medium);color:var(--color-text-primary)">原文：</span>
+        <span>"I really <span style="color:var(--color-success);font-weight:var(--font-weight-medium)">appreciate</span> your <span style="color:var(--color-success);font-weight:var(--font-weight-medium)">efforts</span> on this <span style="color:var(--color-success);font-weight:var(--font-weight-medium)">project</span>."</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom: Score + Next Button -->
+  <div class="bottom-bar">
+    <div class="score-display">
+      <div class="score-badge">
+        <span class="score-value">72</span>
+        <span class="score-label">分</span>
+      </div>
+    </div>
+    <button class="btn-next">
+      <span>下一句</span>
+      <span>→</span>
+    </button>
+  </div>
+
+  <!-- Safe Area -->
+  <div class="safe-area"></div>
+
+</div>
+
+</body>
+</html>

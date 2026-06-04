@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>绿色方案 - 听刻</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+    background: #F0F2F5;
+    padding: 32px 20px;
+  }
+  h1 { font-size: 24px; margin-bottom: 4px; }
+  .sub { color: #636E72; font-size: 14px; margin-bottom: 24px; }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .swatch {
+    width: 60px; height: 60px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    border: 1.5px solid rgba(0,0,0,0.06);
+  }
+  .info { flex: 1; }
+  .name { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+  .hex { font-size: 14px; color: #636E72; font-family: monospace; margin-bottom: 4px; }
+  .combo { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #636E72; }
+  .mini { width: 16px; height: 16px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.06); flex-shrink: 0; }
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 8px;
+    background: #E8EDF2;
+    color: #636E72;
+    margin-left: 6px;
+    font-weight: 500;
+  }
+  .tag.rec { background: #E8F5E9; color: #2D6A4F; }
+  .preview-bar {
+    display: flex;
+    height: 32px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .preview-bar div { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.85); }
+</style>
+</head>
+<body>
+  <h1>🌿 绿色方案</h1>
+  <div class="sub">搭配暖橙 #FF6B35 · 点击色块复制色值</div>
+
+  <div class="card" onclick="copy('#2D6A4F')">
+    <div class="swatch" style="background:#2D6A4F"></div>
+    <div class="info">
+      <div class="name">🌲 森林绿 <span class="tag rec">推荐</span></div>
+      <div class="hex">#2D6A4F</div>
+      <div class="combo"><span class="mini" style="background:#2D6A4F"></span> + <span class="mini" style="background:#FF6B35"></span> 沉稳 · 自然 · 专业</div>
+      <div class="preview-bar"><div style="background:#2D6A4F">主色</div><div style="background:#FF6B35">强调</div></div>
+    </div>
+  </div>
+
+  <div class="card" onclick="copy('#5B8C5A')">
+    <div class="swatch" style="background:#5B8C5A"></div>
+    <div class="info">
+      <div class="name">🌿 鼠尾草绿 <span class="tag rec">推荐</span></div>
+      <div class="hex">#5B8C5A</div>
+      <div class="combo"><span class="mini" style="background:#5B8C5A"></span> + <span class="mini" style="background:#FF6B35"></span> 柔和 · 高级 · 灰度感</div>
+      <div class="preview-bar"><div style="background:#5B8C5A">主色</div><div style="background:#FF6B35">强调</div></div>
+    </div>
+  </div>
+
+  <div class="card" onclick="copy('#2C7A5A')">
+    <div class="swatch" style="background:#2C7A5A"></div>
+    <div class="info">
+      <div class="name">🌱 松石绿</div>
+      <div class="hex">#2C7A5A</div>
+      <div class="combo"><span class="mini" style="background:#2C7A5A"></span> + <span class="mini" style="background:#FF6B35"></span> 清亮 · 现代 · 偏青</div>
+      <div class="preview-bar"><div style="background:#2C7A5A">主色</div><div style="background:#FF6B35">强调</div></div>
+    </div>
+  </div>
+
+  <div class="card" onclick="copy('#4A7C59')">
+    <div class="swatch" style="background:#4A7C59"></div>
+    <div class="info">
+      <div class="name">🫒 橄榄绿</div>
+      <div class="hex">#4A7C59</div>
+      <div class="combo"><span class="mini" style="background:#4A7C59"></span> + <span class="mini" style="background:#FF6B35"></span> 质朴 · 踏实 · 低调</div>
+      <div class="preview-bar"><div style="background:#4A7C59">主色</div><div style="background:#FF6B35">强调</div></div>
+    </div>
+  </div>
+
+  <div class="card" onclick="copy('#1B4332')">
+    <div class="swatch" style="background:#1B4332"></div>
+    <div class="info">
+      <div class="name">🌲 深墨绿</div>
+      <div class="hex">#1B4332</div>
+      <div class="combo"><span class="mini" style="background:#1B4332"></span> + <span class="mini" style="background:#FF6B35"></span> 深沉 · ⚠️ 偏暗需注意对比</div>
+      <div class="preview-bar"><div style="background:#1B4332">主色</div><div style="background:#FF6B35">强调</div></div>
+    </div>
+  </div>
+
+  <script>
+    function copy(hex) {
+      navigator.clipboard.writeText(hex).then(() => {
+        const el = event.currentTarget;
+        const orig = el.style.outline;
+        el.style.outline = '2px solid #2D6A4F';
+        setTimeout(() => el.style.outline = orig, 600);
+      });
+    }
+  </script>
+</body>
+</html>

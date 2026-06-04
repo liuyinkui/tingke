@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听刻 · 毛玻璃风格设计稿</title>
+<style>
+  :root {
+    --glass-bg: rgba(255,255,255,0.75);
+    --glass-border: rgba(255,255,255,0.3);
+    --glass-shadow: 0 8px 32px rgba(30,58,95,0.12);
+    --primary: #1E3A5F;
+    --primary-light: #2D5A8E;
+    --accent: #FF6B35;
+    --accent-light: #FF8C5A;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-hint: #94A3B8;
+    --success: #00B894;
+    --error: #FF6B6B;
+    --font: -apple-system, "PingFang SC", "Segoe UI", system-ui, sans-serif;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-max: 24px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: var(--font);
+    padding: 20px;
+    /* Animated gradient background */
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* iPhone 14 Pro frame */
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: transparent;
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 0 0 8px #1a1a2e,
+      0 0 0 10px #2a2a3e,
+      0 30px 80px rgba(0,0,0,0.5);
+  }
+
+  .dynamic-island {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 126px;
+    height: 36px;
+    background: #111;
+    border-radius: 20px;
+    z-index: 10;
+  }
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Animated gradient background for the screen */
+  .screen::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      rgba(102, 126, 234, 0.15),
+      rgba(118, 75, 162, 0.1),
+      rgba(255, 107, 53, 0.08),
+      rgba(102, 126, 234, 0.15)
+    );
+    animation: screenShift 12s ease infinite;
+    z-index: 0;
+  }
+
+  @keyframes screenShift {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(-5%, 5%); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* Status Bar */
+  .status-bar {
+    position: relative;
+    z-index: 2;
+    height: 54px;
+    padding: 54px 28px 0 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255,255,255,0.9);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .status-left { display: flex; align-items: center; gap: 4px; }
+  .status-right { display: flex; align-items: center; gap: 6px; }
+  .status-time { font-size: 16px; font-weight: 700; }
+  .battery { width: 22px; height: 11px; border: 1.5px solid rgba(255,255,255,0.8); border-radius: 3px; padding: 1px; }
+  .battery-fill { width: 70%; height: 100%; background: rgba(255,255,255,0.8); border-radius: 1px; }
+
+  /* Content area */
+  .content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    padding: 20px 20px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+  }
+
+  /* Streak card — glass */
+  .streak-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--glass-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .streak-left { display: flex; align-items: center; gap: 12px; }
+  .streak-fire {
+    font-size: 36px;
+    animation: flicker 1.5s ease-in-out infinite;
+  }
+
+  @keyframes flicker {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.1) rotate(3deg); }
+    75% { transform: scale(0.95) rotate(-2deg); }
+  }
+
+  .streak-number { font-size: 32px; font-weight: 700; color: var(--accent); }
+  .streak-label { font-size: 14px; color: var(--text-secondary); }
+  .streak-days { font-size: 24px; font-weight: 700; color: var(--accent); }
+  .streak-sub { font-size: 13px; color: var(--text-secondary); }
+
+  /* Main CTA glass card */
+  .cta-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-max);
+    padding: 32px 24px;
+    box-shadow: var(--glass-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .cta-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(30,58,95,0.3);
+  }
+
+  .cta-icon svg { width: 40px; height: 40px; fill: white; }
+
+  .cta-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+  }
+
+  .cta-subtitle {
+    font-size: 15px;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .cta-button {
+    width: 100%;
+    height: 56px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    border-radius: var(--radius-md);
+    border: none;
+    box-shadow: 0 4px 16px rgba(30,58,95,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(30,58,95,0.45);
+  }
+
+  .cta-button:active { transform: translateY(0); }
+
+  .cta-button-text {
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .cta-button svg { width: 20px; height: 20px; fill: white; }
+
+  /* Progress preview — glass */
+  .progress-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    box-shadow: var(--glass-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .progress-stat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .progress-number { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .progress-label { font-size: 12px; color: var(--text-secondary); }
+
+  /* Bottom navigation — glass */
+  .bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(255,255,255,0.3);
+    padding: 8px 20px 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    padding: 4px 12px;
+    border-radius: var(--radius-sm);
+    transition: background 0.2s;
+  }
+
+  .nav-item:hover { background: rgba(30,58,95,0.05); }
+
+  .nav-item.active svg { fill: var(--primary); }
+  .nav-item.active .nav-label { color: var(--primary); font-weight: 600; }
+  .nav-item svg { width: 24px; height: 24px; fill: var(--text-hint); }
+  .nav-label { font-size: 11px; color: var(--text-hint); transition: color 0.2s; }
+
+  /* Page indicator for glass effect */
+  .glass-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    display: inline-block;
+  }
+
+  /* Scrollbar style */
+  .content::-webkit-scrollbar { width: 0; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="dynamic-island"></div>
+  <div class="screen">
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span class="status-time">9:41</span>
+      </div>
+      <div class="status-right">
+        <span>📶</span>
+        <span>🔋</span>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+
+      <!-- Streak Card -->
+      <div class="streak-card">
+        <div class="streak-left">
+          <span class="streak-fire">🔥</span>
+          <div>
+            <div class="streak-days">7</div>
+            <div class="streak-sub">连续打卡</div>
+          </div>
+        </div>
+        <div>
+          <div class="streak-number">+39%</div>
+          <div class="streak-label">较上周提升</div>
+        </div>
+      </div>
+
+      <!-- Main CTA Glass Card -->
+      <div class="cta-card">
+        <div class="cta-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        </div>
+        <div class="cta-title">准备好练习了吗？</div>
+        <div class="cta-subtitle">今天有一段新的精听素材等着你<br/>盲听 → 听写 → 跟读，15分钟完成</div>
+        <button class="cta-button" onclick="this.innerHTML='<span class=cta-button-text>▶ 开始今日练习</span>'">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span class="cta-button-text">开始今日练习</span>
+        </button>
+      </div>
+
+      <!-- Progress Stats -->
+      <div class="progress-card">
+        <div class="progress-stat">
+          <span class="progress-number">14</span>
+          <span class="progress-label">累计天数</span>
+        </div>
+        <div class="progress-stat">
+          <span class="progress-number">72%</span>
+          <span class="progress-label">辨音准确率</span>
+        </div>
+        <div class="progress-stat">
+          <span class="progress-number">48</span>
+          <span class="progress-label">本周分钟</span>
+        </div>
+        <div class="progress-stat">
+          <span class="progress-number">32</span>
+          <span class="progress-label">掌握词汇</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span class="nav-label">首页</span>
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+        <span class="nav-label">素材库</span>
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <span class="nav-label">个人</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

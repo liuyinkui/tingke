@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>听刻 · V1沉浸 · 完成</title><style>
+:root{--brand:#02B47F;--brand-dark:#019A6C;--brand-light:rgba(2,180,127,0.08);--success:#2ECC71;--error:#E74C3C;--bg:#F1F3F5;--surface:#fff;--divider:#E9ECF0;--text-primary:rgba(0,0,0,.9);--text-secondary:rgba(0,0,0,.6);--text-tertiary:rgba(0,0,0,.3);--radius-md:8px;--radius-mg:12px;--radius-lg:16px;--radius-xl:24px;--font:'PingFang SC',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#DDE0DD;font-family:var(--font)}
+.phone{position:relative;width:390px;height:844px;background:linear-gradient(160deg,#F1F3F5,#fff);border-radius:32px;overflow:hidden;box-shadow:0 0 0 2px #2C2C2E,0 0 0 6px #1C1C1E,0 20px 60px rgba(0,0,0,.5)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:126px;height:36px;background:#111;border-radius:999px;z-index:100}
+.status{height:54px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 4px;font-size:15px;font-weight:600;color:var(--text-primary)}.status .t{font-size:16px;font-weight:700}
+.content{padding:30px 28px 34px;display:flex;flex-direction:column;align-items:center;height:calc(100% - 54px)}
+.celebration{text-align:center;animation:celebrate .6s var(--ease) .1s both}
+.celebration .icon{font-size:48px;display:block;margin-bottom:8px;animation:bounce .8s var(--ease) .3s}
+.celebration .ttl{font-size:24px;font-weight:700;color:var(--text-primary);margin-bottom:4px}
+.celebration .sub{font-size:14px;color:var(--text-secondary)}
+@keyframes bounce{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes celebrate{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.stats{display:flex;gap:12px;margin:28px 0;width:100%}
+.stat{flex:1;background:var(--surface);border-radius:var(--radius-lg);padding:16px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,.08);border:1px solid var(--divider);animation:celebrate .5s var(--ease) .3s both}
+.stat:nth-child(2){animation-delay:.4s}.stat:nth-child(3){animation-delay:.5s}
+.stat .num{font-size:28px;font-weight:700;color:var(--brand)}.stat .num.g{color:var(--success)}
+.stat .lbl{font-size:12px;color:var(--text-secondary);margin-top:4px}
+
+.streak-update{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--brand),#017A5E);border-radius:var(--radius-xl);padding:16px 24px;color:#fff;width:100%;animation:celebrate .5s var(--ease) .55s both}
+.streak-update .icon{font-size:28px}
+.streak-update .info{flex:1}
+.streak-update .info .n{font-size:22px;font-weight:700}
+.streak-update .info .d{font-size:12px;opacity:.7;margin-top:2px}
+.streak-update .badge{background:rgba(255,255,255,.15);border-radius:999px;padding:4px 12px;font-size:12px}
+
+.spacer{flex:1}
+.actions{width:100%;display:flex;flex-direction:column;gap:12px;animation:celebrate .5s var(--ease) .6s both}
+.share-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:50px;background:var(--brand);color:#fff;font-size:16px;font-weight:600;border:none;border-radius:var(--radius-mg);cursor:pointer;box-shadow:0 4px 12px rgba(2,180,127,.25);transition:all .25s var(--ease)}
+.share-btn:hover{background:var(--brand-dark)}
+.link-btn{display:flex;align-items:center;justify-content:center;width:100%;height:44px;background:transparent;color:var(--text-secondary);font-size:15px;font-weight:500;border:none;cursor:pointer;border-radius:var(--radius-mg);transition:all .2s}
+.link-btn:hover{background:var(--divider);color:var(--text-primary)}
+</style></head><body>
+<div class="phone"><div class="island"></div>
+<div class="status"><span class="t">9:41</span></div>
+<div class="content">
+<div class="celebration"><span class="icon">🎉</span><div class="ttl">今日练习完成！</div><div class="sub">你的努力让耳朵又进步了一点</div></div>
+<div class="stats">
+<div class="stat"><div class="num g">92%</div><div class="lbl">辨音准确率</div></div>
+<div class="stat"><div class="num">3</div><div class="lbl">盲区词汇</div></div>
+<div class="stat"><div class="num">15m</div><div class="lbl">学习时长</div></div>
+</div>
+<div class="streak-update">
+<div class="icon">🔥</div>
+<div class="info"><div class="n">13 天连续打卡</div><div class="d">比昨天多了一天，继续加油！</div></div>
+<div class="badge">+1</div>
+</div>
+<div class="spacer"></div>
+<div class="actions">
+<button class="share-btn">📷 分享打卡</button>
+<button class="link-btn">明天继续 →</button>
+</div>
+</div></div></body></html>

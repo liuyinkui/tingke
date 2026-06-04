@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听刻 · 听写页面 V3 — 高保真设计稿</title>
+<style>
+  /* ═══════════════════════════════════════════════
+     DESIGN SYSTEM TOKENS
+     ═══════════════════════════════════════════════ */
+  :root {
+    --primary: #1E3A5F;
+    --primary-light: #2D5A8E;
+    --primary-bg: #E8EDF2;
+    --accent: #FF6B35;
+    --accent-light: #FF8C5A;
+    --bg: #F5F7FA;
+    --surface: #FFFFFF;
+    --text-primary: #2D3436;
+    --text-secondary: #636E72;
+    --text-hint: #B2BEC3;
+    --success: #00B894;
+    --error: #FF6B6B;
+    --divider: #DFE6E9;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-max: 24px;
+    --shadow-card: 0 2px 8px rgba(0,0,0,0.08);
+    --font: -apple-system, "PingFang SC", "SF Pro", "Helvetica Neue", sans-serif;
+  }
+
+  /* ═══════════════════════════════════════════════
+     RESET & BODY
+     ═══════════════════════════════════════════════ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1A1A2E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: var(--font);
+    padding: 20px;
+  }
+
+  /* ═══════════════════════════════════════════════
+     iPhone 14 Pro FRAME
+     ═══════════════════════════════════════════════ */
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: var(--surface);
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 0 0 8px #222,
+      0 0 0 10px #444,
+      0 24px 80px rgba(0,0,0,0.35);
+  }
+
+  .dynamic-island {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 126px;
+    height: 36px;
+    background: #111;
+    border-radius: 20px;
+    z-index: 20;
+    pointer-events: none;
+  }
+
+  /* ═══════════════════════════════════════════════
+     SCREEN
+     ═══════════════════════════════════════════════ */
+  .screen {
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* ═══════════════════════════════════════════════
+     STATUS BAR
+     ═══════════════════════════════════════════════ */
+  .status-bar {
+    height: 54px;
+    padding: 54px 32px 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    z-index: 15;
+  }
+  .status-bar .time {
+    font-size: 15px;
+    font-weight: 590;
+    color: var(--text-primary);
+  }
+  .status-icons {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .status-icons svg { display: block; }
+
+  /* ═══════════════════════════════════════════════
+     TOP BAR — 退出 + 步骤指示器
+     ═══════════════════════════════════════════════ */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 24px 0;
+    flex-shrink: 0;
+  }
+
+  /* ── Exit Button ── */
+  .btn-exit {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--text-hint);
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: all 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+  .btn-exit:hover {
+    background: var(--divider);
+  }
+  .btn-exit:active {
+    transform: scale(0.92);
+  }
+  .btn-exit:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ── Step Indicator ── */
+  .step-track {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .step-dot {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+  }
+  .step-dot.done {
+    background: #E8F8F5;
+    color: var(--success);
+  }
+  .step-dot.active {
+    background: var(--accent);
+    color: #FFF;
+    box-shadow: 0 0 0 4px rgba(255,107,53,0.15);
+    animation: step-pulse 2s ease-in-out infinite;
+  }
+  @keyframes step-pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(255,107,53,0.15); }
+    50% { box-shadow: 0 0 0 6px rgba(255,107,53,0.08); }
+  }
+  .step-dot.pending {
+    background: var(--divider);
+    color: var(--text-hint);
+  }
+  .step-line {
+    width: 28px;
+    height: 2px;
+    border-radius: 1px;
+    transition: background 0.3s ease;
+  }
+  .step-line.done { background: var(--success); }
+  .step-line.pending { background: var(--divider); }
+
+  /* ── Step Labels ── */
+  .step-labels {
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+    margin-top: 5px;
+    padding: 0 28px;
+    flex-shrink: 0;
+  }
+  .step-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-hint);
+    text-align: center;
+    transition: color 0.3s ease;
+  }
+  .step-label.done { color: var(--success); }
+  .step-label.active { color: var(--accent); font-weight: 600; }
+
+  /* ═══════════════════════════════════════════════
+     CONTENT (scrollable)
+     ═══════════════════════════════════════════════ */
+  .content {
+    flex: 1;
+    padding: 14px 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+  }
+
+  /* ── Section Header ── */
+  .section-header {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  /* ═══════════════════════════════════════════════
+     CARD — Waveform Player
+     ═══════════════════════════════════════════════ */
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    flex-shrink: 0;
+  }
+
+  .waveform-svg {
+    width: 100%;
+    height: 48px;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .playback-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    margin-bottom: 10px;
+  }
+  .ctrl-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+  .ctrl-btn:hover { background: var(--bg); }
+  .ctrl-btn:active { transform: scale(0.9); }
+  .ctrl-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .ctrl-btn.btn-play {
+    width: 44px;
+    height: 44px;
+    background: var(--primary);
+    color: #FFF;
+    font-size: 18px;
+    box-shadow: 0 3px 10px rgba(30,58,95,0.25);
+  }
+  .ctrl-btn.btn-play:hover {
+    background: var(--primary-light);
+  }
+  .ctrl-btn.btn-play:active {
+    transform: scale(0.95);
+  }
+
+  .playback-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid var(--bg);
+  }
+  .playback-meta .sentence-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .playback-meta .time-display {
+    font-size: 12px;
+    color: var(--text-hint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .speed-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--primary);
+    cursor: pointer;
+    transition: background 0.15s;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .speed-chip:hover { background: var(--divider); }
+  .speed-chip:active { background: var(--primary-bg); }
+
+  /* ═══════════════════════════════════════════════
+     CARD — Dictation Input
+     ═══════════════════════════════════════════════ */
+  .word-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    min-height: 72px;
+    line-height: 2;
+    margin-bottom: 10px;
+  }
+
+  .word-token {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    border-radius: var(--radius-sm);
+    padding: 2px 10px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  .word-token.correct {
+    background: #E8F8F5;
+    color: var(--success);
+  }
+  .word-token.error {
+    background: #FFF5F5;
+    color: var(--error);
+    text-decoration: line-through;
+    text-decoration-color: var(--error);
+    text-decoration-thickness: 1.5px;
+  }
+  .word-token.error .correction {
+    font-weight: 600;
+    color: var(--error);
+    text-decoration: none;
+    margin-left: 2px;
+  }
+  .word-token.blank {
+    background: var(--bg);
+    color: var(--text-hint);
+  }
+  .word-token.blank .dash {
+    letter-spacing: 2px;
+  }
+
+  /* Active input field */
+  .word-input {
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    min-width: 52px;
+    padding: 0 8px;
+    border: none;
+    border-bottom: 2.5px solid var(--divider);
+    font-size: 15px;
+    font-weight: 500;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: transparent;
+    outline: none;
+    caret-color: var(--accent);
+    transition: border-bottom-color 0.2s ease;
+  }
+  .word-input::placeholder {
+    color: var(--text-hint);
+    font-size: 13px;
+    font-weight: 400;
+  }
+  .word-input:focus {
+    border-bottom-color: var(--primary);
+  }
+  .word-input:focus-visible {
+    border-bottom-color: var(--primary);
+    border-bottom-width: 3px;
+  }
+
+  /* Input error state (wrong answer) */
+  .word-input.error {
+    border-bottom-color: var(--error);
+    color: var(--error);
+  }
+
+  /* ── Dictation Meta ── */
+  .dictation-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .dictation-meta .sentence-text {
+    font-size: 12px;
+    color: var(--text-hint);
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .dictation-meta .word-progress {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+  .dictation-meta .word-progress span {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .tap-hint {
+    font-size: 11px;
+    color: var(--text-hint);
+    text-align: center;
+  }
+
+  /* ═══════════════════════════════════════════════
+     ACTION BUTTONS
+     ═══════════════════════════════════════════════ */
+  .action-row {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .btn-secondary {
+    flex: 1;
+    height: 48px;
+    background: var(--surface);
+    color: var(--text-secondary);
+    border: 1.5px solid var(--divider);
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+  .btn-secondary:hover {
+    background: var(--bg);
+    border-color: var(--text-hint);
+  }
+  .btn-secondary:active {
+    background: var(--divider);
+    transform: scale(0.98);
+  }
+  .btn-secondary:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+  .btn-secondary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .btn-primary-sm {
+    flex: 2;
+    height: 48px;
+    background: var(--primary);
+    color: #FFF;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: 0 3px 10px rgba(30,58,95,0.25);
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+  .btn-primary-sm:hover {
+    background: var(--primary-light);
+  }
+  .btn-primary-sm:active {
+    transform: scale(0.98);
+    box-shadow: 0 1px 6px rgba(30,58,95,0.15);
+  }
+  .btn-primary-sm:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .btn-primary-sm:disabled {
+    background: var(--primary-bg);
+    color: rgba(30,58,95,0.4);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  /* ═══════════════════════════════════════════════
+     CARD — Previous Result
+     ═══════════════════════════════════════════════ */
+  .result-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    box-shadow: var(--shadow-card);
+    flex-shrink: 0;
+  }
+  .result-card .result-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-hint);
+    margin-bottom: 10px;
+  }
+  .result-card .result-words {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .result-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .result-tag.r-correct {
+    background: #E8F8F5;
+    color: var(--success);
+  }
+  .result-tag.r-error {
+    background: #FFF5F5;
+    color: var(--error);
+  }
+  .result-tag.r-error .r-fix {
+    font-weight: 600;
+    color: var(--error);
+    margin-left: 2px;
+  }
+  .result-tag.r-blank {
+    background: var(--bg);
+    color: var(--text-hint);
+  }
+
+  .spacer-flex { flex: 1; min-height: 8px; }
+
+  /* ═══════════════════════════════════════════════
+     SAFE AREA
+     ═══════════════════════════════════════════════ */
+  .safe-area {
+    height: 34px;
+    flex-shrink: 0;
+  }
+
+  .design-label {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: var(--text-hint);
+    background: rgba(0,0,0,0.04);
+    padding: 2px 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    z-index: 5;
+  }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="screen">
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="status-icons">
+        <svg width="17" height="12" viewBox="0 0 17 12">
+          <rect x="0" y="8" width="3" height="4" rx="0.5" fill="#2D3436"/>
+          <rect x="4.5" y="5" width="3" height="7" rx="0.5" fill="#2D3436"/>
+          <rect x="9" y="2.5" width="3" height="9.5" rx="0.5" fill="#2D3436"/>
+          <rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="#2D3436"/>
+        </svg>
+        <svg width="15" height="12" viewBox="0 0 15 12">
+          <circle cx="7.5" cy="10.5" r="1.2" fill="#2D3436"/>
+          <path d="M7.5 6.5C9.09 6.5 10.5 7.12 11.54 8.14L10.48 9.2C9.72 8.44 8.66 8 7.5 8C6.34 8 5.28 8.44 4.52 9.2L3.46 8.14C4.5 7.12 5.91 6.5 7.5 6.5Z" fill="#2D3436"/>
+          <path d="M7.5 3.5C10.08 3.5 12.42 4.5 14.14 6.21L13.08 7.27C11.64 5.83 9.68 5 7.5 5C5.32 5 3.36 5.83 1.92 7.27L0.86 6.21C2.58 4.5 4.92 3.5 7.5 3.5Z" fill="#2D3436"/>
+          <path d="M7.5 0.5C11.08 0.5 14.33 1.89 16.71 4.27L15.65 5.33C13.55 3.23 10.68 2 7.5 2C4.32 2 1.45 3.23 0.35 5.33L-0.71 4.27C1.67 1.89 4.92 0.5 7.5 0.5Z" fill="#2D3436"/>
+        </svg>
+        <svg width="25" height="12" viewBox="0 0 25 12">
+          <rect x="0.5" y="0.5" width="21" height="11" rx="2" fill="none" stroke="#2D3436" stroke-width="1"/>
+          <rect x="2" y="2" width="18" height="8" rx="1.5" fill="#00B894"/>
+          <rect x="22" y="4" width="3" height="4" rx="1" fill="#2D3436"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Top Bar: Step + Exit -->
+    <div class="top-bar">
+      <div class="step-track">
+        <div class="step-dot done">✓</div>
+        <div class="step-line done"></div>
+        <div class="step-dot active">2</div>
+        <div class="step-line pending"></div>
+        <div class="step-dot pending">3</div>
+      </div>
+      <button class="btn-exit" aria-label="退出听写">✕</button>
+    </div>
+
+    <!-- Step Labels -->
+    <div class="step-labels">
+      <div class="step-label done">盲听</div>
+      <div class="step-label active">听写</div>
+      <div class="step-label">跟读</div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- Section Header -->
+      <div class="section-header">听懂了多少？打字试试</div>
+
+      <!-- Card: Waveform Player -->
+      <div class="card">
+        <svg class="waveform-svg" viewBox="0 0 310 48" preserveAspectRatio="none">
+          <rect x="0" y="22" width="3" height="6" rx="1.5" fill="#DFE6E9"/>
+          <rect x="5" y="20" width="3" height="10" rx="1.5" fill="#DFE6E9"/>
+          <rect x="10" y="16" width="3" height="18" rx="1.5" fill="#DFE6E9"/>
+          <rect x="15" y="12" width="3" height="26" rx="1.5" fill="#B2BEC3"/>
+          <rect x="20" y="10" width="3" height="30" rx="1.5" fill="#B2BEC3"/>
+          <rect x="25" y="8" width="3" height="34" rx="1.5" fill="#636E72"/>
+          <rect x="30" y="6" width="3" height="38" rx="1.5" fill="#FF6B35"/>
+          <rect x="35" y="4" width="3" height="42" rx="1.5" fill="#FF6B35"/>
+          <rect x="40" y="3" width="3" height="44" rx="1.5" fill="#FF6B35"/>
+          <rect x="45" y="4" width="3" height="42" rx="1.5" fill="#FF6B35"/>
+          <rect x="50" y="6" width="3" height="38" rx="1.5" fill="#FF6B35"/>
+          <rect x="55" y="8" width="3" height="34" rx="1.5" fill="#1E3A5F"/>
+          <rect x="60" y="12" width="3" height="26" rx="1.5" fill="#1E3A5F"/>
+          <rect x="65" y="16" width="3" height="18" rx="1.5" fill="#636E72"/>
+          <rect x="70" y="20" width="3" height="10" rx="1.5" fill="#B2BEC3"/>
+          <rect x="75" y="22" width="3" height="6" rx="1.5" fill="#DFE6E9"/>
+          <rect x="82" y="20" width="3" height="10" rx="1.5" fill="#DFE6E9"/>
+          <rect x="87" y="16" width="3" height="18" rx="1.5" fill="#B2BEC3"/>
+          <rect x="92" y="12" width="3" height="26" rx="1.5" fill="#636E72"/>
+          <rect x="97" y="10" width="3" height="30" rx="1.5" fill="#1E3A5F"/>
+          <rect x="102" y="8" width="3" height="34" rx="1.5" fill="#FF6B35"/>
+          <rect x="107" y="6" width="3" height="38" rx="1.5" fill="#FF6B35"/>
+          <rect x="112" y="5" width="3" height="40" rx="1.5" fill="#FF6B35"/>
+          <rect x="117" y="6" width="3" height="38" rx="1.5" fill="#FF6B35"/>
+          <rect x="122" y="8" width="3" height="34" rx="1.5" fill="#1E3A5F"/>
+          <rect x="127" y="12" width="3" height="26" rx="1.5" fill="#1E3A5F"/>
+          <rect x="132" y="16" width="3" height="18" rx="1.5" fill="#636E72"/>
+          <rect x="137" y="20" width="3" height="10" rx="1.5" fill="#B2BEC3"/>
+          <rect x="142" y="22" width="3" height="6" rx="1.5" fill="#DFE6E9"/>
+          <rect x="149" y="18" width="3" height="14" rx="1.5" fill="#B2BEC3"/>
+          <rect x="154" y="14" width="3" height="22" rx="1.5" fill="#636E72"/>
+          <rect x="159" y="10" width="3" height="30" rx="1.5" fill="#1E3A5F"/>
+          <rect x="164" y="8" width="3" height="34" rx="1.5" fill="#FF6B35"/>
+          <rect x="169" y="6" width="3" height="38" rx="1.5" fill="#FF6B35"/>
+          <rect x="174" y="4" width="3" height="42" rx="1.5" fill="#FF6B35"/>
+          <rect x="179" y="6" width="3" height="38" rx="1.5" fill="#FF6B35"/>
+          <rect x="184" y="8" width="3" height="34" rx="1.5" fill="#FF6B35"/>
+          <rect x="189" y="10" width="3" height="30" rx="1.5" fill="#1E3A5F"/>
+          <rect x="194" y="14" width="3" height="22" rx="1.5" fill="#636E72"/>
+          <rect x="199" y="18" width="3" height="14" rx="1.5" fill="#B2BEC3"/>
+          <rect x="204" y="22" width="3" height="6" rx="1.5" fill="#DFE6E9"/>
+          <rect x="211" y="22" width="3" height="6" rx="1.5" fill="#DFE6E9"/>
+          <rect x="216" y="20" width="3" height="10" rx="1.5" fill="#B2BEC3"/>
+          <rect x="221" y="16" width="3" height="18" rx="1.5" fill="#B2BEC3"/>
+          <rect x="226" y="14" width="3" height="22" rx="1.5" fill="#636E72"/>
+          <rect x="231" y="12" width="3" height="26" rx="1.5" fill="#636E72"/>
+          <rect x="236" y="10" width="3" height="30" rx="1.5" fill="#1E3A5F"/>
+          <rect x="241" y="8" width="3" height="34" rx="1.5" fill="#636E72"/>
+          <rect x="246" y="12" width="3" height="26" rx="1.5" fill="#B2BEC3"/>
+          <rect x="251" y="16" width="3" height="18" rx="1.5" fill="#B2BEC3"/>
+          <rect x="256" y="20" width="3" height="10" rx="1.5" fill="#DFE6E9"/>
+          <rect x="261" y="22" width="3" height="6" rx="1.5" fill="#DFE6E9"/>
+          <rect x="268" y="22" width="3" height="6" rx="1.5" fill="#E8EDF2"/>
+          <rect x="273" y="22" width="3" height="6" rx="1.5" fill="#E8EDF2"/>
+          <rect x="278" y="22" width="3" height="6" rx="1.5" fill="#E8EDF2"/>
+          <rect x="283" y="22" width="3" height="6" rx="1.5" fill="#E8EDF2"/>
+          <rect x="288" y="22" width="3" height="6" rx="1.5" fill="#E8EDF2"/>
+          <rect x="293" y="22" width="3" height="6" rx="1.5" fill="#E8EDF2"/>
+          <rect x="298" y="22" width="3" height="6" rx="1.5" fill="#E8EDF2"/>
+          <rect x="303" y="22" width="3" height="6" rx="1.5" fill="#E8EDF2"/>
+          <!-- Playhead -->
+          <line x1="48" y1="2" x2="48" y2="46" stroke="#FF6B35" stroke-width="1.5" opacity="0.5"/>
+        </svg>
+
+        <div class="playback-controls">
+          <button class="ctrl-btn" aria-label="跳转到句首">⏮</button>
+          <button class="ctrl-btn" aria-label="倒回 5 秒">⏪</button>
+          <button class="ctrl-btn btn-play" aria-label="播放/暂停">▶</button>
+          <button class="ctrl-btn" aria-label="快进 5 秒">⏩</button>
+          <button class="ctrl-btn" aria-label="下一句">⏭</button>
+        </div>
+
+        <div class="playback-meta">
+          <span class="sentence-label">正在播放第 3 句</span>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <button class="speed-chip">1.0× ▾</button>
+            <span class="time-display">0:23 / 1:30</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Dictation Input -->
+      <div class="card">
+        <div class="word-grid">
+          <span class="word-token correct">Today,</span>
+          <span class="word-token correct">we're</span>
+          <input class="word-input" type="text" value="going" placeholder="···" style="border-bottom-color:var(--primary);" aria-label="输入单词">
+          <span class="word-token correct">to</span>
+          <span class="word-token blank"><span class="dash">___</span></span>
+          <span class="word-token correct">about</span>
+          <span class="word-token error">whether<span class="correction">&nbsp;(weather)</span></span>
+          <span class="word-token correct">patterns</span>
+          <span class="word-token blank"><span class="dash">___</span></span>
+          <span class="word-token correct">and</span>
+          <input class="word-input" type="text" placeholder="···" style="min-width:76px;" aria-label="输入单词">
+        </div>
+
+        <div class="dictation-meta">
+          <span class="sentence-text">"Today, we're going to learn about weather patterns and climate change."</span>
+          <span class="word-progress">已写 <span>5</span> / <span>11</span> 词</span>
+        </div>
+        <div class="tap-hint">点击空格可听当前句</div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-row">
+        <button class="btn-secondary">🔁 再听一遍</button>
+        <button class="btn-primary-sm">提交</button>
+      </div>
+
+      <!-- Card: Previous Result -->
+      <div class="result-card">
+        <div class="result-title">上句结果</div>
+        <div class="result-words">
+          <span class="result-tag r-correct">✅ Today</span>
+          <span class="result-tag r-error">❌ whether → <span class="r-fix">weather</span></span>
+          <span class="result-tag r-blank">⚪ ___ 未填写</span>
+          <span class="result-tag r-correct">✅ climate</span>
+          <span class="result-tag r-correct">✅ change</span>
+        </div>
+      </div>
+
+      <div class="spacer-flex"></div>
+    </div>
+
+    <!-- Safe Area -->
+    <div class="safe-area"></div>
+
+    <div class="design-label">听刻 · 听写页 V3 · 390×844</div>
+
+  </div>
+</div>
+
+</body>
+</html>

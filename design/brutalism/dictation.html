@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听刻 · 粗野主义 听写页</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #E8E8E8;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; font-family: "Helvetica Neue", "Arial Black", "PingFang SC", sans-serif;
+    padding: 20px;
+  }
+
+  .phone {
+    width: 390px; height: 844px;
+    background: #FFFFFF;
+    border: 4px solid #000;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .screen {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+  }
+
+  .status-bar {
+    height: 50px; padding: 28px 16px 0;
+    display: flex; justify-content: space-between;
+    background: #000; color: #FFF;
+    font-size: 14px; font-weight: 700;
+    border-bottom: 4px solid #000;
+  }
+  .status-time { font-size: 16px; }
+
+  .content { flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+
+  /* Step indicator — bold blocks */
+  .step-block {
+    display: flex; align-items: center; gap: 0;
+    border: 4px solid #000;
+    background: #FFF;
+  }
+
+  .step-box {
+    flex: 1; padding: 10px 0; text-align: center;
+    font-size: 14px; font-weight: 900; color: #000;
+    border-right: 3px solid #000;
+    background: #FFF;
+    position: relative;
+  }
+
+  .step-box:last-child { border-right: none; }
+  .step-box.done { background: #000; color: #FFF; }
+  .step-box.active { background: #FF3366; color: #FFF; }
+
+  .step-box .step-num { font-size: 10px; font-weight: 700; display: block; }
+
+  /* Audio player */
+  .audio-block {
+    border: 4px solid #000;
+    padding: 12px;
+    background: #FFF;
+  }
+
+  .audio-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+
+  .play-btn {
+    width: 48px; height: 48px; background: #000;
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .play-btn svg { width: 24px; height: 24px; fill: #FFD700; }
+
+  .audio-label { font-size: 16px; font-weight: 900; color: #000; }
+  .audio-time { font-size: 12px; font-weight: 700; color: #666; }
+
+  /* Waveform — straight bars */
+  .wave-block {
+    display: flex; gap: 3px; height: 36px; align-items: flex-end;
+    margin-bottom: 8px;
+  }
+
+  .wbar { flex: 1; background: #000; min-height: 4px; }
+  .wbar.active { background: #FF3366; }
+
+  .ctrl-row { display: flex; gap: 6px; }
+  .ctrl-btn {
+    padding: 4px 10px; background: #FFF; border: 3px solid #000;
+    font-size: 12px; font-weight: 700; color: #000; cursor: pointer;
+  }
+  .ctrl-btn:active { background: #000; color: #FFF; }
+
+  /* Dictation block */
+  .dictation-block {
+    border: 4px solid #000;
+    padding: 16px;
+    flex: 1;
+    display: flex; flex-direction: column;
+    background: #FFF;
+  }
+
+  .sentence-hdr {
+    font-size: 12px; font-weight: 700; color: #000;
+    text-align: center; margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+
+  .word-row {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    justify-content: center; margin-bottom: 12px;
+  }
+
+  .word-cell {
+    min-width: 64px; height: 44px;
+    border: 3px solid #000;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; color: #000;
+    background: #FFF;
+  }
+
+  .word-cell.correct { background: #000; color: #FFF; }
+  .word-cell.error { background: #FF3366; color: #FFF; border-color: #FF3366; }
+  .word-cell.blank { border-style: dashed; color: #999; }
+  .word-cell.active {
+    border: 4px solid #FF3366;
+    animation: brutalPulse 0.8s ease infinite alternate;
+  }
+
+  @keyframes brutalPulse {
+    from { background: #FFF; }
+    to { background: #FFE5E5; }
+  }
+
+  .hint {
+    font-size: 11px; font-weight: 700; color: #999;
+    text-align: center; margin-bottom: 8px;
+  }
+
+  .action-row { display: flex; gap: 8px; margin-top: auto; }
+
+  .btn-second {
+    flex: 1; height: 50px;
+    background: #FFF; border: 4px solid #000;
+    font-size: 14px; font-weight: 900; color: #000;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;
+  }
+
+  .btn-second:active { background: #000; color: #FFF; }
+
+  .btn-primary {
+    flex: 2; height: 50px;
+    background: #000; border: none;
+    font-size: 16px; font-weight: 900; color: #FFD700;
+    cursor: pointer;
+  }
+
+  .btn-primary:disabled { background: #CCC; color: #999; cursor: not-allowed; }
+  .btn-primary:not(:disabled):active { background: #FF3366; }
+
+  /* Bottom nav */
+  .bottom-nav {
+    border-top: 4px solid #000;
+    background: #FFF;
+    padding: 8px 16px 24px;
+    display: flex; justify-content: space-around;
+  }
+
+  .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px 16px; cursor: pointer; }
+  .nav-item.active { background: #000; }
+  .nav-item.active svg { fill: #FFF; }
+  .nav-item.active .nl { color: #FFF; }
+  .nav-item svg { width: 24px; height: 24px; fill: #000; }
+  .nl { font-size: 11px; font-weight: 700; color: #000; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="screen">
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <span>📶 🔋</span>
+    </div>
+    <div class="content">
+      <!-- Step indicator -->
+      <div class="step-block">
+        <div class="step-box done"><span class="step-num">✓</span> 盲听</div>
+        <div class="step-box active"><span class="step-num">02</span> 听写</div>
+        <div class="step-box"><span class="step-num">03</span> 跟读</div>
+      </div>
+
+      <!-- Audio -->
+      <div class="audio-block">
+        <div class="audio-row">
+          <button class="play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div>
+            <div class="audio-label">THE POWER OF HABIT</div>
+            <div class="audio-time">0:12 / 0:50</div>
+          </div>
+        </div>
+        <div class="wave-block">
+          <div class="wbar active" style="height:25%"></div>
+          <div class="wbar active" style="height:40%"></div>
+          <div class="wbar active" style="height:55%"></div>
+          <div class="wbar active" style="height:70%"></div>
+          <div class="wbar" style="height:85%"></div>
+          <div class="wbar" style="height:50%"></div>
+          <div class="wbar" style="height:35%"></div>
+          <div class="wbar" style="height:20%"></div>
+          <div class="wbar" style="height:60%"></div>
+          <div class="wbar" style="height:75%"></div>
+          <div class="wbar" style="height:40%"></div>
+          <div class="wbar" style="height:25%"></div>
+        </div>
+        <div class="ctrl-row">
+          <button class="ctrl-btn">1.0×</button>
+          <button class="ctrl-btn">🔂 单句</button>
+          <button class="ctrl-btn" style="margin-left:auto">🔁 AB</button>
+        </div>
+      </div>
+
+      <!-- Dictation -->
+      <div class="dictation-block">
+        <div class="sentence-hdr">第 3 / 6 句</div>
+        <div class="word-row">
+          <div class="word-cell correct">HABITS</div>
+          <div class="word-cell correct">SHAPE</div>
+          <div class="word-cell active"> </div>
+          <div class="word-cell blank">___</div>
+          <div class="word-cell blank">___</div>
+        </div>
+        <div class="hint">[ 空格切换 · 输入你听到的 ]</div>
+        <div class="action-row">
+          <button class="btn-second">🔁 再听</button>
+          <button class="btn-primary" disabled>提交 ✓</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item active"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span class="nl">首页</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg><span class="nl">素材</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span class="nl">我的</span></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

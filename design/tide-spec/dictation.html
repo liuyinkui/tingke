@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>听刻 · 听写（tide板式 + base-guide配色）</title>
+<style>
+/* ═══════════════════════════════════════════════
+   听刻 - tide-green 板式 × base-guide.md 配色
+   品牌主色: #02B47F | 辅助色: #F8D9D6
+   画布: 390×844 (iPhone 14 Pro)
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --color-brand-primary: #02B47F;
+  --color-brand-primary-dark: #019A6C;
+  --color-brand-secondary: #F8D9D6;
+  --color-success: #2ECC71;
+  --color-warning: #F39C12;
+  --color-error: #E74C3C;
+  --color-text-primary: rgba(0,0,0,0.9);
+  --color-text-secondary: rgba(0,0,0,0.6);
+  --color-text-tertiary: rgba(0,0,0,0.3);
+  --color-text-inverse: #FFFFFF;
+  --color-neutral-2: #F1F3F5;
+  --color-neutral-3: #F2F4F7;
+  --color-neutral-4: #E9ECF0;
+  --color-background-page: #F1F3F5;
+  --color-background-surface: #FFFFFF;
+  --border-radius-md: 8px;
+  --border-radius-mg: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 24px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.08);
+  --font-family-sans: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --primary: #02B47F;
+  --primary-light: #019A6C;
+  --primary-bg: rgba(2,180,127,0.08);
+  --accent: #F8D9D6;
+  --bg: #F1F3F5;
+  --bg-start: #F1F3F5;
+  --bg-end: #F5F7F5;
+  --bg-card: #FFFFFF;
+  --text-primary: rgba(0,0,0,0.9);
+  --text-secondary: rgba(0,0,0,0.6);
+  --text-hint: rgba(0,0,0,0.3);
+  --success: #2ECC71;
+  --success-bg: rgba(46,204,113,0.08);
+  --error: #E74C3C;
+  --error-bg: rgba(231,76,60,0.08);
+  --divider: #E9ECF0;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-max: 24px;
+  --shadow-card: 0 1px 4px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+  --shadow-btn: 0 2px 8px rgba(2,180,127,0.2);
+  --font: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #DDE0DD;
+  font-family: var(--font);
+}
+
+/* ═══ Phone Frame ═══ */
+.phone-frame {
+  position: relative;
+  width: 390px;
+  height: 844px;
+  background: linear-gradient(168deg, var(--bg-start), var(--bg-end));
+  border-radius: 44px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 2px #2C2C2E,
+    0 0 0 6px #1C1C1E,
+    0 20px 60px rgba(0,0,0,0.5);
+}
+
+.dynamic-island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 126px;
+  height: 36px;
+  background: #111;
+  border-radius: 20px;
+  z-index: 100;
+}
+
+.status-bar {
+  position: relative;
+  height: 54px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 32px 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.status-bar .time { font-size: 16px; font-weight: 700; }
+
+.bg-decor {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.bg-decor-1 { top: -80px; right: -60px; width: 200px; height: 200px; background: var(--primary); opacity: 0.03; }
+
+/* ═══ Content ═══ */
+.content {
+  position: relative;
+  z-index: 1;
+  height: calc(100% - 54px);
+  padding: 8px 24px 34px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ═══ Top Bar ═══ */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0 10px;
+}
+.top-bar .back {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: transparent;
+  cursor: pointer; border-radius: 50%;
+  color: var(--text-secondary);
+  transition: background 0.2s;
+}
+.top-bar .back:hover { background: var(--divider); }
+.top-bar .title { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+.top-bar .done {
+  font-size: 14px; font-weight: 500;
+  color: var(--primary); border: none; background: none;
+  cursor: pointer; padding: 4px 10px; border-radius: var(--radius-sm);
+  transition: background 0.2s;
+}
+.top-bar .done:hover { background: var(--primary-bg); }
+
+/* ═══ Step Progress ═══ */
+.step-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 4px 0 20px;
+  animation: fadeUp 0.5s var(--ease-out);
+}
+.step-group { display: flex; flex-direction: column; align-items: center; }
+.step-circle {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600;
+  transition: all 0.35s ease;
+}
+.step-circle.done { background: var(--success); color: #fff; }
+.step-circle.active { background: var(--primary); color: #fff; box-shadow: 0 0 0 4px rgba(2,180,127,0.1); }
+.step-circle.pending { background: #E4E8E4; color: var(--text-hint); }
+.step-line {
+  width: 40px; height: 2px; margin: 0 6px; border-radius: 1px;
+  transition: background 0.35s;
+}
+.step-line.done { background: var(--success); }
+.step-line.active { background: var(--primary); }
+.step-line.pending { background: var(--divider); }
+.step-label { font-size: 11px; margin-top: 6px; color: var(--text-hint); }
+.step-label.active-label { color: var(--primary); font-weight: 600; }
+.step-label.done-label { color: var(--success); }
+
+/* ═══ Audio Area ═══ */
+.audio-area {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+  animation: fadeUp 0.5s var(--ease-out) 0.1s both;
+}
+.audio-area .sentence-label { font-size: 11px; color: var(--text-hint); letter-spacing: 2px; }
+.audio-area .sentence-num { font-size: 14px; color: var(--text-secondary); margin: 2px 0 12px; }
+.audio-controls {
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+}
+.audio-controls button {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  background: var(--primary-bg); color: var(--primary);
+}
+.audio-controls button:hover { background: var(--primary); color: #fff; }
+.audio-controls .play-btn {
+  width: 52px; height: 52px;
+  background: var(--primary); color: #fff;
+  box-shadow: 0 2px 8px rgba(2,180,127,0.2);
+}
+.audio-controls .play-btn:hover {
+  background: var(--primary-light);
+  transform: scale(1.04);
+}
+
+/* ═══ Waveform ═══ */
+.waveform {
+  display: flex; align-items: center; justify-content: center; gap: 3px;
+  height: 28px; margin-top: 10px;
+}
+.waveform .bar {
+  width: 3px; background: var(--primary-bg); border-radius: 2px;
+  animation: wave 1.8s ease-in-out infinite;
+}
+.waveform .bar:nth-child(1) { height: 10px; animation-delay: 0s; }
+.waveform .bar:nth-child(2) { height: 17px; animation-delay: 0.15s; }
+.waveform .bar:nth-child(3) { height: 22px; animation-delay: 0.3s; }
+.waveform .bar:nth-child(4) { height: 28px; animation-delay: 0.45s; }
+.waveform .bar:nth-child(5) { height: 22px; animation-delay: 0.6s; }
+.waveform .bar:nth-child(6) { height: 17px; animation-delay: 0.75s; }
+.waveform .bar:nth-child(7) { height: 10px; animation-delay: 0.9s; }
+
+@keyframes wave {
+  0%, 100% { opacity: 0.3; background: var(--primary-bg); }
+  50% { opacity: 1; background: var(--primary); }
+}
+
+/* ═══ Dictation Area ═══ */
+.dictation-area {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 14px;
+  padding-right: 4px;
+  animation: fadeUp 0.5s var(--ease-out) 0.2s both;
+}
+.dictation-area::-webkit-scrollbar { width: 3px; }
+.dictation-area::-webkit-scrollbar-thumb { background: var(--divider); border-radius: 2px; }
+
+.dictation-sentence {
+  margin-bottom: 14px;
+  animation: fadeUp 0.4s var(--ease-out) both;
+}
+.dictation-sentence:nth-child(1) { animation-delay: 0.2s; }
+.dictation-sentence:nth-child(2) { animation-delay: 0.28s; }
+.dictation-sentence:nth-child(3) { animation-delay: 0.36s; }
+
+.dictation-sentence .s-number {
+  font-size: 11px; color: var(--text-hint);
+  margin-bottom: 5px; letter-spacing: 0.5px;
+}
+
+.input-wrap {
+  display: flex; align-items: center;
+  background: var(--bg-card);
+  border: 1.5px solid var(--divider);
+  border-radius: var(--radius-md);
+  padding: 0 12px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.input-wrap:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(2,180,127,0.07);
+}
+.input-wrap.correct {
+  border-color: var(--success);
+  background: var(--success-bg);
+}
+.input-wrap.wrong {
+  border-color: var(--error);
+  background: var(--error-bg);
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(2px); }
+}
+
+.dictation-input {
+  flex: 1;
+  height: 46px;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  font-family: var(--font);
+  color: var(--text-primary);
+  outline: none;
+}
+.dictation-input::placeholder { color: var(--text-hint); font-size: 15px; }
+
+.status-icon {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0;
+  opacity: 0; transition: opacity 0.25s;
+}
+.status-icon.show { opacity: 1; }
+.status-icon.correct { background: var(--success-bg); color: var(--success); }
+.status-icon.wrong { background: var(--error-bg); color: var(--error); }
+
+.check-btn {
+  flex-shrink: 0;
+  width: 30px; height: 30px;
+  border: none;
+  background: var(--primary-bg);
+  color: var(--primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13px; font-weight: 600;
+  margin-left: 6px;
+  transition: all 0.2s;
+}
+.check-btn:hover { background: var(--primary); color: #fff; }
+
+.answer-hint {
+  font-size: 12px;
+  color: var(--success);
+  margin-top: 4px;
+  padding-left: 4px;
+  animation: fadeUp 0.3s ease;
+}
+
+/* ═══ Bottom Bar ═══ */
+.bottom-bar {
+  padding-top: 14px;
+  border-top: 1px solid var(--divider);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: fadeUp 0.5s var(--ease-out) 0.4s both;
+}
+.score-display { display: flex; align-items: baseline; gap: 4px; }
+.score-num { font-size: 24px; font-weight: 700; color: var(--primary); }
+.score-total { font-size: 14px; color: var(--text-hint); }
+.score-label { font-size: 13px; color: var(--text-secondary); margin-left: 6px; }
+
+.next-btn {
+  height: 42px;
+  padding: 0 24px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow-btn);
+  transition: all 0.25s var(--ease-out);
+}
+.next-btn:hover {
+  background: var(--primary-light);
+  transform: translateY(-1px);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <div class="dynamic-island"></div>
+  <div class="bg-decor bg-decor-1"></div>
+
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+        <rect x="0.5" y="0.5" width="15" height="11" rx="2" stroke="currentColor" stroke-opacity="0.4"/>
+        <rect x="12" y="4" width="3" height="2" rx="0.5" fill="currentColor" fill-opacity="0.25"/>
+      </svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="#000">
+        <rect x="0" y="1" width="18" height="10" rx="4" fill="currentColor"/>
+        <rect x="2" y="3" width="6" height="6" rx="2" fill="currentColor" fill-opacity="0.25"/>
+        <rect x="9" y="3.5" width="4" height="5" rx="1.5" fill="currentColor" fill-opacity="0.25"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <button class="back" aria-label="返回">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <span class="title">听写训练</span>
+      <button class="done">完成</button>
+    </div>
+
+    <!-- Step Progress -->
+    <div class="step-progress">
+      <div class="step-group">
+        <div class="step-circle done">✓</div>
+        <div class="step-label done-label">盲听</div>
+      </div>
+      <div class="step-line done"></div>
+      <div class="step-group">
+        <div class="step-circle active">2</div>
+        <div class="step-label active-label">听写</div>
+      </div>
+      <div class="step-line pending"></div>
+      <div class="step-group">
+        <div class="step-circle pending">3</div>
+        <div class="step-label">跟读</div>
+      </div>
+    </div>
+
+    <!-- Audio Player -->
+    <div class="audio-area">
+      <div class="sentence-label">当前句子</div>
+      <div class="sentence-num">第 1 / 4 句</div>
+      <div class="audio-controls">
+        <button aria-label="重播">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+          </svg>
+        </button>
+        <button class="play-btn" aria-label="播放">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+        </button>
+        <button aria-label="慢速">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </button>
+      </div>
+      <div class="waveform">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+
+    <!-- Dictation -->
+    <div class="dictation-area">
+      <div class="dictation-sentence">
+        <div class="s-number">句子 1</div>
+        <div class="input-wrap correct">
+          <input class="dictation-input" type="text" value="The anthropocene is a proposed geological epoch" readonly>
+          <span class="status-icon correct show">✓</span>
+        </div>
+      </div>
+
+      <div class="dictation-sentence">
+        <div class="s-number">句子 2</div>
+        <div class="input-wrap">
+          <input class="dictation-input" type="text" placeholder="听到后输入..." value="dating from the commencement">
+          <button class="check-btn" aria-label="提交">↵</button>
+        </div>
+      </div>
+
+      <div class="dictation-sentence">
+        <div class="s-number">句子 3</div>
+        <div class="input-wrap">
+          <input class="dictation-input" type="text" placeholder="听到后输入..." style="caret-color: var(--primary);">
+          <button class="check-btn" aria-label="提交">↵</button>
+        </div>
+      </div>
+
+      <div class="dictation-sentence">
+        <div class="s-number">句子 4</div>
+        <div class="input-wrap wrong">
+          <input class="dictation-input" type="text" value="of significant human impact" readonly style="text-decoration: line-through; text-decoration-color: var(--error);">
+          <span class="status-icon wrong show">✗</span>
+        </div>
+        <div class="answer-hint">✓ significant human impact on Earth's geology</div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="bottom-bar">
+      <div class="score-display">
+        <span class="score-num">2</span>
+        <span class="score-total">/ 4</span>
+        <span class="score-label">句正确</span>
+      </div>
+      <button class="next-btn">
+        <span>下一句</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/><path d="M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

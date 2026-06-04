@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>听刻 · 首页（森林绿 · 潮汐风格）</title>
+<style>
+/* ═══════════════════════════════════════════════
+   听刻 - 森林绿 · 潮汐风格 · 首页
+   画布: 390 × 844 (iPhone 14 Pro)
+   主色: #2D6A4F · 森林绿
+   强调: #FF6B35 · 暖橙
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --primary: #2D6A4F;
+  --primary-light: #3D8A6A;
+  --primary-dark: #1B4D3A;
+  --primary-bg: #E8F5ED;
+  --accent: #FF6B35;
+  --accent-light: #FF8C5A;
+  --accent-bg: #FFF0E8;
+  --bg: #F0F3F0;
+  --bg-start: #EDF0ED;
+  --bg-end: #F5F7F5;
+  --bg-card: #FFFFFF;
+  --text-primary: #1A1D21;
+  --text-secondary: #636E72;
+  --text-hint: #B2BEC3;
+  --success: #00B894;
+  --success-bg: #E6FAF5;
+  --error: #FF6B6B;
+  --error-bg: #FFF0F0;
+  --divider: #E4E8E4;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-max: 24px;
+  --shadow-card: 0 1px 4px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+  --shadow-card-hover: 0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+  --shadow-btn: 0 2px 8px rgba(45,106,79,0.2);
+  --shadow-btn-hover: 0 4px 16px rgba(45,106,79,0.25);
+  --font: -apple-system, "PingFang SC", "SF Pro", "Helvetica Neue", sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #DDE0DD;
+  font-family: var(--font);
+}
+
+/* ═══ Phone Frame ═══ */
+.phone-frame {
+  position: relative;
+  width: 390px;
+  height: 844px;
+  background: linear-gradient(168deg, var(--bg-start), var(--bg-end));
+  border-radius: 44px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 2px #2C2C2E,
+    0 0 0 6px #1C1C1E,
+    0 20px 60px rgba(0,0,0,0.5);
+}
+
+/* ═══ Dynamic Island ═══ */
+.dynamic-island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 126px;
+  height: 36px;
+  background: #111;
+  border-radius: 20px;
+  z-index: 100;
+}
+
+/* ═══ Status Bar ═══ */
+.status-bar {
+  position: relative;
+  height: 54px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 32px 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.status-bar .time { font-size: 16px; font-weight: 700; letter-spacing: 0.3px; }
+.status-bar .icons { display: flex; align-items: center; gap: 6px; }
+
+/* ═══ Background Decor ═══ */
+.bg-decor {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.bg-decor-1 {
+  top: -100px;
+  right: -70px;
+  width: 260px;
+  height: 260px;
+  background: var(--primary);
+  opacity: 0.03;
+}
+.bg-decor-2 {
+  bottom: 120px;
+  left: -80px;
+  width: 240px;
+  height: 240px;
+  background: var(--accent);
+  opacity: 0.02;
+}
+
+/* ═══ Content ═══ */
+.content {
+  position: relative;
+  z-index: 1;
+  height: calc(100% - 54px);
+  padding: 16px 28px 34px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ═══ Header ═══ */
+.header {
+  text-align: center;
+  padding-top: 28px;
+  animation: fadeUp 0.7s var(--ease-out);
+}
+.header .date {
+  font-size: 13px;
+  color: var(--text-hint);
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.header .brand {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 5px;
+}
+.header .tagline {
+  font-size: 13px;
+  color: var(--text-secondary);
+  letter-spacing: 2.5px;
+  margin-top: 4px;
+}
+.header .divider-leaf {
+  width: 24px;
+  height: 2px;
+  background: var(--primary-bg);
+  margin: 14px auto 0;
+  border-radius: 1px;
+}
+
+/* ═══ Streak ═══ */
+.streak-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 22px;
+  animation: fadeUp 0.7s var(--ease-out) 0.1s both;
+}
+.streak-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: rgba(45,106,79,0.07);
+  border-radius: 20px;
+}
+.streak-badge .flame { font-size: 16px; }
+.streak-badge .count { font-size: 15px; font-weight: 700; color: var(--primary); }
+.streak-badge .label { font-size: 12px; color: var(--text-secondary); }
+
+/* ═══ Spacer ═══ */
+.spacer { flex: 1; }
+.spacer-sm { flex: 0.25; }
+
+/* ═══ Today Card ═══ */
+.today-card {
+  background: linear-gradient(135deg, var(--primary) 0%, #1B4D3A 100%);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(45,106,79,0.15);
+  animation: fadeUp 0.7s var(--ease-out) 0.2s both;
+}
+.today-card::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.today-card .label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  opacity: 0.6;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+.today-card .title {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+.today-card .title-en {
+  font-size: 14px;
+  font-style: italic;
+  opacity: 0.7;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+.today-card .meta {
+  display: flex;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+.today-card .meta .step-tag {
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 6px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+.today-card .card-footer {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  opacity: 0.7;
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══ CTA ═══ */
+.cta-section {
+  padding-top: 20px;
+  animation: fadeUp 0.7s var(--ease-out) 0.35s both;
+}
+.cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 54px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow-btn);
+  transition: all 0.25s var(--ease-out);
+}
+.cta-btn:hover {
+  background: var(--primary-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-btn-hover);
+}
+.cta-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(45,106,79,0.15);
+}
+.cta-btn .arrow {
+  font-size: 18px;
+  transition: transform 0.25s;
+}
+.cta-btn:hover .arrow { transform: translateX(4px); }
+
+/* ═══ Footer ═══ */
+.footer-hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-hint);
+  letter-spacing: 1px;
+  margin-top: 14px;
+  animation: fadeUp 0.7s var(--ease-out) 0.45s both;
+}
+
+/* ═══ Breathing Dots ═══ */
+.breathe-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+  animation: fadeUp 0.7s var(--ease-out) 0.5s both;
+}
+.breathe-dots span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--divider);
+  animation: breathe 3s ease-in-out infinite;
+}
+.breathe-dots span:nth-child(2) { animation-delay: 0.5s; }
+.breathe-dots span:nth-child(3) { animation-delay: 1s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.3); }
+}
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <div class="dynamic-island"></div>
+  <div class="bg-decor bg-decor-1"></div>
+  <div class="bg-decor bg-decor-2"></div>
+
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+        <rect x="0.5" y="0.5" width="15" height="11" rx="2" stroke="#1A1D21" stroke-opacity="0.4"/>
+        <rect x="12" y="4" width="3" height="2" rx="0.5" fill="#1A1D21" fill-opacity="0.25"/>
+      </svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none">
+        <rect x="0" y="1" width="18" height="10" rx="4" fill="#1A1D21"/>
+        <rect x="2" y="3" width="6" height="6" rx="2" fill="#1A1D21" fill-opacity="0.25"/>
+        <rect x="9" y="3.5" width="4" height="5" rx="1.5" fill="#1A1D21" fill-opacity="0.25"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="header">
+      <div class="date">2026.06.04 · 星期四</div>
+      <div class="brand">听刻</div>
+      <div class="tagline">把声音刻进脑子里</div>
+      <div class="divider-leaf"></div>
+    </div>
+
+    <div class="streak-row">
+      <div class="streak-badge">
+        <span class="flame">🔥</span>
+        <span class="count">12</span>
+        <span class="label">天连续</span>
+      </div>
+    </div>
+
+    <div class="spacer-sm"></div>
+
+    <div class="today-card">
+      <div class="label">今日练习</div>
+      <div class="title">人类世的终结</div>
+      <div class="title-en">The End of the Anthropocene</div>
+      <div class="meta">
+        <span class="step-tag">🎧 盲听</span>
+        <span class="step-tag">✍️ 听写</span>
+        <span class="step-tag">🗣️ 跟读</span>
+      </div>
+      <div class="card-footer">
+        <span>难度 · 中高级</span>
+        <span>⏱ 约 15 分钟</span>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="cta-section">
+      <button class="cta-btn">
+        <span>开始今日练习</span>
+        <span class="arrow">→</span>
+      </button>
+    </div>
+
+    <div class="breathe-dots">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="footer-hint">每天 15 分钟，三步练听力</div>
+  </div>
+</div>
+</body>
+</html>

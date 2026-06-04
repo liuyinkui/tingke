@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>听刻 · V2极简 · 盲听</title><style>
+:root{--brand:#02B47F;--brand-light:rgba(2,180,127,0.06);--success:#2ECC71;--bg:#F5F6F8;--surface:#fff;--divider:#EFF1F4;--text-primary:rgba(0,0,0,.85);--text-secondary:rgba(0,0,0,.5);--text-tertiary:rgba(0,0,0,.28);--radius-sm:6px;--radius-md:10px;--radius-lg:14px;--font:'PingFang SC',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;--ease:cubic-bezier(.25,.1,.25,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#E8EBE8;font-family:var(--font)}
+.phone{position:relative;width:390px;height:844px;background:var(--bg);border-radius:32px;overflow:hidden;box-shadow:0 0 0 2px #2C2C2E,0 0 0 6px #1C1C1E,0 20px 60px rgba(0,0,0,.5)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:126px;height:36px;background:#111;border-radius:999px;z-index:100}
+.status{height:54px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 4px;font-size:15px;color:var(--text-primary);font-weight:600}
+.status .t{font-size:16px;font-weight:700}
+.content{height:calc(100% - 54px);padding:8px 24px 24px;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;padding:4px 0 12px;gap:12px}
+.top .back{font-size:20px;border:none;background:none;cursor:pointer;color:var(--text-primary);width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%}.top .back:hover{background:var(--divider)}
+.top .ttl{font-size:16px;font-weight:600;color:var(--text-primary);flex:1}
+.top .skip{font-size:13px;color:var(--text-tertiary);border:none;background:none;cursor:pointer}
+.steps{display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.sg{display:flex;flex-direction:column;align-items:center}
+.sc{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
+.sc.act{background:var(--brand);color:#fff}.sc.done{background:var(--success);color:#fff}.sc.pen{background:var(--divider);color:var(--text-tertiary)}
+.sl{width:28px;height:1.5px;margin:0 4px}
+.sl.done{background:var(--success)}.sl.act{background:var(--brand)}.sl.pen{background:var(--divider)}
+.slb{font-size:10px;margin-top:4px;color:var(--text-tertiary)}
+.slb.act{color:var(--brand);font-weight:600}.slb.done{color:var(--success)}
+
+.player{flex-shrink:0;margin-bottom:16px}
+.player .cover{background:var(--surface);border-radius:var(--radius-lg);padding:20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.04);border:1px solid var(--divider)}
+.player .lbl{font-size:11px;color:var(--text-tertiary);letter-spacing:1.5px}
+.player .ct{font-size:13px;color:var(--text-secondary);margin:4px 0 14px}
+.progress-bar{height:4px;background:var(--divider);border-radius:2px;margin:8px 0;position:relative;overflow:hidden}
+.progress-bar .fill{height:100%;background:var(--brand);border-radius:2px;width:35%;transition:width .3s}
+.ctrl{display:flex;align-items:center;justify-content:center;gap:20px}
+.ctrl button{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;background:var(--brand-light);color:var(--brand);font-size:14px;transition:all .2s}
+.ctrl button:hover{background:var(--brand);color:#fff}
+.ctrl .play{width:48px;height:48px;background:var(--brand);color:#fff;box-shadow:0 2px 8px rgba(2,180,127,.15)}
+.ctrl .play:hover{background:#019A6C;transform:scale(1.03)}
+.spd{display:flex;justify-content:center;gap:8px;margin-top:10px}
+.spd button{padding:2px 10px;border-radius:999px;border:1px solid var(--divider);background:var(--surface);color:var(--text-secondary);font-size:11px;cursor:pointer;transition:all .2s}
+.spd button.act{border-color:var(--brand);color:var(--brand);background:var(--brand-light)}
+.script{flex:1;overflow-y:auto;padding-right:4px}
+.script::-webkit-scrollbar{width:3px}.script::-webkit-scrollbar-thumb{background:var(--divider);border-radius:2px}
+.p{padding:12px 16px;border-radius:var(--radius-md);background:var(--surface);margin-bottom:8px;font-size:14px;line-height:1.6;color:var(--text-secondary);border:1px solid transparent}
+.p.cur{color:var(--text-primary);border-color:var(--divider);border-left:3px solid var(--brand)}
+.p .i{font-size:10px;color:var(--text-tertiary);margin-bottom:2px}
+.bottom{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--divider);margin-top:8px;flex-shrink:0}
+.bottom .time{font-size:12px;color:var(--text-tertiary)}
+.bottom .nxt{height:40px;padding:0 22px;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border:none;border-radius:var(--radius-md);cursor:pointer;transition:all .2s}
+.bottom .nxt:hover{background:#019A6C}
+</style></head><body>
+<div class="phone"><div class="island"></div>
+<div class="status"><span class="t">9:41</span></div>
+<div class="content">
+<div class="top"><button class="back">‹</button><span class="ttl">盲听</span><button class="skip">跳过</button></div>
+<div class="steps">
+<div class="sg"><div class="sc act">1</div><span class="slb act">盲听</span></div><div class="sl pen"></div>
+<div class="sg"><div class="sc pen">2</div><span class="slb">听写</span></div><div class="sl pen"></div>
+<div class="sg"><div class="sc pen">3</div><span class="slb">跟读</span></div>
+</div>
+<div class="player">
+<div class="cover">
+<div class="lbl">正在播放 · 第 1/4 段</div>
+<div class="progress-bar"><div class="fill"></div></div>
+<div class="ctrl">
+<button>⏪</button><button class="play">▶</button><button>⏩</button>
+</div>
+<div class="spd"><button class="act">1.0×</button><button>0.75×</button><button>0.5×</button></div>
+</div></div>
+<div class="script">
+<div class="p cur"><div class="i">当前段</div>The anthropocene is a proposed geological epoch dating from the commencement of significant human impact on Earth's geology and ecosystems.</div>
+<div class="p"><div class="i">下一段</div>This term was popularized by Nobel Prize-winning atmospheric chemist Paul Crutzen in the early 2000s.</div>
+<div class="p"><div class="i">第三段</div>The concept challenges the traditional Holocene epoch classification.</div>
+</div>
+<div class="bottom"><span class="time">⏱ 0:23 / 1:30</span><button class="nxt">进入听写 →</button></div>
+</div></div></body></html>

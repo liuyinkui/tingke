@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听刻 · 完整设计规格书 v1.0</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "SF Pro", monospace;
+    background: #F5F7FA;
+    color: #2D3436;
+    padding: 0;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+  h1 { font-size: 32px; color: #1E3A5F; margin-bottom: 8px; }
+  .meta { font-size: 14px; color: #636E72; margin-bottom: 40px; border-bottom: 1px solid #DFE6E9; padding-bottom: 16px; }
+  h2 { font-size: 22px; color: #1E3A5F; margin: 40px 0 20px; padding: 12px 0 8px; border-bottom: 2px solid #1E3A5F; display: flex; align-items: center; gap: 10px; }
+  h2 .badge { font-size: 12px; background: #FF6B35; color: #FFF; padding: 2px 10px; border-radius: 10px; }
+  h3 { font-size: 17px; color: #1E3A5F; margin: 24px 0 12px; }
+  h4 { font-size: 15px; color: #2D3436; margin: 16px 0 8px; }
+  p, li { font-size: 15px; line-height: 1.7; }
+  ul, ol { padding-left: 20px; margin: 8px 0; }
+  li { margin-bottom: 4px; }
+
+  /* Code blocks as ASCII wireframes */
+  .ascii-frame {
+    background: #1E3A5F;
+    color: #FFFFFF;
+    font-family: "SF Mono", "Menlo", monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 16px 20px;
+    border-radius: 12px;
+    overflow-x: auto;
+    margin: 12px 0 20px;
+    white-space: pre;
+  }
+
+  .ascii-frame .highlight { color: #FF6B35; }
+  .ascii-frame .green { color: #00B894; }
+  .ascii-frame .red { color: #FF6B6B; }
+  .ascii-frame .dim { color: #B2BEC3; }
+  .ascii-frame .blue { color: #74B9FF; }
+
+  .callout {
+    background: #E8EDF2;
+    border-left: 4px solid #1E3A5F;
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .callout.warn {
+    background: #FFF5F0;
+    border-left-color: #FF6B35;
+  }
+  .callout.ok {
+    background: #E8F8F5;
+    border-left-color: #00B894;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 20px;
+    font-size: 14px;
+  }
+  .spec-table th {
+    background: #1E3A5F;
+    color: #FFF;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 13px;
+  }
+  .spec-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #DFE6E9;
+    vertical-align: top;
+  }
+  .spec-table tr:nth-child(even) td { background: #F8F9FB; }
+  .color-swatch { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: middle; margin-right: 6px; }
+
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500;
+  }
+  .tag.primary { background: #E8EDF2; color: #1E3A5F; }
+  .tag.accent { background: #FFF5F0; color: #FF6B35; }
+  .tag.green { background: #E8F8F5; color: #00B894; }
+  .tag.red { background: #FFF5F5; color: #FF6B6B; }
+  .tag.purple { background: #F0ECF9; color: #6C5CE7; }
+
+  .logo-box {
+    display: flex; gap: 24px; flex-wrap: wrap; margin: 12px 0;
+  }
+  .logo-option {
+    flex: 1; min-width: 200px;
+    background: #FFF;
+    border: 1.5px solid #DFE6E9;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+  .logo-option h4 { font-size: 13px; color: #636E72; margin: 8px 0; font-weight: 500; }
+
+  .nav-links { margin-top: 40px; padding-top: 20px; border-top: 1px solid #DFE6E9; }
+  .nav-links a { color: #1E3A5F; text-decoration: none; margin-right: 20px; font-size: 14px; }
+  .nav-links a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>听刻 · 设计规格书</h1>
+<div class="meta">
+  版本 v1.0 · 2026-06-03 · 设计师 若楠<br>
+  目标读者：王工（开发工程师）— 这版规格书 = 直接写代码的蓝图
+</div>
+
+<!-- ============================================================ -->
+<h2>① 品牌 Logo 方案</h2>
+
+<h3>方向 A — 纯文字极简</h3>
+<p>只用文字，不加图标。适合启动屏、App 标题栏、分享卡片。</p>
+
+<div class="ascii-frame">
+┌──────────────────────────────────────────────┐
+│                                              │
+│                <span class="highlight">听　　刻</span>                              │
+│               <span class="dim">TingKe</span>                               │
+│                                              │
+│         <span class="dim">把声音刻进脑子里</span>                        │
+│                                              │
+└──────────────────────────────────────────────┘</div>
+
+<table class="spec-table">
+  <tr><th>层级</th><th>内容</th><th>字体</th><th>粗细</th><th>字号</th><th>字距</th></tr>
+  <tr><td>L1</td><td>"听刻" 中文</td><td>PingFang SC</td><td>Bold (700)</td><td>28px</td><td>4px（疏排，呼吸感）</td></tr>
+  <tr><td>L2</td><td>"TingKe" 英文</td><td>SF Pro</td><td>Medium (500)</td><td>11px</td><td>3px</td></tr>
+  <tr><td>L3</td><td>标语</td><td>PingFang SC</td><td>Regular (400)</td><td>10px</td><td>1px</td></tr>
+</table>
+
+<p><strong>设计意图：</strong>"刻"字本身有雕刻感，疏排字距模拟"刻字"的工整间距。不加修饰，干净自信。</p>
+
+<hr style="margin:20px 0;border:none;border-top:1px solid #DFE6E9;">
+
+<h3>方向 B — 图文结合（推荐）</h3>
+<p>圆形印章 + 声波图案 + "听刻" 文字并排。App 图标（iOS/Android）、登录页、所有品牌触点使用。</p>
+
+<div class="ascii-frame">
+┌──────────────────────────────────────────────┐
+│                                              │
+│          ┌──────────┐                        │
+│          │  ／＼／＼  │    <span class="highlight">听刻</span>                     │
+│          │  ＼／＼／  │   <span class="dim">TingKe</span>                    │
+│          │  ● 刻印   │                        │
+│          └──────────┘                        │
+│          ^ 印章图标                           │
+│                                              │
+└──────────────────────────────────────────────┘
+
+印章图标描述：
+  ┌─────────────────────────────────────┐
+  │   外圈圆环 — 深蓝 #1E3A5F           │
+  │   内部声波 — 五根竖线，中间最高      │
+  │   中间圆点 — 暖橙 #FF6B35（刻痕感）  │
+  │   整体概念：圆形印章 + 声波 = "刻"   │
+  └─────────────────────────────────────┘</div>
+
+<p><strong>推荐理由：</strong>印章是"刻"最直接的视觉隐喻，声波代表"听"。两者合在一起就是"听刻"——不需要文字解释，看一眼就懂。</p>
+
+<hr style="margin:20px 0;border:none;border-top:1px solid #DFE6E9;">
+
+<h3>方向 C — 极简符号（小尺寸专用）</h3>
+<p>纯符号，无文字。用于 App 图标角标、通知、favicon、头像等极小尺寸场景。</p>
+
+<div class="ascii-frame">
+        ┌───────────┐
+        │  ╱│╲╱│╲   │
+        │  ╲│╱╲│╱   │
+        │    ●       │
+        └───────────┘
+
+        尺寸：32×32px 以内
+        声波纹：3-5根竖线，中间最高
+        圆点：左下角或中心偏下</div>
+
+<table class="spec-table">
+  <tr><th>场景</th><th>使用版本</th><th>配色</th><th>最小尺寸</th></tr>
+  <tr><td>App 图标</td><td>方向 B — 圆角方块内</td><td>深蓝底 #1E3A5F + 白图标</td><td>60×60px</td></tr>
+  <tr><td>启动屏</td><td>方向 A — 纯文字</td><td>深蓝 #1E3A5F</td><td>80px 宽</td></tr>
+  <tr><td>导航栏标题</td><td>方向 A — 仅"听刻"二字</td><td>深蓝 #1E3A5F</td><td>—</td></tr>
+  <tr><td>分享卡片/水印</td><td>方向 B — 图文</td><td>全色或反白</td><td>—</td></tr>
+  <tr><td>通知栏/角标</td><td>方向 C — 极简符号</td><td>暖橙 #FF6B35 或 白</td><td>16×16px</td></tr>
+  <tr><td>打卡徽章</td><td>方向 C — 极简符号 + streak</td><td>暖橙 #FF6B35</td><td>18×18px</td></tr>
+</table>
+
+<div class="callout ok">
+  <strong>👉 我的推荐：</strong>用 <strong>方向 B</strong> 做主力 Logo，方向 A 做启动屏文字，方向 C 做小尺寸辅助。三个方向覆盖所有场景，不冲突。
+</div>
+
+<!-- ============================================================ -->
+<h2>② 配色系统确认</h2>
+
+<h3>PRD 定的色板，我的专业评估</h3>
+
+<table class="spec-table">
+  <tr><th>Token</th><th>色值</th><th>色样</th><th>PRD 定的</th><th>我的意见</th></tr>
+  <tr>
+    <td>主色</td><td>#1E3A5F</td>
+    <td><span class="color-swatch" style="background:#1E3A5F;"></span></td>
+    <td>✅ 深蓝，沉稳专业</td>
+    <td>✅ <strong>保留。不调整。</strong> 这个蓝够深够稳，跟"专业安静"的调性一致。与暖橙的对比度够强。</td>
+  </tr>
+  <tr>
+    <td>强调色</td><td>#FF6B35</td>
+    <td><span class="color-swatch" style="background:#FF6B35;"></span></td>
+    <td>✅ 暖橙，进度/打卡</td>
+    <td>✅ <strong>保留。不调整。</strong> 暖橙在深蓝背景上有 4.5:1 以上的对比度，符合 WCAG AA。</td>
+  </tr>
+  <tr>
+    <td>背景</td><td>#F5F7FA</td>
+    <td><span class="color-swatch" style="background:#F5F7FA;"></span></td>
+    <td>✅ 浅灰，干净</td>
+    <td>✅ <strong>保留。</strong> 但补充一个"白色表面" #FFFFFF 用于卡片。</td>
+  </tr>
+  <tr>
+    <td>文字</td><td>#2D3436</td>
+    <td><span class="color-swatch" style="background:#2D3436;"></span></td>
+    <td>✅ 深灰</td>
+    <td>✅ <strong>保留。</strong> 对比度 8.5:1，优秀的可读性。</td>
+  </tr>
+  <tr>
+    <td>正确</td><td>#00B894</td>
+    <td><span class="color-swatch" style="background:#00B894;"></span></td>
+    <td>✅ 绿色</td>
+    <td>✅ <strong>保留。</strong> 但补充一个浅绿背景 #E8F8F5 用于标签背景。</td>
+  </tr>
+  <tr>
+    <td>错误</td><td>#FF6B6B</td>
+    <td><span class="color-swatch" style="background:#FF6B6B;"></span></td>
+    <td>✅ 红色</td>
+    <td>✅ <strong>保留。</strong> 但补充一个浅红背景 #FFF5F5 用于标签背景。</td>
+  </tr>
+</table>
+
+<h3>我建议新增的色值</h3>
+
+<table class="spec-table">
+  <tr><th>Token</th><th>色值</th><th>用途</th><th>为什么需要</th></tr>
+  <tr><td>--color-primary-light</td><td>#2D5A8E</td><td>按钮 hover/pressed 状态</td><td>主按钮按下去要有视觉反馈，纯变暗不够语义化</td></tr>
+  <tr><td>--color-primary-bg</td><td>#E8EDF2</td><td>按钮禁用态底色</td><td>禁用按钮不能是灰色，要用主色的浅版本，保持连贯</td></tr>
+  <tr><td>--color-text-secondary</td><td>#636E72</td><td>辅助文字、说明</td><td>正文和说明文字需要层级区分</td></tr>
+  <tr><td>--color-text-hint</td><td>#B2BEC3</td><td>占位符、禁用文字</td><td>更弱的层级</td></tr>
+  <tr><td>--color-divider</td><td>#DFE6E9</td><td>分割线、边框</td><td>边框需要一个柔和色</td></tr>
+  <tr><td>--color-surface</td><td>#FFFFFF</td><td>卡片、弹窗、输入框</td><td>浅灰背景上的白色卡片，形成层次</td></tr>
+</table>
+
+<div class="callout">
+  <strong>整体总结：</strong>PRD 的配色方案方向完全正确，不需要大改。我补充了扩展色值和具体使用规则，确保开发不会"自由发挥"颜色。按我设计系统文档里的完整 Token 来执行即可。
+</div>
+
+<!-- ============================================================ -->
+<h2>③ 首页设计 <span class="badge">Page 1/4</span></h2>
+
+<h3>布局规范（从顶到底）</h3>
+
+<div class="ascii-frame">
+┌──────────────────────────────────────┐
+│  <span class="dim">Status Bar (20px)</span>                      │
+│  9:41                          🔋100% │
+│                                        │
+│  ──── 间距 <span class="dim">24px</span> ────                    │
+│                                        │
+│    🔥 连续打卡 <span class="highlight">7</span> 天                         │
+│    <span class="dim">(streak徽章, 暖橙文字+暖橙浅背景)</span>           │
+│                                        │
+│  ──── 间距 <span class="dim">32px</span> ────                    │
+│                                        │
+│    今日练习                              │
+│    <span class="highlight">3分12秒</span>                            │
+│    <span class="dim">(标题 body#636E72 / 数值 hero #1E3A5F)</span>     │
+│                                        │
+│  ──── 间距 <span class="dim">32px</span> ────                    │
+│                                        │
+│   ┌──────────────────────────────┐    │
+│   │       <span class="highlight">开始今日练习</span>              │    │
+│   │  <span class="dim">(深蓝底 #1E3A5F · 白色文字 · 圆角12px)</span>│    │
+│   │  <span class="dim">Height: 52px · Font: 17px Bold</span>     │    │
+│   │  <span class="dim">阴影: 0 4px 12px rgba(30,58,95,0.24)</span>│    │
+│   └──────────────────────────────┘    │
+│                                        │
+│  ──── 间距 <span class="dim">自动撑开</span> ────                 │
+│                                        │
+│  📚 素材库                    👤 个人中心 │
+│  <span class="dim">(文字链 #636E72 · 14px · 点击区域 > 44px)</span> │
+│                                        │
+│  <span class="dim">底部安全区 (34px)</span>                     │
+└──────────────────────────────────────┘
+
+<span class="dim">物理尺寸：375 × 812px (iPhone 标准)</span></div>
+
+<h3>元素明细</h3>
+
+<table class="spec-table">
+  <tr><th>元素</th><th>位置</th><th>内容</th><th>样式</th></tr>
+  <tr>
+    <td>🔥 Streak 徽章</td>
+    <td>顶部，居中</td>
+    <td>"🔥 连续打卡 7 天"</td>
+    <td>
+      背景: #FFF5F0 · 文字: #FF6B35 · 字号: 13px · 加粗<br>
+      Padding: 6px 14px · Border-radius: 20px<br>
+      靠数值驱动的组件，数字<strong>硬编码不可</strong>，从 API 读取
+    </td>
+  </tr>
+  <tr>
+    <td>今日练习数值</td>
+    <td>Streak 下方</td>
+    <td>标题 "今日练习" + 数值 "3分12秒"</td>
+    <td>
+      标题: font-size 13px · color #B2BEC3<br>
+      数值: font-size 28px · weight Bold(700) · color #1E3A5F<br>
+      如果用户还没练过，默认显示 "今日练习 · 等你开始"
+    </td>
+  </tr>
+  <tr>
+    <td>开始今日练习</td>
+    <td>页面中央</td>
+    <td>唯一 CTA 按钮</td>
+    <td>
+      Height: 52px · Radius: 12px · Font: 17px Bold · Color: #FFF<br>
+      Background: #1E3A5F · Shadow: 0 4px 12px rgba(30,58,95,0.24)<br>
+      <strong>重要：</strong>这个按钮必须在一屏内完全可见，不可滚动才看到
+    </td>
+  </tr>
+  <tr>
+    <td>底部文字链</td>
+    <td>底部，左右分布</td>
+    <td>素材库 → / 个人中心 →</td>
+    <td>
+      文字 font-size 14px · color #636E72<br>
+      点击区域 ≥ 44px<br>
+      交互: 点击后 push 对应页面（不要 tab bar 切换）
+    </td>
+  </tr>
+</table>
+
+<div class="callout warn">
+  <strong>⚠️ 给王工的特别提醒：</strong>
+  <ul>
+    <li><strong>没有底部 tab bar！</strong>首页就是根节点。素材库和设置是 push 上去的，不是 tab 切换。</li>
+    <li>"今日练习 X分X秒" 数据来自 <strong>本地缓存 + API</strong>。如果今天还没练过，显示 "今日练习 · 等你开始"。</li>
+    <li>Streak 徽章的 🔥 火焰用 emoji 即可，不引入图片资源。</li>
+    <li>按钮点击触感反馈：iOS 用 UIImpactFeedbackGenerator(light)，Android 用 View.performHapticFeedback。</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2>④ 听写页面设计 <span class="badge">Page 2/4</span></h2>
+
+<h3>完整布局</h3>
+
+<div class="ascii-frame">
+┌────────────────────────────────────────┐
+│ <span class="dim">Status Bar</span>                     <span class="dim">✕</span>  │
+│                                        │
+│  ── 步骤进度 ──                        │
+│  <span class="green">✓</span> ─── <span class="highlight">●</span> ─── ○                    │
+│  <span class="dim">盲听    <span class="highlight">听写</span>    跟读</span>                │
+│                                        │
+│  ──────────────────────────────────    │
+│                                        │
+│  听懂了多少？打字试试                      │
+│  <span class="dim">(14px 灰色文字 #636E72)</span>              │
+│                                        │
+│  ┌──────────────────────────────┐     │
+│  │                              │     │
+│  │  ▂▃▄▅▆▇▆▅▄▃▂▃▄▅▆▇▆▅▄▃▂       │     │
+│  │    ⏪  ⏸  ⏩       1x        │     │
+│  └──────────────────────────────┘     │
+│  <span class="dim">波形播放器 · Height: 64px</span>              │
+│                                        │
+│  ┌──────────────────────────────┐     │
+│  │                              │     │
+│  │  Today, ___ ___ to study     │     │
+│  │  about the <span class="green">climate</span> changes    │     │
+│  │                              │     │
+│  │  当前句: "Today, we're going │     │
+│  │          to learn about..."  │     │
+│  │                              │     │
+│  └──────────────────────────────┘     │
+│  <span class="dim">已写 3/8 词 · 点击空格听当前句</span>           │
+│                                        │
+│  ┌─────────┐  ┌──────────────────┐    │
+│  │  再听一遍  │  │      提交        │    │
+│  └─────────┘  └──────────────────┘    │
+│  <span class="dim">(次要按钮)    (深蓝主按钮)</span>            │
+│                                        │
+│  ── 上句结果 ──                        │
+│  ✅ <span class="green">"Today"</span>                         │
+│  ❌ <span class="red">"whether" → "weather"</span>           │
+│  ⚪ <span class="dim">"___" 未填写</span>                     │
+│                                        │
+└────────────────────────────────────────┘</div>
+
+<h3>交互逻辑（王工重点关注）</h3>
+
+<div class="callout ok">
+  <strong>跟所有其他 App 不一样的地方：</strong>
+</div>
+
+<table class="spec-table">
+  <tr><th>交互</th><th>逻辑</th><th>为什么这样设计</th></tr>
+  <tr>
+    <td>逐句听写</td>
+    <td>音频按句分割 → 用户写完当前句 → 自动播下一句<br>
+        每句完成后<strong>立即</strong>显示对/错结果</td>
+    <td>即时反馈让用户有游戏化的掌控感，而不是"写完一整段等判卷"的考试感</td>
+  </tr>
+  <tr>
+    <td>留空可跳过</td>
+    <td>听不出的词直接留空（点击空格按钮），继续下一句</td>
+    <td>不卡住用户的节奏——"不会就是你的学习价值"</td>
+  </tr>
+  <tr>
+    <td>点击"再听一遍"</td>
+    <td>播放当前句原文，不跳到句首</td>
+    <td>用户只是想再听一次确认，不是要重新开始</td>
+  </tr>
+  <tr>
+    <td>提交后不可修改</td>
+    <td>用户提交当前句后，结果固定，进入下一句</td>
+    <td>防止纠结，保持节奏</td>
+  </tr>
+  <tr>
+    <td>全句听写完成后</td>
+    <td>显示本段完整结果 → 点击"进入跟读" → Step 3</td>
+    <td>听写的终点 = 跟读的起点</td>
+  </tr>
+</table>
+
+<h3>视觉反馈规则</h3>
+
+<div class="ascii-frame">
+<span class="green">✅ 正确 (绿色)</span>
+  · 词框背景: #E8F8F5
+  · 文字颜色: #00B894
+  · 状态: 用户写对了，不显示原词（因为就是正确的）
+  · 动效: 一个轻微的"闪光"（300ms opacity 闪一下）
+
+<span class="red">❌ 错误 (红色)</span>
+  · 词框背景: #FFF5F5
+  · 文字颜色: #FF6B6B
+  · 用户写的错误文字加删除线
+  · <strong>下方显示正确答案（红色加粗）</strong>
+  · 动效: 轻微抖动（shake animation, 200ms）
+  · 这个词自动加入"盲区词汇"
+
+<span class="dim">⚪ 留空 (灰色)</span>
+  · 词框背景: #F5F7FA
+  · 文字颜色: #B2BEC3
+  · 显示 "___" 表示用户没听出来
+  · <strong>下方显示正确答案（灰色）</strong>
+  · 这个词自动加入"盲区词汇"</div>
+
+<h3>听写输入控件说明</h3>
+
+<div class="ascii-frame">
+每个"词槽"是一个独立输入框：
+
+┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐
+│Today │ │  ___ │ │going │ │  ___ │
+└──────┘ └──────┘ └──────┘ └──────┘
+  ✓自动     ⚪留空     ✓自动     ⚪留空
+
+行为：
+  · 用户输入一个词 → 按空格或 Tap Tab → 跳到下一个词槽
+  · 词槽宽度根据预期词长：最短 40px，最长自适应（但不超过120px）
+  · 正在输入的词槽有底部边框 #1E3A5F 2px 高亮
+  · 空词槽底部边框 #DFE6E9 1.5px
+  · 用户点击一个空词槽 → 自动播放当前句（辅助听写）</div>
+
+<div class="callout warn">
+  <strong>⚠️ 特别注意：</strong>
+  <ul>
+    <li>听写时<strong>绝对不显示原文</strong>——人类会忍不住看答案，训练就废了。</li>
+    <li>听写完成前，底部"上句结果"区域只显示上一句的结果，不显示所有句的结果（防止用户看前面的答案推导后面的内容）。</li>
+    <li>用户中途退出 → 弹窗确认"退出后当前进度将丢失"，并提供"保存草稿"选项（仅保存已写对的词）。</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2>⑤ 跟读页面设计 <span class="badge">Page 3/4</span></h2>
+
+<h3>完整布局</h3>
+
+<div class="ascii-frame">
+┌────────────────────────────────────────┐
+│ <span class="dim">Status Bar</span>                     <span class="dim">✕</span>  │
+│                                        │
+│  ── 步骤进度 ──                        │
+│  <span class="green">✓</span> ─── <span class="green">✓</span> ─── <span class="highlight">●</span>                    │
+│  <span class="dim">盲听    听写    <span class="highlight">跟读</span></span>               │
+│                                        │
+│  ──────────────────────────────────    │
+│                                        │
+│  跟读第 3/8 句                        │
+│  <span class="dim">(14px 灰色文字 #636E72)</span>              │
+│                                        │
+│  ┌──────────────────────────────┐     │
+│  │  原声: "Today, we're going   │     │
+│  │         to learn about..."   │     │
+│  └──────────────────────────────┘     │
+│  <span class="dim">原文显示（终于可以看了！）</span>              │
+│                                        │
+│  ──── 间距 16px ────                  │
+│                                        │
+│      ┌────────────────────────┐       │
+│      │                        │       │
+│      │        🎤              │       │
+│      │     长按录音            │       │
+│      │                        │       │
+│      └────────────────────────┘       │
+│    <span class="dim">(录音按钮 · 类似微信语音消息交互)</span>      │
+│                                        │
+│  ──── 间距 16px ────                  │
+│                                        │
+│  评分: <span class="highlight">85</span> 分                        │
+│  ▓▓▓▓▓▓▓▓▓░░░                         │
+│  <span class="dim">(暖橙进度条 · 总分反馈)</span>                │
+│                                        │
+│  发音问题:                              │
+│  <span class="red">✗ /θ/ → /t/</span>   <span class="red">✗ 连读 "going to"</span>   │
+│  <span class="green">✓ 语调正确</span>   <span class="green">✓ 节奏感</span>              │
+│                                        │
+│  ┌─────────┐  ┌──────────────────┐    │
+│  │  🔊 原声  │  │  🗣️ 我的录音     │    │
+│  └─────────┘  └──────────────────┘    │
+│  <span class="dim">(原声/我的录音对比切换)</span>               │
+│                                        │
+│  ┌─────────┐  ┌──────────────────┐    │
+│  │  重录    │  │   下一句 →       │    │
+│  └─────────┘  └──────────────────┘    │
+│                                        │
+└────────────────────────────────────────┘</div>
+
+<h3>录音交互（核心）</h3>
+
+<div class="ascii-frame">
+长按录音按钮的交互流程：
+
+<span class="dim">初始状态：</span>
+┌────────────────────────┐
+│        🎤              │
+│      长按录音            │  ← 灰色文字 #636E72
+│                        │  ← 灰色边框 #DFE6E9
+└────────────────────────┘
+
+<span class="highlight">录音中：</span>
+┌────────────────────────┐
+│        🔴              │
+│     录音中 0:03         │  ← 红色圆点动效
+│                        │  ← 边框变红 #FF6B6B
+│                        │  ← 按钮轻微放大(scale 1.05)
+└────────────────────────┘
+  <span class="dim">(设备震动反馈：录音开始/结束各一次)</span>
+
+<span class="green">录音完成（松手自动）：</span>
+┌────────────────────────┐
+│        ✅              │
+│     评分计算中           │  ← 绿色旋转指示器
+│                        │  ← 2秒内出分
+└────────────────────────┘
+
+松开手指 = 自动上传+评分
+不需要用户做"点开始 → 点停止 → 点提交"三步操作</div>
+
+<h3>评分反馈设计</h3>
+
+<table class="spec-table">
+  <tr><th>评分维度</th><th>展示方式</th><th>数据来源</th></tr>
+  <tr><td>总分 (0-100)</td><td>大字 + 线性进度条</td><td>阿里云语音评测整体得分</td></tr>
+  <tr><td>音素级纠错</td><td>列表：红色 × = 发错的音 + 纠正建议</td><td>阿里云音素级评估</td></tr>
+  <tr><td>✓ 正确项</td><td>绿色 ✓ = 发音正确的音素/语调</td><td>同上</td></tr>
+  <tr><td>流畅度/完整度</td><td>额外小标签（后续版本）</td><td>阿里云额外指标</td></tr>
+</table>
+
+<h3>原声/我的对比</h3>
+
+<div class="ascii-frame">
+两个按钮组成 <strong>Segmented Control</strong>：
+
+┌─────────┬──────────────────┐
+│  🔊 原声  │  🗣️ 我的录音     │
+└─────────┴──────────────────┘
+
+选中态：背景 #1E3A5F · 白色文字
+未选态：透明背景 · 灰色文字 #636E72
+
+点击切换时：
+  · 如果"我的录音"有多次 → 默认播放最新一次
+  · 用户也可以通过"我的录音"内的下拉选择历史录音
+  · 播放过程中切换 → 当前播放停止，切换目标开始播放
+
+波形同步高亮：
+  · 播放到哪，原文文字高亮到哪（类似卡拉OK歌词效果）
+  · 对比时特别有用：一眼看出"原声在这里停顿了，但我没有"</div>
+
+<div class="callout warn">
+  <strong>⚠️ 给王工的提醒：</strong>
+  <ul>
+    <li>录音时长上限 <strong>10 秒</strong>——太长的录音会增加服务端延迟，用户等不了</li>
+    <li>如果用户一句话超过 10 秒 → 自动截断，按已有部分评分</li>
+    <li>评分延迟控制在 <strong>2 秒以内</strong>，否则用户会反复按录音按钮</li>
+    <li>录音前检查麦克风权限，第一次请求时说明"需要麦克风权限来评估您的发音"</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2>⑥ 完成页设计 <span class="badge">Page 4/4 — 最重要的页面</span></h2>
+
+<h3>布局规范</h3>
+
+<div class="ascii-frame">
+┌────────────────────────────────────────┐
+│                                        │
+│                                        │
+│             🎉                         │
+│       <span class="highlight">今日练习完成！</span>                    │
+│                                        │
+│  ┌──────────────────────────────┐     │
+│  │                              │     │
+│  │  辨音准确率        <span class="highlight">72%</span>        │     │
+│  │  ▓▓▓▓▓▓▓▓▓░░░░░    (暖橙)      │     │
+│  │                              │     │
+│  │  比昨天 <span class="green">↑ 5%</span>    练了8分钟   │     │
+│  │                              │     │
+│  │  ───────────────────          │     │
+│  │                              │     │
+│  │  📖 盲区词汇     <span class="highlight">3 个 →</span>    │     │
+│  │  🔥 连续打卡     <span class="highlight">7 天</span>      │     │
+│  └──────────────────────────────┘     │
+│                                        │
+│   ┌──────────────────────────────┐    │
+│   │      分享打卡 (可选)          │    │
+│   └──────────────────────────────┘    │
+│  <span class="dim">(次要按钮 · 灰色边框 · 不加阴影)</span>      │
+│                                        │
+│           <span class="dim">明天继续 →</span>                   │
+│                                        │
+│                                        │
+└────────────────────────────────────────┘
+
+<span class="dim">物理尺寸：375 × 812px</span></div>
+
+<h3>🎉 庆祝动效规范</h3>
+
+<div class="ascii-frame">
+触发条件：完成跟读 Step 3 最后一句 → 自动进入完成页
+
+动效序列（总时长 1.2s）：
+
+1. (0ms)      页面淡入 + 🎉 emoji 弹跳
+               <!-- spring 缓动 -->
+               transform: scale(0.8) → scale(1.0)
+               opacity: 0 → 1
+               duration: 500ms
+               curve: cubic-bezier(0.34, 1.56, 0.64, 1)
+
+2. (200ms)     "今日练习完成！" 文字从下往上，逐字出现
+               <!-- fadeInUp -->
+               duration: 400ms
+
+3. (400ms)     数据卡片从下往上滑入（整块）
+               <!-- fadeInUp -->
+               duration: 350ms
+
+4. (600ms)     数据数值逐行数字跳动
+               <!-- 数字从 0 跳到最终值 -->
+               每行间隔 100ms，总 300ms
+               暖橙数值有轻微的发光 pulse
+
+5. (900ms)     "明天继续 →" 淡入
+               底部分享按钮淡入
+
+<strong>不要做的：</strong>
+❌ 烟花/粒子效果
+❌ 纸屑掉落
+❌ 角色/人偶出现
+❌ 转场动画（直接从跟读页切完成页，不要 slide）</div>
+
+<h3>数据展示规则</h3>
+
+<table class="spec-table">
+  <tr><th>数据项</th><th>来源</th><th>展示格式</th><th>空态/边界</th></tr>
+  <tr>
+    <td>辨音准确率</td>
+    <td>听写阶段：<br>正确词数 / 总词数</td>
+    <td>百分比，整数（四舍五入）<br>72%</td>
+    <td>如果用户全留空 → 0%<br>如果全对 → 100% 显示 🎯</td>
+  </tr>
+  <tr>
+    <td>比昨天 ↑↓ 对比</td>
+    <td>昨天同题准确率 vs 今天</td>
+    <td>↑ 5% 绿色 · ↓ 3% 红色<br>→ 持平 灰色</td>
+    <td>如果昨天没练/题目不同 → 显示 "首次练习"</td>
+  </tr>
+  <tr>
+    <td>盲区词汇</td>
+    <td>听写中写错 + 留空的词（去重）</td>
+    <td>"3 个 → 查看" 可点击</td>
+    <td>0 个 → 不显示该行</td>
+  </tr>
+  <tr>
+    <td>连续打卡</td>
+    <td>后端 streak 计数器</td>
+    <td>"7 天" 暖橙高亮</td>
+    <td>首次完成 → "第 1 天"</td>
+  </tr>
+  <tr>
+    <td>练习时长</td>
+    <td>从进入盲听到跟读完成的耗时</td>
+    <td>"练了 8 分钟"</td>
+    <td>—</td>
+  </tr>
+</table>
+
+<h3>分享卡片设计</h3>
+
+<div class="ascii-frame">
+用户点击"分享打卡 (可选)" → 生成分享卡片：
+
+┌──────────────────────────────────┐
+│                                  │
+│       <span class="highlight">听刻</span>     <span class="dim">TingKe</span>           │
+│                                  │
+│   🎉 今日精听完成！                │
+│                                  │
+│   辨音准确率  <span class="highlight">72%</span>               │
+│   连续打卡    🔥 7 天              │
+│                                  │
+│   ─────────────────────           │
+│                                  │
+│   把声音刻进脑子里                  │
+│                                  │
+└──────────────────────────────────┘
+
+分享卡片尺寸：800×600px
+设计原则：
+  · 深蓝底 #1E3A5F + 白色文字
+  · 左上角品牌 Logo
+  · 核心数据展示
+  · 底部标语"把声音刻进脑子里"
+  · <strong>不加二维码</strong>（MVP 阶段不需要）
+  · 分享到系统分享面板（iOS Share Sheet / Android Intent）
+
+不强制用户分享——只是想分享的人有个好卡片用</div>
+
+<h3>明天继续 → 的交互</h3>
+
+<div class="ascii-frame">
+"明天继续 →" 是一个文字链，点击后：
+  · 返回首页
+  · 首页显示"今日已练完！明天继续"
+  · 按钮变成"查看今日详情"
+  · 如果用户再次进入学习流 → 询问"重练今日还是明日素材？"
+
+但 MVP 最简单的做法：
+  · 点击"明天继续" → 直接回首页
+  · 按钮变成灰色不可用 → "今日已练完 ✅"</div>
+
+<!-- ============================================================ -->
+<h2>附：设计 Token 速查表（给王工）</h2>
+
+<table class="spec-table">
+  <tr><th>Token</th><th>值</th><th>用途</th></tr>
+  <tr><td>--color-primary</td><td>#1E3A5F</td><td>主按钮、标题、导航</td></tr>
+  <tr><td>--color-accent</td><td>#FF6B35</td><td>进度条、streak、完成页强调</td></tr>
+  <tr><td>--color-bg</td><td>#F5F7FA</td><td>页面背景</td></tr>
+  <tr><td>--color-surface</td><td>#FFFFFF</td><td>卡片背景</td></tr>
+  <tr><td>--color-text-primary</td><td>#2D3436</td><td>正文</td></tr>
+  <tr><td>--color-text-secondary</td><td>#636E72</td><td>副文/说明</td></tr>
+  <tr><td>--color-text-hint</td><td>#B2BEC3</td><td>占位符/禁用</td></tr>
+  <tr><td>--color-success</td><td>#00B894</td><td>正确标记</td></tr>
+  <tr><td>--color-error</td><td>#FF6B6B</td><td>错误标记</td></tr>
+  <tr><td>--color-divider</td><td>#DFE6E9</td><td>分割线/边框</td></tr>
+  <tr><td>--radius-md</td><td>8px</td><td>卡片标准圆角</td></tr>
+  <tr><td>--radius-lg</td><td>12px</td><td>按钮/大卡片</td></tr>
+  <tr><td>--space-base</td><td>16px</td><td>默认间距</td></tr>
+  <tr><td>--space-xl</td><td>24px</td><td>页面内边距</td></tr>
+  <tr><td>--font-body</td><td>15px</td><td>听写文字/正文</td></tr>
+  <tr><td>--font-h1</td><td>24px</td><td>页面大标题</td></tr>
+  <tr><td>--font-hero</td><td>32px</td><td>完成页/数值</td></tr>
+</table>
+
+<div class="callout">
+  <strong>全局规则：</strong>
+  <ul>
+    <li><strong>无底部 Tab Bar：</strong> 首页、素材库、个人中心之间用导航 push/pop，不 tab 切换</li>
+    <li><strong>触摸目标 ≥ 44pt：</strong> 所有可交互元素最小 44×44</li>
+    <li><strong>字体使用系统默认：</strong> 不引入第三方字体，PingFang SC / SF Pro 就是最佳选择</li>
+    <li><strong>动效克制：</strong> 只有完成页有庆祝动效，其他页面无过渡动画</li>
+    <li><strong>加载状态：</strong> 所有网络请求展示骨架屏（Skeleton），不用转圈加载</li>
+  </ul>
+</div>
+
+<div class="nav-links">
+  📄 相关文档：
+  <a href="design-system.md">完整设计系统</a>
+  <a href="wireframes.html">线框图预览</a>
+  <a href="logo-brand.html">Logo 视觉方案</a>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听刻 · 首页 V3 — 高保真设计稿</title>
+<style>
+  /* ═══════════════════════════════════════════════
+     DESIGN SYSTEM TOKENS
+     ═══════════════════════════════════════════════ */
+  :root {
+    --primary: #1E3A5F;
+    --primary-light: #2D5A8E;
+    --primary-bg: #E8EDF2;
+    --accent: #FF6B35;
+    --accent-light: #FF8C5A;
+    --bg: #F5F7FA;
+    --surface: #FFFFFF;
+    --text-primary: #2D3436;
+    --text-secondary: #636E72;
+    --text-hint: #B2BEC3;
+    --success: #00B894;
+    --error: #FF6B6B;
+    --divider: #DFE6E9;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-max: 24px;
+    --shadow-card: 0 2px 8px rgba(0,0,0,0.08);
+    --font: -apple-system, "PingFang SC", "SF Pro", "Helvetica Neue", sans-serif;
+  }
+
+  /* ═══════════════════════════════════════════════
+     RESET & BODY
+     ═══════════════════════════════════════════════ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1A1A2E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: var(--font);
+    padding: 20px;
+  }
+
+  /* ═══════════════════════════════════════════════
+     iPhone 14 Pro FRAME
+     ═══════════════════════════════════════════════ */
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: var(--surface);
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 0 0 8px #222,
+      0 0 0 10px #444,
+      0 24px 80px rgba(0,0,0,0.35);
+  }
+
+  .dynamic-island {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 126px;
+    height: 36px;
+    background: #111;
+    border-radius: 20px;
+    z-index: 20;
+    pointer-events: none;
+  }
+
+  /* Side buttons (power/volume) */
+  .phone::before,
+  .phone::after {
+    content: '';
+    position: absolute;
+    background: #333;
+    z-index: -1;
+  }
+  .phone::before {
+    top: 185px;
+    left: -12px;
+    width: 4px;
+    height: 65px;
+    border-radius: 2px 0 0 2px;
+  }
+  .phone::after {
+    top: 105px;
+    right: -12px;
+    width: 4px;
+    height: 85px;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ═══════════════════════════════════════════════
+     SCREEN
+     ═══════════════════════════════════════════════ */
+  .screen {
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative background elements */
+  .screen::before {
+    content: '';
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: var(--primary);
+    opacity: 0.03;
+    top: -100px;
+    right: -80px;
+    pointer-events: none;
+  }
+  .screen::after {
+    content: '';
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.025;
+    bottom: 80px;
+    left: -60px;
+    pointer-events: none;
+  }
+
+  /* ═══════════════════════════════════════════════
+     STATUS BAR
+     ═══════════════════════════════════════════════ */
+  .status-bar {
+    height: 54px;
+    padding: 54px 32px 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    z-index: 15;
+    background: transparent;
+  }
+  .status-bar .time {
+    font-size: 15px;
+    font-weight: 590;
+    color: var(--text-primary);
+    letter-spacing: 0.3px;
+  }
+  .status-icons {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .status-icons svg { display: block; }
+
+  /* ═══════════════════════════════════════════════
+     CONTENT
+     ═══════════════════════════════════════════════ */
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 28px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Streak Badge ── */
+  .streak-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #FFF5F0;
+    border-radius: 999px;
+    padding: 8px 16px 8px 12px;
+    user-select: none;
+    box-shadow: 0 2px 8px rgba(255,107,53,0.10);
+    transition: all 0.2s ease;
+  }
+  .streak-badge:hover {
+    box-shadow: 0 4px 12px rgba(255,107,53,0.18);
+  }
+  .streak-badge .flame {
+    font-size: 17px;
+    line-height: 1;
+    animation: flame-flicker 2s ease-in-out infinite;
+  }
+  @keyframes flame-flicker {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.08) rotate(-3deg); }
+    75% { transform: scale(1.05) rotate(2deg); }
+  }
+  .streak-badge .label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .streak-badge .num {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .spacer-40 { height: 40px; flex-shrink: 0; }
+
+  /* ── Today Practice ── */
+  .today-label {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-hint);
+    text-align: center;
+    margin-bottom: 6px;
+    letter-spacing: 0.8px;
+  }
+  .today-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 1.05;
+  }
+  .today-value .unit {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-left: 3px;
+  }
+
+  .spacer-44 { height: 44px; flex-shrink: 0; }
+
+  /* ── Primary CTA ── */
+  .btn-primary {
+    width: 100%;
+    height: 52px;
+    background: var(--primary);
+    color: #FFF;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+    box-shadow: 0 4px 12px rgba(30,58,95,0.30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+  .btn-primary:hover {
+    background: var(--primary-light);
+  }
+  .btn-primary:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(30,58,95,0.20);
+  }
+  .btn-primary:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .btn-primary:disabled {
+    background: var(--primary-bg);
+    color: rgba(30,58,95,0.4);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  .btn-primary .icon {
+    font-size: 16px;
+    line-height: 0;
+  }
+
+  .spacer-flex { flex: 1; min-height: 16px; }
+
+  /* ── Bottom Links ── */
+  .bottom-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 4px 4px 0;
+    flex-shrink: 0;
+  }
+  .bottom-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 11px 8px;
+    min-height: 44px;
+    cursor: pointer;
+    transition: color 0.15s ease;
+    border-radius: var(--radius-sm);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .bottom-link:hover {
+    color: var(--primary);
+  }
+  .bottom-link:active {
+    color: var(--primary-light);
+  }
+  .bottom-link .icon-emoji {
+    font-size: 18px;
+    line-height: 1;
+  }
+  .bottom-link .arrow {
+    font-size: 12px;
+    color: var(--text-hint);
+    margin-left: 1px;
+    transition: transform 0.2s ease;
+  }
+  .bottom-link:hover .arrow {
+    transform: translateX(2px);
+  }
+
+  /* ═══════════════════════════════════════════════
+     SAFE AREA
+     ═══════════════════════════════════════════════ */
+  .safe-area {
+    height: 34px;
+    flex-shrink: 0;
+  }
+
+  /* ═══════════════════════════════════════════════
+     DESIGN LABEL (for review only)
+     ═══════════════════════════════════════════════ */
+  .design-label {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: var(--text-hint);
+    background: rgba(0,0,0,0.04);
+    padding: 2px 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    z-index: 5;
+  }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="screen">
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="status-icons">
+        <!-- Signal -->
+        <svg width="17" height="12" viewBox="0 0 17 12">
+          <rect x="0" y="8" width="3" height="4" rx="0.5" fill="#2D3436"/>
+          <rect x="4.5" y="5" width="3" height="7" rx="0.5" fill="#2D3436"/>
+          <rect x="9" y="2.5" width="3" height="9.5" rx="0.5" fill="#2D3436"/>
+          <rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="#2D3436"/>
+        </svg>
+        <!-- WiFi -->
+        <svg width="15" height="12" viewBox="0 0 15 12">
+          <circle cx="7.5" cy="10.5" r="1.2" fill="#2D3436"/>
+          <path d="M7.5 6.5C9.09 6.5 10.5 7.12 11.54 8.14L10.48 9.2C9.72 8.44 8.66 8 7.5 8C6.34 8 5.28 8.44 4.52 9.2L3.46 8.14C4.5 7.12 5.91 6.5 7.5 6.5Z" fill="#2D3436"/>
+          <path d="M7.5 3.5C10.08 3.5 12.42 4.5 14.14 6.21L13.08 7.27C11.64 5.83 9.68 5 7.5 5C5.32 5 3.36 5.83 1.92 7.27L0.86 6.21C2.58 4.5 4.92 3.5 7.5 3.5Z" fill="#2D3436"/>
+          <path d="M7.5 0.5C11.08 0.5 14.33 1.89 16.71 4.27L15.65 5.33C13.55 3.23 10.68 2 7.5 2C4.32 2 1.45 3.23 0.35 5.33L-0.71 4.27C1.67 1.89 4.92 0.5 7.5 0.5Z" fill="#2D3436"/>
+        </svg>
+        <!-- Battery -->
+        <svg width="25" height="12" viewBox="0 0 25 12">
+          <rect x="0.5" y="0.5" width="21" height="11" rx="2" fill="none" stroke="#2D3436" stroke-width="1"/>
+          <rect x="2" y="2" width="18" height="8" rx="1.5" fill="#00B894"/>
+          <rect x="22" y="4" width="3" height="4" rx="1" fill="#2D3436"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- 🔥 Streak Badge -->
+      <div class="streak-badge">
+        <span class="flame">🔥</span>
+        <span class="label">连续打卡</span>
+        <span class="num">7</span>
+        <span class="label">天</span>
+      </div>
+
+      <div class="spacer-40"></div>
+
+      <!-- Today's Practice Duration -->
+      <div class="today-label">今日练习</div>
+      <div class="today-value">
+        3<span class="unit">分</span>12<span class="unit">秒</span>
+      </div>
+
+      <div class="spacer-44"></div>
+
+      <!-- Primary CTA -->
+      <button class="btn-primary">
+        <span class="icon">▶</span>
+        开始今日练习
+      </button>
+
+      <div class="spacer-flex"></div>
+
+      <!-- Bottom Links -->
+      <div class="bottom-links">
+        <a class="bottom-link">
+          <span class="icon-emoji">📚</span>
+          素材库
+          <span class="arrow">→</span>
+        </a>
+        <a class="bottom-link">
+          <span class="icon-emoji">👤</span>
+          个人中心
+          <span class="arrow">→</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Safe Area -->
+    <div class="safe-area"></div>
+
+    <!-- Design Label -->
+    <div class="design-label">听刻 · 首页 V3 · 390×844</div>
+
+  </div>
+</div>
+
+</body>
+</html>

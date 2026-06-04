@@ -3,5 +3,11 @@ node_modules/
 dist/
 *.log
 .env
+.env.local
 .DS_Store
 *.local
+*.tsbuildinfo
+ios/Pods/
+android/.gradle/
+android/app/build/
+android/build/

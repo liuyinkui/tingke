@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>听刻 · 首页（潮汐风格）</title>
+<style>
+/* ================================================
+   听刻 - 潮汐风格设计 · 首页
+   画布: 390 × 844 (iPhone 14 Pro)
+   日期: 2026-06-04
+   设计师: 若楠
+   ================================================ */
+
+/* ── 设计系统 Token ── */
+:root {
+  --primary: #1E3A5F;
+  --primary-light: #2D5A8E;
+  --primary-bg: #E8EDF2;
+  --accent: #FF6B35;
+  --accent-light: #FF8C5A;
+  --accent-bg: #FFF0E8;
+  --bg: #F2F4F7;
+  --bg-start: #EEF0F5;
+  --bg-end: #F6F8FA;
+  --bg-card: #FFFFFF;
+  --text-primary: #1A1D21;
+  --text-secondary: #636E72;
+  --text-hint: #B2BEC3;
+  --success: #00B894;
+  --success-bg: #E6FAF5;
+  --error: #FF6B6B;
+  --error-bg: #FFF0F0;
+  --divider: #E8ECF0;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-max: 24px;
+  --shadow-card: 0 1px 4px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+  --shadow-card-hover: 0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+  --shadow-btn: 0 2px 8px rgba(30,58,95,0.15);
+  --shadow-btn-hover: 0 4px 16px rgba(30,58,95,0.2);
+  --font: -apple-system, "PingFang SC", "SF Pro", "Helvetica Neue", sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #E8ECF0;
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── 手机框 ── */
+.phone-frame {
+  position: relative;
+  width: 390px;
+  height: 844px;
+  background: linear-gradient(170deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  border-radius: 44px;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.06),
+    0 8px 32px rgba(0,0,0,0.12),
+    0 24px 60px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+/* ── Dynamic Island ── */
+.dynamic-island {
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 126px;
+  height: 34px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 20;
+}
+
+/* ── 状态栏 ── */
+.status-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 54px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 32px 12px;
+  z-index: 10;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.status-bar .time {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.status-bar .icons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.status-bar .icons svg {
+  display: block;
+}
+
+/* ── 页面内容 ── */
+.content {
+  position: absolute;
+  top: 54px;
+  left: 0;
+  right: 0;
+  bottom: 34px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 24px;
+  scroll-behavior: smooth;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── 动画关键帧 ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUpSub {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.15); }
+  50% { box-shadow: 0 0 0 8px rgba(255, 107, 53, 0); }
+}
+
+/* ── 顶部：日期 ── */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 28px;
+  margin-bottom: 4px;
+  animation: fadeUp 0.6s var(--ease-out) both;
+}
+
+.date-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-label {
+  font-size: 12px;
+  color: var(--text-hint);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.date-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.menu-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+  color: var(--text-secondary);
+}
+
+.menu-btn:hover,
+.menu-btn:active {
+  box-shadow: var(--shadow-card-hover);
+  transform: scale(0.95);
+}
+
+/* ── Brand 区域 ── */
+.brand-section {
+  margin-bottom: 16px;
+  animation: fadeUp 0.6s var(--ease-out) 0.1s both;
+}
+
+.brand-name {
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin-bottom: 4px;
+}
+
+.brand-tagline {
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+/* ── 连续打卡 ── */
+.streak-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-card);
+  animation: fadeUp 0.6s var(--ease-out) 0.15s both;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out);
+}
+
+.streak-section:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-1px);
+}
+
+.streak-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.streak-info {
+  flex: 1;
+}
+
+.streak-label {
+  font-size: 12px;
+  color: var(--text-hint);
+  letter-spacing: 0.3px;
+  margin-bottom: 1px;
+}
+
+.streak-count {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.3px;
+}
+
+.streak-unit {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-left: 2px;
+}
+
+.streak-arrow {
+  color: var(--text-hint);
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+/* ── 分区标题 ── */
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-hint);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding-left: 2px;
+  animation: fadeUp 0.6s var(--ease-out) 0.2s both;
+}
+
+/* ── 今日素材卡片 ── */
+.today-card {
+  background: linear-gradient(135deg, var(--primary) 0%, #243B5E 100%);
+  border-radius: var(--radius-max);
+  padding: 28px 24px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(30,58,95,0.08), 0 8px 24px rgba(30,58,95,0.06);
+  animation: scaleIn 0.7s var(--ease-out) 0.25s both;
+  position: relative;
+  overflow: hidden;
+}
+
+.today-card::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  right: -30%;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.today-card::after {
+  content: '';
+  position: absolute;
+  bottom: -40%;
+  left: -20%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.card-day-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.2px;
+  line-height: 1.3;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.card-title-en {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 400;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.difficulty-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.3px;
+}
+
+.step-tags {
+  display: flex;
+  gap: 6px;
+}
+
+.step-tag {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.65);
+  letter-spacing: 0.2px;
+}
+
+.duration-tag {
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.duration-tag svg {
+  opacity: 0.6;
+}
+
+.card-progress {
+  margin-top: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.progress-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 6px;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 1.2s var(--ease-out);
+}
+
+/* ── 本周回顾卡片 ── */
+.week-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s var(--ease-out) 0.3s both;
+  transition: all 0.3s var(--ease-out);
+}
+
+.week-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.week-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.week-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.week-more {
+  font-size: 12px;
+  color: var(--text-hint);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.week-more:hover {
+  color: var(--primary);
+}
+
+.week-stats {
+  display: flex;
+  gap: 16px;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-hint);
+  margin-top: 2px;
+}
+
+/* ── 底部按钮 ── */
+.bottom-cta {
+  position: sticky;
+  bottom: 0;
+  padding: 16px 0 20px;
+  background: linear-gradient(180deg, transparent 0%, var(--bg-end) 30%);
+  animation: slideUp 0.6s var(--ease-out) 0.45s both;
+}
+
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 56px;
+  border: none;
+  background: var(--primary);
+  color: #FFFFFF;
+  font-size: 17px;
+  font-weight: 600;
+  font-family: var(--font);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: all 0.35s var(--ease-out);
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.btn-primary:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-btn-hover);
+}
+
+.btn-primary:active {
+  transform: translateY(0px);
+  box-shadow: var(--shadow-btn);
+}
+
+.btn-primary .btn-icon {
+  font-size: 18px;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.btn-primary:hover .btn-icon {
+  transform: translateX(3px);
+}
+
+/* ── 装饰声波纹（静态视觉元素，非交互） ── */
+.deco-waves {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 20px;
+  animation: fadeUp 0.6s var(--ease-out) 0.35s both;
+  margin-bottom: 4px;
+}
+
+.deco-waves span {
+  display: block;
+  width: 3px;
+  background: var(--primary-bg);
+  border-radius: 2px;
+  animation: breathe 3s ease-in-out infinite;
+}
+
+.deco-waves span:nth-child(1) { height: 8px; animation-delay: 0s; }
+.deco-waves span:nth-child(2) { height: 14px; animation-delay: 0.4s; }
+.deco-waves span:nth-child(3) { height: 20px; animation-delay: 0.8s; }
+.deco-waves span:nth-child(4) { height: 12px; animation-delay: 0.3s; }
+.deco-waves span:nth-child(5) { height: 6px; animation-delay: 0.6s; }
+
+/* ── 底部安全区 ── */
+.safe-area {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 34px;
+  pointer-events: none;
+}
+
+.safe-area-line {
+  width: 134px;
+  height: 5px;
+  background: #D0D4DA;
+  border-radius: 3px;
+  margin: 10px auto 0;
+}
+
+/* ================================================
+   尺寸标注
+   ================================================
+   Phone Frame:       390 × 844px, border-radius: 44px
+   Dynamic Island:    126 × 34px, top: 11px
+   Status Bar:        54px height
+   Safe Area:         34px bottom
+   Content padding:   0 24px
+
+   Brand Name:        34px font, 800 weight
+   Tagline:           15px font, 400 weight
+   Streak Section:    padding 14px 18px, border-radius 18px
+   Today Card:        28px padding, border-radius 24px
+   Card Title:        20px font, 700 weight
+   Primary Button:    56px height, border-radius 18px
+   ================================================ */
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+
+  <!-- Dynamic Island -->
+  <div class="dynamic-island"></div>
+
+  <!-- 状态栏 -->
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <!-- 信号 -->
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="none">
+        <rect x="0" y="8" width="3" height="4" rx="0.5" fill="currentColor" opacity="0.4"/>
+        <rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5" fill="currentColor" opacity="0.5"/>
+        <rect x="9" y="3" width="3" height="9" rx="0.5" fill="currentColor" opacity="0.6"/>
+        <rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="currentColor"/>
+      </svg>
+      <!-- WiFi -->
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+        <path d="M8 10.5C8.82843 10.5 9.5 9.82843 9.5 9C9.5 8.17157 8.82843 7.5 8 7.5C7.17157 7.5 6.5 8.17157 6.5 9C6.5 9.82843 7.17157 10.5 8 10.5Z" fill="currentColor"/>
+        <path d="M11.5 7.5C10.7 6.8 9.7 6.2 8 6.2C6.3 6.2 5.3 6.8 4.5 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+        <path d="M14 4.8C12.7 3.6 10.8 2.8 8 2.8C5.2 2.8 3.3 3.6 2 4.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.35"/>
+      </svg>
+      <!-- 电池 -->
+      <svg width="27" height="12" viewBox="0 0 27 12" fill="none">
+        <rect x="0.5" y="0.5" width="22" height="11" rx="2.5" stroke="currentColor" opacity="0.35"/>
+        <rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor" opacity="0.9"/>
+        <rect x="24" y="3.5" width="2.5" height="5" rx="1" fill="currentColor" opacity="0.3"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 页面内容 -->
+  <div class="content">
+
+    <!-- 顶部：日期 + 菜单 -->
+    <div class="header-top">
+      <div class="date-section">
+        <span class="date-label">今日</span>
+        <span class="date-value">2026年6月4日 · 周四</span>
+      </div>
+      <button class="menu-btn" aria-label="菜单">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="1" fill="currentColor"/>
+          <circle cx="12" cy="5" r="1" fill="currentColor"/>
+          <circle cx="12" cy="19" r="1" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Brand -->
+    <div class="brand-section">
+      <h1 class="brand-name">听刻</h1>
+      <p class="brand-tagline">把声音刻进脑子里</p>
+    </div>
+
+    <!-- 装饰声波纹 -->
+    <div class="deco-waves">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- 连续打卡 -->
+    <div class="streak-section">
+      <div class="streak-icon">🔥</div>
+      <div class="streak-info">
+        <div class="streak-label">连续学习</div>
+        <div class="streak-count">
+          12<span class="streak-unit">天</span>
+        </div>
+      </div>
+      <span class="streak-arrow">›</span>
+    </div>
+
+    <!-- 今日素材 -->
+    <div class="section-label">今日素材</div>
+
+    <div class="today-card">
+      <div class="card-day-label">第 04 天</div>
+      <h2 class="card-title">TED Talks:<br>如何掌控你的自由时间</h2>
+      <p class="card-title-en">How to Gain Control of Your Free Time</p>
+      <div class="card-meta">
+        <span class="difficulty-tag">✦ 中级</span>
+        <div class="step-tags">
+          <span class="step-tag">盲听</span>
+          <span class="step-tag">听写</span>
+          <span class="step-tag">跟读</span>
+        </div>
+      </div>
+      <div class="duration-tag">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12,6 12,12 16,14"/>
+        </svg>
+        15分钟 · 3段
+      </div>
+      <div class="card-progress">
+        <div class="progress-label">已完成 0%</div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 本周概览 -->
+    <div class="section-label">本周回顾</div>
+
+    <div class="week-card">
+      <div class="week-header">
+        <span class="week-title">学习概览</span>
+        <span class="week-more">查看全部 ›</span>
+      </div>
+      <div class="week-stats">
+        <div class="stat-item">
+          <div class="stat-number">21</div>
+          <div class="stat-label">练习句数</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">87%</div>
+          <div class="stat-label">听写正确率</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4</div>
+          <div class="stat-label">完成天数</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部 CTA -->
+    <div class="bottom-cta">
+      <button class="btn-primary" onclick="startPractice()">
+        <span class="btn-icon">▶</span>
+        开始今日练习
+      </button>
+    </div>
+
+  </div>
+
+  <!-- 底部安全区 -->
+  <div class="safe-area">
+    <div class="safe-area-line"></div>
+  </div>
+
+</div>
+
+<script>
+// ── 进入时触发进度条动画 ──
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    var fill = document.getElementById('progressFill');
+    if (fill) fill.style.width = '0%';
+  }, 500);
+});
+
+// ── 按钮点击反馈 ──
+function startPractice() {
+  var btn = event.currentTarget;
+  btn.style.transform = 'scale(0.97)';
+  btn.style.transition = 'all 0.15s var(--ease-out)';
+  setTimeout(function() {
+    btn.style.transform = '';
+  }, 150);
+  // 在实际 App 中跳转到听写页面
+  // window.location.href = 'dictation.html';
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>听刻 · 首页（设计系统版）</title>
+<style>
+/* ═══════════════════════════════════════════════
+   听刻 - 基于 base-guide.md 设计系统
+   品牌主色: #02B47F | 品牌辅助色: #F8D9D6
+   画布: 390×844 (iPhone 14 Pro)
+   ═══════════════════════════════════════════════ */
+
+:root {
+  /* Brand Colors */
+  --color-brand-primary: #02B47F;
+  --color-brand-primary-dark: #019A6C;
+  --color-brand-secondary: #F8D9D6;
+
+  /* Semantic Colors */
+  --color-success: #2ECC71;
+  --color-warning: #F39C12;
+  --color-error: #E74C3C;
+  --color-info: #3498DB;
+
+  /* Text Colors */
+  --color-text-primary: rgba(0,0,0,0.9);
+  --color-text-secondary: rgba(0,0,0,0.6);
+  --color-text-tertiary: rgba(0,0,0,0.3);
+  --color-text-quaternary: rgba(0,0,0,0.2);
+  --color-text-inverse: #FFFFFF;
+  --color-text-on-primary: rgba(255,255,255,1.0);
+  --color-text-on-secondary: rgba(255,255,255,0.6);
+
+  /* Neutral Colors */
+  --color-neutral-1: #FFFFFF;
+  --color-neutral-2: #F1F3F5;
+  --color-neutral-3: #F2F4F7;
+  --color-neutral-4: #E9ECF0;
+  --color-neutral-5: #DCE2E8;
+  --color-neutral-6: #BEC5CD;
+  --color-neutral-7: #8E9AAB;
+  --color-neutral-8: #5A6E8A;
+
+  /* Backgrounds */
+  --color-background-page: #F1F3F5;
+  --color-background-surface: #FFFFFF;
+  --color-background-overlay: rgba(0,0,0,0.5);
+
+  /* Borders */
+  --color-border-light: #F2F4F7;
+  --color-border-default: #E9ECF0;
+
+  /* Spacing (8px grid) */
+  --spacing-0: 0;
+  --spacing-2: 2px;
+  --spacing-4: 4px;
+  --spacing-6: 6px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+
+  /* Border Radius */
+  --border-radius-none: 0;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-mg: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 24px;
+  --border-radius-2xl: 32px;
+  --border-radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.12);
+  --shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
+
+  /* Typography */
+  --font-family-sans: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Transitions */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 350ms;
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --transition-default: all var(--duration-base) var(--ease-out);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #DDE0DD;
+  font-family: var(--font-family-sans);
+}
+
+/* ═══ Phone Frame ═══ */
+.phone-frame {
+  position: relative;
+  width: 390px;
+  height: 844px;
+  background: var(--color-background-page);
+  border-radius: var(--border-radius-2xl);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 2px #2C2C2E,
+    0 0 0 6px #1C1C1E,
+    0 20px 60px rgba(0,0,0,0.5);
+}
+
+.dynamic-island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 126px;
+  height: 36px;
+  background: #111;
+  border-radius: var(--border-radius-full);
+  z-index: 100;
+}
+
+.status-bar {
+  position: relative;
+  height: 54px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 var(--spacing-32) var(--spacing-4);
+  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.status-bar .time { font-size: 16px; font-weight: var(--font-weight-bold); }
+
+/* ═══ Hero Section ═══ */
+.hero {
+  background: linear-gradient(135deg, var(--color-brand-primary) 0%, #019A6C 100%);
+  padding: var(--spacing-16) var(--spacing-24) var(--spacing-32);
+  position: relative;
+  overflow: hidden;
+  animation: fadeDown 0.6s var(--ease-out);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -50px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: -40px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.hero-brand {
+  font-size: 30px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-inverse);
+  letter-spacing: 5px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.hero-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 2.5px;
+  text-align: center;
+  margin-top: var(--spacing-4);
+  position: relative;
+  z-index: 1;
+}
+.hero-divider {
+  width: 24px;
+  height: 2px;
+  background: rgba(255,255,255,0.3);
+  margin: var(--spacing-16) auto 0;
+  border-radius: 1px;
+}
+
+.streak-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-12);
+  margin-top: var(--spacing-20);
+  position: relative;
+  z-index: 1;
+}
+.streak-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  padding: var(--spacing-6) var(--spacing-16);
+  background: rgba(255,255,255,0.15);
+  border-radius: var(--border-radius-full);
+  backdrop-filter: blur(4px);
+}
+.streak-badge .flame { font-size: 16px; }
+.streak-badge .count {
+  font-size: 15px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-inverse);
+}
+.streak-badge .label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ═══ Content Area ═══ */
+.content {
+  padding: var(--spacing-20) var(--spacing-24) var(--spacing-24);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.today-label {
+  font-size: 12px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 3px;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--spacing-12);
+  animation: fadeUp 0.5s var(--ease-out) 0.15s both;
+}
+
+/* ═══ Card (按照组件规范) ═══ */
+.card {
+  background: var(--component-card-background, var(--color-background-surface));
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-24);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border-default);
+  animation: fadeUp 0.5s var(--ease-out) 0.2s both;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-16);
+  gap: var(--spacing-16);
+}
+.card-title {
+  font-size: 20px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+.card-title-en {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  margin-top: var(--spacing-4);
+}
+.card-tags {
+  display: flex;
+  gap: var(--spacing-8);
+  margin: var(--spacing-16) 0;
+}
+.card-tag {
+  padding: var(--spacing-4) var(--spacing-12);
+  background: var(--color-neutral-2);
+  border-radius: var(--border-radius-full);
+  font-size: 11px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+.card-tag.active {
+  background: rgba(2,180,127,0.1);
+  color: var(--color-brand-primary);
+}
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--spacing-16);
+  border-top: 1px solid var(--color-border-light);
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+}
+
+/* ═══ CTA Button ═══ */
+.cta-wrap {
+  margin-top: auto;
+  padding-top: var(--spacing-20);
+  animation: fadeUp 0.5s var(--ease-out) 0.3s both;
+}
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  width: 100%;
+  height: 52px;
+  background: var(--color-brand-primary);
+  color: var(--color-text-inverse);
+  font-size: 17px;
+  font-weight: var(--font-weight-semibold);
+  border: none;
+  border-radius: var(--border-radius-mg);
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(2,180,127,0.25);
+  transition: var(--transition-default);
+}
+.btn-primary:hover {
+  background: var(--color-brand-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(2,180,127,0.3);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary .arrow {
+  font-size: 18px;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+.btn-primary:hover .arrow { transform: translateX(4px); }
+
+.footer-hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  margin-top: var(--spacing-16);
+  animation: fadeUp 0.5s var(--ease-out) 0.4s both;
+}
+
+/* ═══ Animations ═══ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+        <rect x="0.5" y="0.5" width="15" height="11" rx="2" stroke="#000" stroke-opacity="0.4"/>
+        <rect x="12" y="4" width="3" height="2" rx="0.5" fill="#000" fill-opacity="0.25"/>
+      </svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none">
+        <rect x="0" y="1" width="18" height="10" rx="4" fill="#000"/>
+        <rect x="2" y="3" width="6" height="6" rx="2" fill="#000" fill-opacity="0.25"/>
+        <rect x="9" y="3.5" width="4" height="5" rx="1.5" fill="#000" fill-opacity="0.25"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-brand">听刻</div>
+    <div class="hero-sub">把声音刻进脑子里</div>
+    <div class="hero-divider"></div>
+    <div class="streak-row">
+      <div class="streak-badge">
+        <span class="flame">🔥</span>
+        <span class="count">12</span>
+        <span class="label">天连续</span>
+      </div>
+      <div class="streak-badge">
+        <span class="flame">📊</span>
+        <span class="count">78%</span>
+        <span class="label">本周准确率</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <div class="today-label">今日练习</div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">人类世的终结</div>
+          <div class="card-title-en">The End of the Anthropocene</div>
+        </div>
+      </div>
+      <div class="card-tags">
+        <span class="card-tag active">🎧 盲听</span>
+        <span class="card-tag">✍️ 听写</span>
+        <span class="card-tag">🗣️ 跟读</span>
+      </div>
+      <div class="card-footer">
+        <span>难度 · 中高级</span>
+        <span>⏱ 约 15 分钟</span>
+      </div>
+    </div>
+
+    <div class="cta-wrap">
+      <button class="btn-primary">
+        <span>开始今日练习</span>
+        <span class="arrow">→</span>
+      </button>
+    </div>
+    <div class="footer-hint">每天 15 分钟，三步练听力</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>听刻 · V1沉浸 · 听写</title><style>
+:root{--brand:#02B47F;--brand-dark:#019A6C;--brand-light:rgba(2,180,127,0.08);--success:#2ECC71;--success-bg:rgba(46,204,113,0.08);--error:#E74C3C;--error-bg:rgba(231,76,60,0.08);--bg:#F1F3F5;--surface:#fff;--divider:#E9ECF0;--text-primary:rgba(0,0,0,.9);--text-secondary:rgba(0,0,0,.6);--text-tertiary:rgba(0,0,0,.3);--radius-sm:4px;--radius-md:8px;--radius-mg:12px;--radius-lg:16px;--font:'PingFang SC',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#DDE0DD;font-family:var(--font)}
+.phone{position:relative;width:390px;height:844px;background:var(--bg);border-radius:32px;overflow:hidden;box-shadow:0 0 0 2px #2C2C2E,0 0 0 6px #1C1C1E,0 20px 60px rgba(0,0,0,.5)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:126px;height:36px;background:#111;border-radius:999px;z-index:100}
+.status{height:54px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 4px;font-size:15px;font-weight:600;color:var(--text-primary)}.status .t{font-size:16px;font-weight:700}
+.content{height:calc(100% - 54px);padding:8px 24px 16px;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;justify-content:space-between;padding:4px 0 8px}
+.top .back{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;cursor:pointer;border-radius:50%;color:var(--text-secondary)}
+.top .back:hover{background:var(--divider)}.top .ttl{font-size:16px;font-weight:600;color:var(--text-primary)}
+.top .done{font-size:14px;font-weight:500;color:var(--brand);border:none;background:none;cursor:pointer;padding:4px 10px;border-radius:var(--radius-sm)}
+.top .done:hover{background:var(--brand-light)}
+
+.steps{display:flex;align-items:center;justify-content:center;padding:4px 0 12px}
+.sg{display:flex;flex-direction:column;align-items:center}
+.sc{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.sc.done{background:var(--success);color:#fff}
+.sc.act{background:var(--brand);color:#fff;box-shadow:0 0 0 4px rgba(2,180,127,.1)}
+.sc.pen{background:#E4E8E4;color:var(--text-tertiary)}
+.sl{width:34px;height:2px;margin:0 4px;border-radius:1px}
+.sl.done{background:var(--success)}.sl.act{background:var(--brand)}.sl.pen{background:var(--divider)}
+.slb{font-size:10px;margin-top:4px;color:var(--text-tertiary)}
+.slb.act{color:var(--brand);font-weight:600}.slb.done{color:var(--success)}
+
+.audio{background:var(--surface);border-radius:var(--radius-lg);padding:14px 16px;box-shadow:0 4px 6px rgba(0,0,0,.08);text-align:center;flex-shrink:0}
+.audio .s{font-size:11px;color:var(--text-tertiary);letter-spacing:1.5px}
+.audio .n{font-size:13px;color:var(--text-secondary);margin:2px 0 10px}
+.ac{display:flex;align-items:center;justify-content:center;gap:16px}
+.ac button{width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;background:var(--brand-light);color:var(--brand);transition:all .2s}
+.ac button:hover{background:var(--brand);color:#fff}
+.ac .pb{width:46px;height:46px;background:var(--brand);color:#fff;box-shadow:0 2px 8px rgba(2,180,127,.2)}
+.ac .pb:hover{background:var(--brand-dark);transform:scale(1.04)}
+
+.dict{flex:1;overflow-y:auto;margin-top:10px;padding-right:4px}
+.dict::-webkit-scrollbar{width:3px}.dict::-webkit-scrollbar-thumb{background:var(--divider);border-radius:2px}
+.ds{margin-bottom:12px}
+.ds .num{font-size:11px;color:var(--text-tertiary);margin-bottom:4px}
+.iw{display:flex;align-items:center;background:var(--surface);border:1.5px solid var(--divider);border-radius:var(--radius-md);padding:0 12px;transition:all .2s}
+.iw:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(2,180,127,.07)}
+.iw.ok{border-color:var(--success);background:var(--success-bg)}
+.iw.bad{border-color:var(--error);background:var(--error-bg);animation:shake .35s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-4px)}40%,80%{transform:translateX(4px)}}
+.inp{flex:1;height:44px;border:none;background:transparent;font-size:15px;font-family:var(--font);color:var(--text-primary);outline:none}
+.inp::placeholder{color:var(--text-tertiary)}
+.ico{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;opacity:0;transition:opacity .2s}
+.ico.s{opacity:1}.ico.c{background:var(--success-bg);color:var(--success)}.ico.e{background:var(--error-bg);color:var(--error)}
+.cb{flex-shrink:0;width:28px;height:28px;border:none;background:var(--brand-light);color:var(--brand);border-radius:var(--radius-sm);cursor:pointer;font-size:12px;font-weight:600;margin-left:6px;transition:all .2s}
+.cb:hover{background:var(--brand);color:#fff}
+.ah{font-size:12px;color:var(--success);margin-top:4px;padding-left:4px}.spacer{flex:1}
+
+.bottom{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--divider);flex-shrink:0}
+.score{display:flex;align-items:baseline;gap:4px}
+.score .n{font-size:22px;font-weight:700;color:var(--brand)}.score .t{font-size:13px;color:var(--text-tertiary)}.score .l{font-size:13px;color:var(--text-secondary);margin-left:4px}
+.nxt{height:40px;padding:0 22px;background:var(--brand);color:#fff;font-size:15px;font-weight:600;border:none;border-radius:var(--radius-mg);cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(2,180,127,.2);transition:all .25s var(--ease)}
+.nxt:hover{background:var(--brand-dark);transform:translateY(-1px)}
+</style></head><body>
+<div class="phone"><div class="island"></div>
+<div class="status"><span class="t">9:41</span></div>
+<div class="content">
+<div class="top"><button class="back">‹</button><span class="ttl">听写训练</span><button class="done">完成</button></div>
+<div class="steps">
+<div class="sg"><div class="sc done">✓</div><span class="slb done">盲听</span></div><div class="sl done"></div>
+<div class="sg"><div class="sc act">2</div><span class="slb act">听写</span></div><div class="sl pen"></div>
+<div class="sg"><div class="sc pen">3</div><span class="slb">跟读</span></div>
+</div>
+<div class="audio"><div class="s">当前句子</div><div class="n">第 1 / 4 句</div>
+<div class="ac"><button>⏪</button><button class="pb">▶</button><button>⏩</button></div></div>
+<div class="dict">
+<div class="ds"><div class="num">句子 1</div><div class="iw ok"><input class="inp" value="The anthropocene is a proposed geological epoch" readonly><span class="ico c s">✓</span></div></div>
+<div class="ds"><div class="num">句子 2</div><div class="iw"><input class="inp" placeholder="听到后输入..." value="dating from the commencement"><button class="cb">↵</button></div></div>
+<div class="ds"><div class="num">句子 3</div><div class="iw"><input class="inp" placeholder="听到后输入..." style="caret-color:var(--brand)"><button class="cb">↵</button></div></div>
+<div class="ds"><div class="num">句子 4</div><div class="iw bad"><input class="inp" value="of significant human impact" readonly style="text-decoration:line-through;text-decoration-color:var(--error)"><span class="ico e s">✗</span></div>
+<div class="ah">✓ significant human impact on Earth's geology</div></div>
+</div>
+<div class="bottom"><div class="score"><span class="n">2</span><span class="t">/4</span><span class="l">句正确</span></div><button class="nxt">下一句 →</button></div>
+</div></div></body></html>

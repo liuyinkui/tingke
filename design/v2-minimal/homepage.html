@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>听刻 · V2极简 · 首页</title><style>
+:root{--brand:#02B47F;--brand-light:rgba(2,180,127,0.06);--secondary:#F8D9D6;--success:#2ECC71;--bg:#F5F6F8;--surface:#fff;--divider:#EFF1F4;--text-primary:rgba(0,0,0,.85);--text-secondary:rgba(0,0,0,.5);--text-tertiary:rgba(0,0,0,.28);--radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px;--font:'PingFang SC',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;--ease:cubic-bezier(.25,.1,.25,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#E8EBE8;font-family:var(--font)}
+.phone{position:relative;width:390px;height:844px;background:var(--bg);border-radius:32px;overflow:hidden;box-shadow:0 0 0 2px #2C2C2E,0 0 0 6px #1C1C1E,0 20px 60px rgba(0,0,0,.5)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:126px;height:36px;background:#111;border-radius:999px;z-index:100}
+.status{height:54px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 4px;font-size:15px;color:var(--text-primary);font-weight:600}.status .t{font-size:16px;font-weight:700}
+.content{padding:20px 28px 28px;display:flex;flex-direction:column;height:calc(100% - 54px)}
+.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.head .brand{font-size:22px;font-weight:700;color:var(--text-primary);letter-spacing:2px}
+.head .brand span{color:var(--brand)}
+.head .ico{width:36px;height:36px;border-radius:50%;background:var(--brand-light);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:background .2s}
+.head .ico:hover{background:rgba(2,180,127,.12)}
+.date-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.date-row .d{font-size:14px;color:var(--text-secondary)}
+.streak{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-primary)}
+.streak .n{font-weight:700;color:var(--brand)}
+.card{background:var(--surface);border-radius:var(--radius-xl);padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.04);margin-bottom:12px}
+.card:first-of-type{border-left:3px solid var(--brand)}
+.card .lbl{font-size:11px;color:var(--text-tertiary);letter-spacing:1.5px;margin-bottom:8px}
+.card .title{font-size:20px;font-weight:600;color:var(--text-primary);line-height:1.3}
+.card .en{font-size:13px;color:var(--text-tertiary);margin-top:2px}
+.card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--divider)}
+.card .tags{display:flex;gap:6px}
+.card .tag{padding:3px 10px;background:var(--brand-light);border-radius:999px;font-size:11px;font-weight:500;color:var(--brand)}
+.card .time{font-size:12px;color:var(--text-tertiary)}
+.spacer{flex:1}
+.cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:50px;background:var(--brand);color:#fff;font-size:16px;font-weight:600;border:none;border-radius:var(--radius-md);cursor:pointer;letter-spacing:.5px;transition:all .25s;box-shadow:0 2px 8px rgba(2,180,127,.15)}
+.cta:hover{background:#019A6C;transform:translateY(-1px)}
+.footer{text-align:center;font-size:12px;color:var(--text-tertiary);margin-top:16px}
+</style></head><body>
+<div class="phone"><div class="island"></div>
+<div class="status"><span class="t">9:41</span></div>
+<div class="content">
+<div class="head"><div class="brand">听<span>刻</span></div><div class="ico">👤</div></div>
+<div class="date-row"><span class="d">2026.06.04 · 星期四</span>
+<div class="streak"><span>🔥</span><span class="n">12</span> 天连续</div></div>
+<div class="card">
+<div class="lbl">今日练习</div>
+<div class="title">人类世的终结</div>
+<div class="en">The End of the Anthropocene</div>
+<div class="meta"><div class="tags"><span class="tag">🎧 盲听</span><span class="tag">✍️ 听写</span><span class="tag">🗣️ 跟读</span></div><span class="time">中高级 · 15min</span></div>
+</div>
+<div class="card" style="padding:16px 20px;display:flex;align-items:center;gap:12px">
+<span style="font-size:20px">📊</span>
+<div style="flex:1"><div style="font-size:14px;font-weight:600;color:var(--text-primary)">本周准确率</div><div style="font-size:12px;color:var(--text-tertiary);margin-top:2px">比上周提升 5%</div></div>
+<span style="font-size:20px;font-weight:700;color:var(--brand)">78%</span>
+</div>
+<div class="spacer"></div>
+<button class="cta">开始今日练习 →</button>
+<div class="footer">每天 15 分钟，三步练听力</div>
+</div></div></body></html>

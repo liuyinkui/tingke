@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>听刻 · 首页</title>
+<style>
+  /* ============================================
+     Design System Tokens (from base-guide.md)
+     ============================================ */
+  :root {
+    /* Brand */
+    --color-brand-primary: #02B47F;
+    --color-brand-primary-dark: #02B47F;
+    --color-brand-secondary: #F8D9D6;
+
+    /* Semantic */
+    --color-success: #2ECC71;
+    --color-warning: #F39C12;
+    --color-error: #E74C3C;
+    --color-info: #3498DB;
+
+    /* Text */
+    --color-text-primary: rgba(0,0,0,0.9);
+    --color-text-secondary: rgba(0,0,0,0.6);
+    --color-text-tertiary: rgba(0,0,0,0.3);
+    --color-text-inverse: #FFFFFF;
+
+    /* Neutral */
+    --color-neutral-1: #FFFFFF;
+    --color-neutral-2: #F1F3F5;
+    --color-neutral-3: #F2F4F7;
+    --color-neutral-4: #E9ECF0;
+    --color-neutral-5: #DCE2E8;
+    --color-neutral-6: #BEC5CD;
+    --color-neutral-7: #8E9AAB;
+
+    /* Background */
+    --color-background-page: #F1F3F5;
+    --color-background-surface: #FFFFFF;
+    --color-background-overlay: rgba(0,0,0,0.5);
+    --color-border-default: #E9ECF0;
+    --color-border-light: #F2F4F7;
+
+    /* Spacing (8px grid) */
+    --spacing-4: 4px;
+    --spacing-8: 8px;
+    --spacing-12: 12px;
+    --spacing-16: 16px;
+    --spacing-20: 20px;
+    --spacing-24: 24px;
+    --spacing-32: 32px;
+    --spacing-40: 40px;
+    --spacing-48: 48px;
+
+    /* Border Radius */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-mg: 12px;
+    --border-radius-lg: 16px;
+    --border-radius-xl: 24px;
+    --border-radius-2xl: 32px;
+    --border-radius-full: 9999px;
+
+    /* Shadow */
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.08);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.12);
+
+    /* Typography */
+    --font-family-sans: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Font Sizes */
+    --font-size-Display-L: 32px;
+    --font-size-Display-M: 28px;
+    --font-size-Display-S: 24px;
+    --font-size-Title-L: 22px;
+    --font-size-Title-M: 20px;
+    --font-size-Title-S: 18px;
+    --font-size-Subtitle-L: 18px;
+    --font-size-Subtitle-M: 16px;
+    --font-size-Subtitle-S: 14px;
+    --font-size-Body-L: 18px;
+    --font-size-Body-M: 16px;
+    --font-size-Body-S: 14px;
+    --font-size-Caption-L: 12px;
+    --font-size-Caption-M: 10px;
+    --font-size-Caption-S: 8px;
+
+    /* Component specific */
+    --component-button-border-radius: var(--border-radius-mg);
+    --component-button-background-primary: var(--color-brand-primary);
+    --component-button-font-weight: var(--font-weight-medium);
+    --component-button-size-lg-height: 48px;
+    --component-button-size-md-height: 40px;
+    --component-button-padding-horizontal: var(--spacing-16);
+
+    --component-card-padding: var(--spacing-24);
+    --component-card-border-radius: var(--border-radius-lg);
+    --component-card-shadow: var(--shadow-md);
+    --component-card-border: 1px solid var(--color-border-default);
+    --component-card-background: var(--color-background-surface);
+
+    --component-input-height: 40px;
+    --component-input-border-radius: var(--border-radius-md);
+    --component-input-border: 1px solid var(--color-border-default);
+    --component-input-border-focus: 1px solid var(--color-brand-primary);
+    --component-input-background: var(--color-background-surface);
+    --component-input-padding-horizontal: var(--spacing-16);
+
+    /* Transitions */
+    --duration-fast: 150ms;
+    --duration-base: 250ms;
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-default: all var(--duration-base) var(--ease-in-out);
+  }
+
+  /* Reset */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-family-sans);
+    background: #E8ECEF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============================================
+     iPhone 14 Pro Frame
+     ============================================ */
+  .iphone-frame {
+    width: 390px;
+    height: 844px;
+    background: var(--color-background-page);
+    border-radius: var(--border-radius-2xl);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.08), var(--shadow-lg);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Dynamic Island */
+  .dynamic-island {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 126px;
+    height: 36px;
+    background: #111;
+    border-radius: var(--border-radius-full);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .dynamic-island .camera-dot {
+    width: 10px;
+    height: 10px;
+    background: #1E2A3A;
+    border-radius: 50%;
+    border: 1.5px solid #2A3A4A;
+  }
+  .dynamic-island .sensor-dot {
+    width: 22px;
+    height: 6px;
+    background: #1E2A3A;
+    border-radius: 3px;
+  }
+
+  /* Status Bar */
+  .status-bar {
+    height: 54px;
+    padding: 0 var(--spacing-24);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 6px;
+    font-size: 14px;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    background: transparent;
+    z-index: 40;
+    position: relative;
+  }
+  .status-bar .time { font-weight: var(--font-weight-bold); }
+  .status-bar .icons { display: flex; gap: 6px; align-items: center; }
+  .status-bar .icons svg { display: block; }
+
+  /* ============================================
+     Hero Area
+     ============================================ */
+  .hero {
+    background: linear-gradient(135deg, #02B47F 0%, #00C68E 40%, #02B47F 100%);
+    padding: var(--spacing-24) var(--spacing-24) var(--spacing-40);
+    border-radius: 0 0 var(--border-radius-xl) var(--border-radius-xl);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -40px;
+    width: 180px;
+    height: 180px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: -20px;
+    width: 120px;
+    height: 120px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero .brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-12);
+  }
+  .hero .brand-name {
+    font-size: var(--font-size-Display-S);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-inverse);
+    letter-spacing: 1px;
+  }
+  .hero .brand-name span {
+    color: rgba(255,255,255,0.8);
+    font-weight: var(--font-weight-regular);
+  }
+
+  .hero .tagline {
+    font-size: var(--font-size-Body-S);
+    color: rgba(255,255,255,0.75);
+    font-weight: var(--font-weight-regular);
+    margin-bottom: var(--spacing-20);
+    line-height: 1.5;
+  }
+
+  /* Streak Badge */
+  .streak-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(4px);
+    padding: var(--spacing-8) var(--spacing-16);
+    border-radius: var(--border-radius-full);
+  }
+  .streak-badge .fire-icon {
+    width: 20px;
+    height: 20px;
+    background: #FF6B35;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    line-height: 1;
+  }
+  .streak-badge .streak-num {
+    font-size: var(--font-size-Subtitle-M);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-inverse);
+  }
+  .streak-badge .streak-label {
+    font-size: var(--font-size-Caption-L);
+    color: rgba(255,255,255,0.8);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* ============================================
+     Content Area (scrollable)
+     ============================================ */
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-24) var(--spacing-20) var(--spacing-24);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-20);
+    scrollbar-width: none;
+  }
+  .content::-webkit-scrollbar { display: none; }
+
+  /* Section Header */
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .section-header h2 {
+    font-size: var(--font-size-Title-S);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+  }
+  .section-header a {
+    font-size: var(--font-size-Body-S);
+    color: var(--color-brand-primary);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* ============================================
+     Card Component
+     ============================================ */
+  .card {
+    background: var(--component-card-background);
+    border-radius: var(--component-card-border-radius);
+    box-shadow: var(--component-card-shadow);
+    border: var(--component-card-border);
+    padding: var(--component-card-padding);
+  }
+
+  /* Today's Practice Card */
+  .practice-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-16);
+  }
+  .practice-card .card-header .card-title {
+    font-size: var(--font-size-Subtitle-M);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+  }
+  .practice-card .card-header .card-subtitle {
+    font-size: var(--font-size-Caption-L);
+    color: var(--color-text-tertiary);
+    margin-top: 2px;
+  }
+  .practice-card .card-header .status-tag {
+    font-size: var(--font-size-Caption-L);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-brand-primary);
+    background: rgba(2, 180, 127, 0.1);
+    padding: var(--spacing-4) var(--spacing-12);
+    border-radius: var(--border-radius-full);
+  }
+
+  /* Practice Item List */
+  .practice-list { display: flex; flex-direction: column; gap: var(--spacing-12); }
+  .practice-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-12);
+    padding: var(--spacing-12) 0;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  .practice-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .practice-item .item-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius-mg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+  .practice-item .item-icon.green { background: rgba(2, 180, 127, 0.1); color: var(--color-brand-primary); }
+  .practice-item .item-icon.orange { background: rgba(243, 156, 18, 0.1); color: var(--color-warning); }
+  .practice-item .item-icon.blue { background: rgba(52, 152, 219, 0.1); color: var(--color-info); }
+  .practice-item .item-icon.pink { background: rgba(248, 217, 214, 0.5); color: #E8A098; }
+
+  .practice-item .item-info { flex: 1; }
+  .practice-item .item-info .item-title {
+    font-size: var(--font-size-Body-S);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+  .practice-item .item-info .item-meta {
+    font-size: var(--font-size-Caption-L);
+    color: var(--color-text-tertiary);
+    margin-top: 2px;
+  }
+  .practice-item .item-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--color-neutral-5);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .practice-item .item-check.done {
+    background: var(--color-brand-primary);
+    border-color: var(--color-brand-primary);
+    color: white;
+    font-size: 11px;
+  }
+
+  /* Stats Row */
+  .stats-row {
+    display: flex;
+    gap: var(--spacing-12);
+    flex-shrink: 0;
+  }
+  .stat-card {
+    flex: 1;
+    background: var(--color-background-surface);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-16);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border-default);
+    text-align: center;
+  }
+  .stat-card .stat-value {
+    font-size: var(--font-size-Display-S);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-brand-primary);
+    line-height: 1.2;
+  }
+  .stat-card .stat-label {
+    font-size: var(--font-size-Caption-L);
+    color: var(--color-text-tertiary);
+    margin-top: 4px;
+  }
+
+  /* Quick Start Cards */
+  .quick-grid {
+    display: flex;
+    gap: var(--spacing-12);
+  }
+  .quick-card {
+    flex: 1;
+    background: var(--color-background-surface);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-16);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border-default);
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition-default);
+  }
+  .quick-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+  .quick-card .quick-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--border-radius-mg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--spacing-8);
+    font-size: 20px;
+  }
+  .quick-card .quick-icon.green { background: rgba(2, 180, 127, 0.1); }
+  .quick-card .quick-icon.orange { background: rgba(243, 156, 18, 0.1); }
+  .quick-card .quick-label {
+    font-size: var(--font-size-Body-S);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+  .quick-card .quick-desc {
+    font-size: var(--font-size-Caption-L);
+    color: var(--color-text-tertiary);
+    margin-top: 2px;
+  }
+
+  /* ============================================
+     Bottom CTA
+     ============================================ */
+  .bottom-cta {
+    padding: var(--spacing-16) var(--spacing-20) var(--spacing-32);
+    background: transparent;
+    flex-shrink: 0;
+    border-top: none;
+  }
+  .btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-8);
+    width: 100%;
+    height: var(--component-button-size-lg-height);
+    background: var(--component-button-background-primary);
+    border: none;
+    border-radius: var(--component-button-border-radius);
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-Body-M);
+    font-weight: var(--component-button-font-weight);
+    color: var(--color-text-inverse);
+    cursor: pointer;
+    transition: var(--transition-default);
+    box-shadow: 0 4px 12px rgba(2, 180, 127, 0.3);
+  }
+  .btn-primary:hover {
+    background: var(--color-brand-primary-dark);
+    box-shadow: 0 6px 16px rgba(2, 180, 127, 0.4);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(2, 180, 127, 0.25);
+  }
+
+  /* Bottom safe area */
+  .safe-area { height: 0; }
+</style>
+</head>
+<body>
+
+<div class="iphone-frame">
+
+  <!-- Dynamic Island -->
+  <div class="dynamic-island">
+    <div class="camera-dot"></div>
+    <div class="sensor-dot"></div>
+  </div>
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0.5" y="4.5" width="3" height="7" rx="0.5" stroke="currentColor" stroke-opacity="0.9"/><rect x="4.5" y="2.5" width="3" height="9" rx="0.5" stroke="currentColor" stroke-opacity="0.9"/><rect x="8.5" y="0.5" width="3" height="11" rx="0.5" stroke="currentColor" stroke-opacity="0.9"/><rect x="12.5" y="2" width="3" height="8" rx="0.5" stroke="currentColor" stroke-opacity="0.4"/></svg>
+      <svg width="14" height="12" viewBox="0 0 14 12" fill="none"><path d="M7 0.5L9.5 4.5L14 5.5L10.5 9L11.5 13.5L7 11L2.5 13.5L3.5 9L0 5.5L4.5 4.5L7 0.5Z" fill="currentColor" opacity="0.9"/></svg>
+    </div>
+  </div>
+
+  <!-- Hero Area -->
+  <div class="hero">
+    <div class="hero-content">
+      <div class="brand-row">
+        <div class="brand-name">听刻<span>·英语</span></div>
+        <div class="streak-badge">
+          <div class="fire-icon">🔥</div>
+          <span class="streak-num">7</span>
+          <span class="streak-label">天连续</span>
+        </div>
+      </div>
+      <div class="tagline">每天一刻钟，听力更轻松</div>
+    </div>
+  </div>
+
+  <!-- Scrollable Content -->
+  <div class="content">
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-value">12</div>
+        <div class="stat-label">今日练习</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">89%</div>
+        <div class="stat-label">正确率</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">48</div>
+        <div class="stat-label">累计天数</div>
+      </div>
+    </div>
+
+    <!-- Today's Practice Card -->
+    <div class="card practice-card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">今日练习</div>
+          <div class="card-subtitle">中级 · 日常对话 · 约 8 分钟</div>
+        </div>
+        <div class="status-tag">进行中</div>
+      </div>
+
+      <div class="practice-list">
+        <div class="practice-item">
+          <div class="item-icon green">🎧</div>
+          <div class="item-info">
+            <div class="item-title">盲听理解</div>
+            <div class="item-meta">听全文，把握大意</div>
+          </div>
+          <div class="item-check done">✓</div>
+        </div>
+
+        <div class="practice-item">
+          <div class="item-icon orange">✍️</div>
+          <div class="item-info">
+            <div class="item-title">逐句听写</div>
+            <div class="item-meta">第 3/8 句</div>
+          </div>
+          <div class="item-check done">✓</div>
+        </div>
+
+        <div class="practice-item">
+          <div class="item-icon blue">🎤</div>
+          <div class="item-info">
+            <div class="item-title">跟读模仿</div>
+            <div class="item-meta">待开始</div>
+          </div>
+          <div class="item-check"></div>
+        </div>
+
+        <div class="practice-item">
+          <div class="item-icon pink">📊</div>
+          <div class="item-info">
+            <div class="item-title">错题复习</div>
+            <div class="item-meta">2 道待复习</div>
+          </div>
+          <div class="item-check"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Start -->
+    <div class="section-header">
+      <h2>快速开始</h2>
+      <a href="#">查看全部 →</a>
+    </div>
+
+    <div class="quick-grid">
+      <div class="quick-card">
+        <div class="quick-icon green">🎯</div>
+        <div class="quick-label">每日挑战</div>
+        <div class="quick-desc">5 分钟快练</div>
+      </div>
+      <div class="quick-card">
+        <div class="quick-icon orange">📖</div>
+        <div class="quick-label">主题精选</div>
+        <div class="quick-desc">20+ 话题</div>
+      </div>
+      <div class="quick-card">
+        <div class="quick-icon green">🏆</div>
+        <div class="quick-label">排行榜</div>
+        <div class="quick-desc">本周第 3 名</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom CTA -->
+  <div class="bottom-cta">
+    <button class="btn-primary">
+      <span>继续今日练习</span>
+      <span>→</span>
+    </button>
+  </div>
+
+  <!-- Safe Area -->
+  <div class="safe-area"></div>
+
+</div>
+
+</body>
+</html>

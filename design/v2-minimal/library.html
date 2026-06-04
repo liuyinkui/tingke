@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>听刻 · V2极简 · 素材库</title><style>
+:root{--brand:#02B47F;--brand-light:rgba(2,180,127,0.06);--success:#2ECC71;--bg:#F5F6F8;--surface:#fff;--divider:#EFF1F4;--text-primary:rgba(0,0,0,.85);--text-secondary:rgba(0,0,0,.5);--text-tertiary:rgba(0,0,0,.28);--radius-sm:6px;--radius-md:10px;--radius-lg:14px;--font:'PingFang SC',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;--ease:cubic-bezier(.25,.1,.25,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#E8EBE8;font-family:var(--font)}
+.phone{position:relative;width:390px;height:844px;background:var(--bg);border-radius:32px;overflow:hidden;box-shadow:0 0 0 2px #2C2C2E,0 0 0 6px #1C1C1E,0 20px 60px rgba(0,0,0,.5)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:126px;height:36px;background:#111;border-radius:999px;z-index:100}
+.status{height:54px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 4px;font-size:15px;color:var(--text-primary);font-weight:600}.status .t{font-size:16px;font-weight:700}
+.content{height:calc(100% - 54px);padding:8px 24px 24px;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;justify-content:space-between;padding:4px 0 12px}
+.top .ttl{font-size:20px;font-weight:700;color:var(--text-primary)}
+.top .act{font-size:13px;color:var(--brand);border:none;background:none;cursor:pointer;padding:4px 8px;border-radius:var(--radius-sm)}
+.top .act:hover{background:var(--brand-light)}
+.sbar{display:flex;align-items:center;background:var(--surface);border-radius:var(--radius-xl);padding:0 14px;border:1px solid var(--divider);margin-bottom:12px}
+.sbar:focus-within{border-color:var(--brand);box-shadow:0 0 0 2px var(--brand-light)}
+.sbar .i{font-size:14px;color:var(--text-tertiary)}
+.sbar input{flex:1;height:40px;border:none;background:transparent;font-size:14px;font-family:var(--font);color:var(--text-primary);outline:none}
+.sbar input::placeholder{color:var(--text-tertiary)}
+.fl{display:flex;gap:8px;margin-bottom:12px;overflow-x:auto;flex-shrink:0;padding-bottom:4px}
+.fl::-webkit-scrollbar{display:none}
+.fl button{padding:5px 12px;border-radius:999px;border:1px solid var(--divider);background:var(--surface);color:var(--text-secondary);font-size:12px;white-space:nowrap;cursor:pointer;transition:all .2s}
+.fl button.act{border-color:var(--brand);background:var(--brand);color:#fff}
+.list{flex:1;overflow-y:auto;padding-right:4px}
+.list::-webkit-scrollbar{width:2px}.list::-webkit-scrollbar-thumb{background:var(--divider);border-radius:2px}
+.mc{background:var(--surface);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:10px;border:1px solid var(--divider);cursor:pointer;transition:all .2s}
+.mc:hover{border-color:var(--brand);background:rgba(2,180,127,.02)}
+.mc .fr{display:flex;justify-content:space-between;align-items:flex-start}
+.mc .tt{font-size:15px;font-weight:600;color:var(--text-primary)}.mc .en{font-size:11px;color:var(--text-tertiary);margin-top:1px}
+.mc .df{padding:2px 8px;border-radius:999px;font-size:10px;font-weight:600}
+.mc .df.e{background:rgba(46,204,113,.1);color:var(--success)}.mc .df.m{background:var(--brand-light);color:var(--brand)}.mc .df.h{background:rgba(231,76,60,.08);color:#E74C3C}
+.mc .bm{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--text-tertiary)}
+.mc .st{font-size:10px;color:var(--success)}.mc .tg{font-size:10px;color:var(--brand)}
+.tab-bar{display:flex;height:52px;background:var(--surface);border-top:1px solid var(--divider);margin:0 -24px;flex-shrink:0}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border:none;background:none;cursor:pointer;font-size:10px;color:var(--text-tertiary);gap:1px}
+.tab .ico{font-size:18px}.tab.act{color:var(--brand)}.tab:hover{color:var(--text-secondary)}
+</style></head><body>
+<div class="phone"><div class="island"></div>
+<div class="status"><span class="t">9:41</span></div>
+<div class="content">
+<div class="top"><span class="ttl">素材库</span><button class="act">❤️ 收藏</button></div>
+<div class="sbar"><span class="i">🔍</span><input placeholder="搜索素材..."></div>
+<div class="fl"><button class="act">全部</button><button>CET-4</button><button>CET-6</button><button>VOA</button><button>学术</button><button>生活</button><button>TED</button></div>
+<div class="list">
+<div class="mc"><div class="fr"><div><div class="tt">人类世的终结</div><div class="en">The End of the Anthropocene</div></div><span class="df m">中级</span></div>
+<div class="bm"><span>🎧 ✍️ 🗣️</span><span>15min · <span class="st">已学</span></span></div></div>
+<div class="mc"><div class="fr"><div><div class="tt">火星移民计划</div><div class="en">The Mars Colonization Plan</div></div><span class="df h">高级</span></div>
+<div class="bm"><span>🎧 ✍️</span><span>12min · <span class="tg">新增</span></span></div></div>
+<div class="mc"><div class="fr"><div><div class="tt">气候变化的影响</div><div class="en">Impacts of Climate Change</div></div><span class="df e">初级</span></div>
+<div class="bm"><span>🎧 ✍️ 🗣️</span><span>10min</span></div></div>
+<div class="mc"><div class="fr"><div><div class="tt">人工智能的未来</div><div class="en">The Future of AI</div></div><span class="df m">中级</span></div>
+<div class="bm"><span>🎧 ✍️</span><span>18min · <span class="tg">热门</span></span></div></div>
+<div class="mc"><div class="fr"><div><div class="tt">全球化与本土文化</div><div class="en">Globalization and Local Culture</div></div><span class="df e">初级</span></div>
+<div class="bm"><span>🎧 ✍️ 🗣️</span><span>8min</span></div></div>
+</div>
+<div class="tab-bar">
+<button class="tab"><span class="ico">🏠</span>首页</button><button class="tab act"><span class="ico">📚</span>素材</button><button class="tab"><span class="ico">📊</span>统计</button><button class="tab"><span class="ico">👤</span>我的</button>
+</div>
+</div></div></body></html>

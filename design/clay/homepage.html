@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听刻 · 软陶风格 Claymorphism</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #F5EDE3;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; font-family: "PingFang SC", "Helvetica Neue", system-ui, sans-serif;
+    padding: 20px;
+  }
+  .phone {
+    width: 390px; height: 844px;
+    background: #F5EDE3;
+    border-radius: 48px;
+    overflow: hidden; position: relative;
+    box-shadow:
+      0 0 0 6px #E8DDD0,
+      0 0 0 8px #D4C8B8,
+      0 20px 60px rgba(180,160,140,0.3);
+  }
+  .screen { width: 100%; height: 100%; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+  .status-bar {
+    height: 50px; padding: 28px 20px 0; display: flex; justify-content: space-between;
+    color: #8B7A66; font-size: 14px; font-weight: 700;
+  }
+  .status-time { font-size: 16px; }
+
+  .content { flex: 1; padding: 12px 16px 100px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; }
+
+  /* Clay card */
+  .clay {
+    background: #F5EDE3;
+    border-radius: 24px;
+    box-shadow:
+      10px 10px 20px rgba(180,160,140,0.3),
+      -8px -8px 16px rgba(255,248,240,0.8);
+    padding: 18px 20px;
+    border: 1px solid rgba(255,248,240,0.6);
+  }
+
+  /* Streak */
+  .streak { display: flex; justify-content: space-between; align-items: center; }
+  .streak-l { display: flex; align-items: center; gap: 14px; }
+  .fire { font-size: 38px; filter: drop-shadow(0 4px 8px rgba(255,107,53,0.3)); }
+  .sdays { font-size: 34px; font-weight: 800; color: #6B5E4E; }
+  .ssub { font-size: 13px; font-weight: 600; color: #9B8B78; }
+  .sgain { font-size: 24px; font-weight: 800; color: #E8835A; }
+
+  /* Hero */
+  .hero {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 16px;
+    padding: 24px 20px;
+    background: linear-gradient(145deg, #F0E8DC, #FAF2E8);
+    border-radius: 28px;
+    box-shadow:
+      inset 4px 4px 10px rgba(180,160,140,0.15),
+      inset -4px -4px 10px rgba(255,248,240,0.6),
+      12px 12px 24px rgba(180,160,140,0.25),
+      -8px -8px 16px rgba(255,248,240,0.7);
+  }
+  .hero-icon {
+    width: 80px; height: 80px; border-radius: 30px;
+    background: linear-gradient(145deg, #D4C8B8, #F0E8DC);
+    box-shadow: 8px 8px 16px rgba(180,160,140,0.3), -6px -6px 12px rgba(255,248,240,0.8);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-icon svg { width: 40px; height: 40px; fill: #E8835A; }
+  .htitle { font-size: 28px; font-weight: 800; color: #6B5E4E; letter-spacing: 1px; }
+  .hdesc { font-size: 14px; color: #9B8B78; text-align: center; line-height: 1.6; font-weight: 500; }
+
+  .cta {
+    width: 100%; height: 56px; border-radius: 20px;
+    border: none; cursor: pointer;
+    background: linear-gradient(145deg, #E8835A, #D47A55);
+    box-shadow: 8px 8px 16px rgba(180,160,140,0.3), -4px -4px 8px rgba(255,248,240,0.6);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all 0.2s;
+  }
+  .cta:active { box-shadow: inset 4px 4px 8px rgba(180,160,140,0.3), inset -2px -2px 4px rgba(255,248,240,0.4); }
+  .cta svg { width: 20px; height: 20px; fill: #FFF; }
+  .ctat { font-size: 17px; font-weight: 700; color: #FFF; }
+
+  /* Stats */
+  .stats { display: flex; justify-content: space-around; padding: 12px 8px; }
+  .st { text-align: center; }
+  .sn { font-size: 20px; font-weight: 800; color: #6B5E4E; }
+  .sl { font-size: 11px; font-weight: 600; color: #9B8B78; margin-top: 2px; }
+
+  /* Bottom */
+  .bottom {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 8px 16px 28px;
+    background: #F5EDE3;
+    display: flex; justify-content: space-around;
+    box-shadow: 0 -4px 12px rgba(180,160,140,0.15);
+  }
+  .ni { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 16px; border-radius: 16px; cursor: pointer; }
+  .ni.active { background: #EDE4D6; box-shadow: inset 3px 3px 6px rgba(180,160,140,0.15), inset -3px -3px 6px rgba(255,248,240,0.5); }
+  .ni svg { width: 24px; height: 24px; fill: #B5A594; }
+  .ni.active svg { fill: #E8835A; }
+  .nl { font-size: 11px; font-weight: 600; color: #B5A594; }
+  .ni.active .nl { color: #E8835A; }
+</style>
+</head>
+<body>
+<div class="phone"><div class="screen">
+  <div class="status-bar"><span class="status-time">9:41</span><span>📶 🔋</span></div>
+  <div class="content">
+    <div class="clay streak">
+      <div class="streak-l"><span class="fire">🔥</span><div><div class="sdays">7</div><div class="ssub">连续打卡</div></div></div>
+      <div class="sgain">+39%</div>
+    </div>
+    <div class="hero">
+      <div class="hero-icon"><svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg></div>
+      <div class="htitle">今天练了吗？</div>
+      <div class="hdesc">盲听 → 听写 → 跟读<br/>每天15分钟，把声音刻进脑子里</div>
+      <button class="cta"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><span class="ctat">开始今日练习</span></button>
+    </div>
+    <div class="clay stats">
+      <div class="st"><div class="sn">14</div><div class="sl">累计天数</div></div>
+      <div class="st"><div class="sn">72%</div><div class="sl">辨音准确率</div></div>
+      <div class="st"><div class="sn">48</div><div class="sl">本周分钟</div></div>
+      <div class="st"><div class="sn">32</div><div class="sl">掌握词汇</div></div>
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="ni active"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span class="nl">首页</span></div>
+    <div class="ni"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg><span class="nl">素材</span></div>
+    <div class="ni"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span class="nl">我的</span></div>
+  </div>
+</div></div>
+</body>
+</html>

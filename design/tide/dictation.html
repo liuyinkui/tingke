@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听刻 · 听写 — 潮汐风格</title>
+<style>
+  /* ═══════════════════════════════════════════════
+     DESIGN SYSTEM TOKENS
+     ═══════════════════════════════════════════════ */
+  :root {
+    --primary: #1E3A5F;
+    --primary-light: #2D5A8E;
+    --primary-bg: #E8EDF2;
+    --accent: #FF6B35;
+    --accent-light: #FF8C5A;
+    --bg: #F2F4F7;
+    --bg-card: #FFFFFF;
+    --text-primary: #1A1D21;
+    --text-secondary: #636E72;
+    --text-hint: #B2BEC3;
+    --success: #00B894;
+    --success-bg: rgba(0,184,148,0.08);
+    --error: #FF6B6B;
+    --error-bg: rgba(255,107,107,0.08);
+    --divider: #E8ECF0;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-max: 24px;
+    --shadow-card: 0 1px 4px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+    --shadow-btn: 0 2px 8px rgba(30,58,95,0.15);
+    --font: -apple-system, "PingFang SC", "SF Pro", "Helvetica Neue", sans-serif;
+    --tide-bg-start: #EEF0F4;
+    --tide-bg-end: #F5F6F9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1C1C1E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: var(--font);
+  }
+
+  /* ═══ Phone Frame ═══ */
+  .phone-frame {
+    position: relative;
+    width: 390px;
+    height: 844px;
+    background: linear-gradient(170deg, var(--tide-bg-start), var(--tide-bg-end));
+    border-radius: 44px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 2px #2C2C2E,
+      0 0 0 6px #1C1C1E,
+      0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  /* ═══ Dynamic Island ═══ */
+  .dynamic-island {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 126px;
+    height: 36px;
+    background: #111;
+    border-radius: 20px;
+    z-index: 100;
+  }
+
+  /* ═══ Status Bar ═══ */
+  .status-bar {
+    position: relative;
+    height: 54px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 32px 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.3px;
+  }
+  .status-bar .time { font-size: 16px; font-weight: 700; }
+  .status-bar .icons { display: flex; align-items: center; gap: 6px; }
+  .status-bar .icons svg { display: block; }
+
+  /* ═══ Background Decor ═══ */
+  .bg-decor {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.03;
+    pointer-events: none;
+  }
+  .bg-decor-1 {
+    top: -80px;
+    right: -60px;
+    width: 240px;
+    height: 240px;
+    background: var(--primary);
+  }
+  .bg-decor-2 {
+    bottom: 100px;
+    left: -100px;
+    width: 300px;
+    height: 300px;
+    background: var(--accent);
+  }
+
+  /* ═══ Content ═══ */
+  .content {
+    padding: 12px 24px 34px;
+    height: calc(100% - 54px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ═══ Top Bar ═══ */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+  }
+  .top-bar .back {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    transition: background 0.2s;
+  }
+  .top-bar .back:hover { background: var(--divider); }
+  .top-bar .back svg { display: block; }
+  .top-bar .title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .top-bar .done {
+    font-size: 14px;
+    color: var(--primary);
+    font-weight: 500;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    transition: background 0.2s;
+  }
+  .top-bar .done:hover { background: var(--primary-bg); }
+
+  /* ═══ Step Progress ═══ */
+  .step-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 6px 0 24px;
+    animation: fadeUp 0.6s ease-out;
+  }
+  .step-item {
+    display: flex;
+    align-items: center;
+  }
+  .step-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.4s ease;
+  }
+  .step-circle.done {
+    background: var(--success);
+    color: #fff;
+  }
+  .step-circle.active {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 0 0 4px rgba(30,58,95,0.12);
+  }
+  .step-circle.pending {
+    background: var(--primary-bg);
+    color: var(--text-hint);
+  }
+  .step-line {
+    width: 40px;
+    height: 2px;
+    margin: 0 6px;
+    border-radius: 1px;
+    transition: background 0.4s ease;
+  }
+  .step-line.done { background: var(--success); }
+  .step-line.active { background: var(--primary); }
+  .step-line.pending { background: var(--divider); }
+  .step-label {
+    font-size: 11px;
+    margin-top: 6px;
+    text-align: center;
+    color: var(--text-hint);
+    min-width: 32px;
+  }
+  .step-label.active-label { color: var(--primary); font-weight: 600; }
+  .step-label.done-label { color: var(--success); }
+
+  .step-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ═══ Audio Player Area ═══ */
+  .audio-area {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    text-align: center;
+    animation: fadeUp 0.6s ease-out 0.1s both;
+  }
+  .audio-area .sentence-label {
+    font-size: 12px;
+    color: var(--text-hint);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .audio-area .sentence-num {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+  .audio-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  .audio-controls button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    background: var(--primary-bg);
+    color: var(--primary);
+  }
+  .audio-controls button:hover {
+    background: var(--primary);
+    color: #fff;
+  }
+  .audio-controls button:active {
+    transform: scale(0.92);
+  }
+  .audio-controls .play-btn {
+    width: 56px;
+    height: 56px;
+    background: var(--primary);
+    color: #fff;
+    box-shadow: var(--shadow-btn);
+  }
+  .audio-controls .play-btn:hover {
+    background: var(--primary-light);
+    transform: scale(1.04);
+  }
+  .audio-controls .play-btn:active {
+    transform: scale(0.95);
+  }
+
+  /* ═══ Waveform visual (subtle tide feel) ═══ */
+  .waveform {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 32px;
+    margin: 14px 0 4px;
+  }
+  .waveform .bar {
+    width: 3px;
+    background: var(--primary-bg);
+    border-radius: 2px;
+    animation: waveBreathe 1.5s ease-in-out infinite;
+  }
+  .waveform .bar:nth-child(1) { height: 12px; animation-delay: 0s; }
+  .waveform .bar:nth-child(2) { height: 20px; animation-delay: 0.15s; }
+  .waveform .bar:nth-child(3) { height: 26px; animation-delay: 0.3s; }
+  .waveform .bar:nth-child(4) { height: 32px; animation-delay: 0.45s; }
+  .waveform .bar:nth-child(5) { height: 26px; animation-delay: 0.6s; }
+  .waveform .bar:nth-child(6) { height: 20px; animation-delay: 0.75s; }
+  .waveform .bar:nth-child(7) { height: 12px; animation-delay: 0.9s; }
+
+  @keyframes waveBreathe {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ═══ Dictation Area ═══ */
+  .dictation-area {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 16px;
+    padding-right: 4px;
+    animation: fadeUp 0.6s ease-out 0.2s both;
+  }
+  .dictation-area::-webkit-scrollbar { width: 3px; }
+  .dictation-area::-webkit-scrollbar-thumb {
+    background: var(--divider);
+    border-radius: 2px;
+  }
+
+  .dictation-sentence {
+    margin-bottom: 16px;
+    animation: fadeUp 0.5s ease-out both;
+  }
+  .dictation-sentence:nth-child(1) { animation-delay: 0.25s; }
+  .dictation-sentence:nth-child(2) { animation-delay: 0.35s; }
+  .dictation-sentence:nth-child(3) { animation-delay: 0.45s; }
+
+  .dictation-sentence .s-number {
+    font-size: 12px;
+    color: var(--text-hint);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .dictation-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1.5px solid var(--divider);
+    border-radius: var(--radius-md);
+    padding: 0 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .dictation-input-wrap:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30,58,95,0.08);
+  }
+  .dictation-input-wrap.correct {
+    border-color: var(--success);
+    background: var(--success-bg);
+  }
+  .dictation-input-wrap.wrong {
+    border-color: var(--error);
+    background: var(--error-bg);
+  }
+
+  .dictation-input {
+    flex: 1;
+    height: 48px;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    font-family: var(--font);
+    color: var(--text-primary);
+    outline: none;
+    letter-spacing: 0.3px;
+  }
+  .dictation-input::placeholder {
+    color: var(--text-hint);
+    font-size: 15px;
+  }
+
+  .dictation-status {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .dictation-status.show { opacity: 1; }
+  .dictation-status.correct { background: var(--success-bg); color: var(--success); }
+  .dictation-status.wrong { background: var(--error-bg); color: var(--error); }
+
+  .dictation-check-btn {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: var(--primary-bg);
+    color: var(--primary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.2s;
+    margin-left: 6px;
+  }
+  .dictation-check-btn:hover { background: var(--primary); color: #fff; }
+
+  /* ═══ Bottom Bar ═══ */
+  .bottom-bar {
+    padding-top: 16px;
+    border-top: 1px solid var(--divider);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: fadeUp 0.6s ease-out 0.5s both;
+  }
+  .score-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .score-display .score-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  .score-display .score-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .score-display .score-total {
+    font-size: 14px;
+    color: var(--text-hint);
+  }
+
+  .next-btn {
+    height: 44px;
+    padding: 0 28px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    box-shadow: var(--shadow-btn);
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .next-btn:hover {
+    background: var(--primary-light);
+    transform: translateY(-1px);
+  }
+  .next-btn:active {
+    transform: translateY(0);
+  }
+  .next-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ═══ Animations ═══ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="phone-frame">
+
+  <!-- Dynamic Island -->
+  <div class="dynamic-island"></div>
+
+  <!-- Background Decor -->
+  <div class="bg-decor bg-decor-1"></div>
+  <div class="bg-decor bg-decor-2"></div>
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+        <rect x="0.5" y="0.5" width="15" height="11" rx="2" stroke="#1A1D21" stroke-opacity="0.5"/>
+        <rect x="12" y="4" width="3" height="2" rx="0.5" fill="#1A1D21" fill-opacity="0.3"/>
+      </svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none">
+        <rect x="0" y="1" width="18" height="10" rx="4" fill="#1A1D21"/>
+        <rect x="2" y="3" width="6" height="6" rx="2" fill="#1A1D21" fill-opacity="0.3"/>
+        <rect x="9" y="3.5" width="4" height="5" rx="1.5" fill="#1A1D21" fill-opacity="0.3"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <button class="back" aria-label="返回">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <span class="title">听写训练</span>
+      <button class="done">完成</button>
+    </div>
+
+    <!-- Step Progress -->
+    <div class="step-progress">
+      <div class="step-group">
+        <div class="step-circle done">✓</div>
+        <div class="step-label done-label">盲听</div>
+      </div>
+      <div class="step-line done"></div>
+      <div class="step-group">
+        <div class="step-circle active">2</div>
+        <div class="step-label active-label">听写</div>
+      </div>
+      <div class="step-line pending"></div>
+      <div class="step-group">
+        <div class="step-circle pending">3</div>
+        <div class="step-label" style="color:var(--text-hint)">跟读</div>
+      </div>
+    </div>
+
+    <!-- Audio Player -->
+    <div class="audio-area">
+      <div class="sentence-label">当前句子</div>
+      <div class="sentence-num">第 1 / 3 句</div>
+      <div class="audio-controls">
+        <button aria-label="重播">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+          </svg>
+        </button>
+        <button class="play-btn" aria-label="播放">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+        </button>
+        <button aria-label="慢速">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </button>
+      </div>
+      <!-- Subtle waveform -->
+      <div class="waveform">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+
+    <!-- Dictation Area -->
+    <div class="dictation-area">
+      <!-- Sentence 1 — completed -->
+      <div class="dictation-sentence">
+        <div class="s-number">句子 1</div>
+        <div class="dictation-input-wrap correct">
+          <input class="dictation-input" type="text" value="The anthropocene is a proposed geological epoch" readonly>
+          <span class="dictation-status correct show">✓</span>
+        </div>
+      </div>
+
+      <!-- Sentence 2 — being edited -->
+      <div class="dictation-sentence">
+        <div class="s-number">句子 2</div>
+        <div class="dictation-input-wrap">
+          <input class="dictation-input" type="text" placeholder="听写输入..." value="dating from the commencement">
+          <button class="dictation-check-btn" aria-label="提交">↵</button>
+        </div>
+      </div>
+
+      <!-- Sentence 3 — untouched -->
+      <div class="dictation-sentence">
+        <div class="s-number">句子 3</div>
+        <div class="dictation-input-wrap">
+          <input class="dictation-input" type="text" placeholder="听写输入..." autofocus>
+          <button class="dictation-check-btn" aria-label="提交">↵</button>
+        </div>
+      </div>
+
+      <!-- Sentence 4 — empty with error example -->
+      <div class="dictation-sentence">
+        <div class="s-number">句子 4</div>
+        <div class="dictation-input-wrap wrong">
+          <input class="dictation-input" type="text" value="of significant human impact" readonly style="text-decoration: line-through; text-decoration-color: var(--error);">
+          <span class="dictation-status wrong show">✗</span>
+        </div>
+        <div style="font-size: 12px; color: var(--success); margin-top: 4px; padding-left: 4px;">
+          ✓ significant human impact on Earth's geology
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="bottom-bar">
+      <div class="score-display">
+        <span class="score-num">1</span>
+        <span class="score-total">/ 4</span>
+        <span class="score-text">正确</span>
+      </div>
+      <button class="next-btn">
+        <span>下一句</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/><path d="M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

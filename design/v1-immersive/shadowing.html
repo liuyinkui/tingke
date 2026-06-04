@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>听刻 · V1沉浸 · 跟读</title><style>
+:root{--brand:#02B47F;--brand-dark:#019A6C;--brand-light:rgba(2,180,127,0.08);--success:#2ECC71;--error:#E74C3C;--bg:#F1F3F5;--surface:#fff;--divider:#E9ECF0;--text-primary:rgba(0,0,0,.9);--text-secondary:rgba(0,0,0,.6);--text-tertiary:rgba(0,0,0,.3);--radius-md:8px;--radius-mg:12px;--radius-lg:16px;--radius-xl:24px;--font:'PingFang SC',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#DDE0DD;font-family:var(--font)}
+.phone{position:relative;width:390px;height:844px;background:var(--bg);border-radius:32px;overflow:hidden;box-shadow:0 0 0 2px #2C2C2E,0 0 0 6px #1C1C1E,0 20px 60px rgba(0,0,0,.5)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:126px;height:36px;background:#111;border-radius:999px;z-index:100}
+.status{height:54px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 4px;font-size:15px;font-weight:600;color:var(--text-primary)}.status .t{font-size:16px;font-weight:700}
+.content{height:calc(100% - 54px);padding:8px 24px 24px;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;justify-content:space-between;padding:4px 0 8px}
+.top .back{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;cursor:pointer;border-radius:50%;color:var(--text-secondary)}
+.top .ttl{font-size:16px;font-weight:600;color:var(--text-primary)}
+.steps{display:flex;align-items:center;justify-content:center;padding:4px 0 16px}
+.sg{display:flex;flex-direction:column;align-items:center}
+.sc{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.sc.done{background:var(--success);color:#fff}.sc.act{background:var(--brand);color:#fff;box-shadow:0 0 0 4px rgba(2,180,127,.1)}
+.sc.pen{background:#E4E8E4;color:var(--text-tertiary)}
+.sl{width:34px;height:2px;margin:0 4px;border-radius:1px}
+.sl.done{background:var(--success)}.sl.act{background:var(--brand)}.sl.pen{background:var(--divider)}
+.slb{font-size:10px;margin-top:4px;color:var(--text-tertiary)}
+.slb.act{color:var(--brand);font-weight:600}.slb.done{color:var(--success)}
+.text-card{background:var(--surface);border-radius:var(--radius-lg);padding:20px;box-shadow:0 4px 6px rgba(0,0,0,.08);border:1px solid var(--divider);flex-shrink:0}
+.text-card .or{font-size:11px;color:var(--text-tertiary);margin-bottom:8px;letter-spacing:1.5px}
+.text-card .tx{font-size:16px;line-height:1.8;color:var(--text-primary)}.text-card .hl{color:var(--brand);font-weight:600}
+.rec-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;margin:20px 0}
+.rec-btn{width:80px;height:80px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--brand),#017A5E);color:#fff;font-size:28px;box-shadow:0 8px 24px rgba(2,180,127,.3);transition:all .25s var(--ease);position:relative}
+.rec-btn::after{content:'';position:absolute;width:100px;height:100px;border-radius:50%;border:2px solid rgba(2,180,127,.2);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.5}}
+.rec-btn:hover{transform:scale(1.05);box-shadow:0 10px 30px rgba(2,180,127,.35)}
+.rec-btn.recording{background:linear-gradient(135deg,#E74C3C,#C0392B);box-shadow:0 8px 24px rgba(231,76,60,.3)}
+.rec-btn.recording::after{border-color:rgba(231,76,60,.3)}
+.rec-hint{font-size:14px;color:var(--text-secondary);text-align:center}
+.rec-hint .sm{font-size:12px;color:var(--text-tertiary);margin-top:4px}
+.result{background:var(--surface);border-radius:var(--radius-lg);padding:16px 20px;box-shadow:0 4px 6px rgba(0,0,0,.08);border:1px solid var(--divider);flex-shrink:0}
+.result .hl{font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:8px}
+.result .row{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid var(--divider)}.result .row:last-child{border:none}
+.result .row .v{font-weight:600}.result .row .v.g{color:var(--success)}.result .row .v.o{color:var(--brand)}
+.bottom{display:flex;align-items:center;justify-content:center;padding-top:14px;border-top:1px solid var(--divider);flex-shrink:0;gap:12px}
+.nxt{height:44px;padding:0 28px;background:var(--brand);color:#fff;font-size:15px;font-weight:600;border:none;border-radius:var(--radius-mg);cursor:pointer;box-shadow:0 2px 8px rgba(2,180,127,.2);transition:all .25s var(--ease)}
+.nxt:hover{background:var(--brand-dark);transform:translateY(-1px)}
+</style></head><body>
+<div class="phone"><div class="island"></div>
+<div class="status"><span class="t">9:41</span></div>
+<div class="content">
+<div class="top"><button class="back">‹</button><span class="ttl">跟读训练</span></div>
+<div class="steps">
+<div class="sg"><div class="sc done">✓</div><span class="slb done">盲听</span></div><div class="sl done"></div>
+<div class="sg"><div class="sc done">✓</div><span class="slb done">听写</span></div><div class="sl act"></div>
+<div class="sg"><div class="sc act">3</div><span class="slb act">跟读</span></div>
+</div>
+<div class="text-card">
+<div class="or">原文 · 第 1/4 句</div>
+<div class="tx">The <span class="hl">anthropocene</span> is a proposed geological epoch dating from the commencement of <span class="hl">significant</span> human impact on Earth's geology and ecosystems.</div>
+</div>
+<div class="rec-area">
+<button class="rec-btn">🎤</button>
+<div class="rec-hint">长按录音 · 松手提交<br><span class="sm">跟读上面的句子</span></div>
+</div>
+<div class="result">
+<div class="hl">跟读结果</div>
+<div class="row"><span>发音准确率</span><span class="v g">85%</span></div>
+<div class="row"><span>流利度</span><span class="v o">73%</span></div>
+<div class="row"><span>完整度</span><span class="v o">90%</span></div>
+</div>
+<div class="bottom"><button class="nxt">下一句 →</button></div>
+</div></div></body></html>

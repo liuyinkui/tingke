@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>听刻 · V1沉浸 · 首页</title><style>
+:root{--brand:#02B47F;--brand-dark:#019A6C;--brand-light:rgba(2,180,127,0.08);--secondary:#F8D9D6;--success:#2ECC71;--error:#E74C3C;--text-primary:rgba(0,0,0,.9);--text-secondary:rgba(0,0,0,.6);--text-tertiary:rgba(0,0,0,.3);--bg:#F1F3F5;--surface:#fff;--divider:#E9ECF0;--radius-sm:4px;--radius-md:8px;--radius-mg:12px;--radius-lg:16px;--font:'PingFang SC',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#DDE0DD;font-family:var(--font)}
+.phone{position:relative;width:390px;height:844px;background:var(--bg);border-radius:32px;overflow:hidden;box-shadow:0 0 0 2px #2C2C2E,0 0 0 6px #1C1C1E,0 20px 60px rgba(0,0,0,.5)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:126px;height:36px;background:#111;border-radius:999px;z-index:100}
+.status{height:54px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 4px;font-size:15px;font-weight:600;color:var(--text-primary)}.status .t{font-size:16px;font-weight:700}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,var(--brand),#017A5E);padding:20px 24px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50px;right:-40px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.05)}
+.hero-brand{font-size:28px;font-weight:700;color:#fff;text-align:center;letter-spacing:4px;position:relative;z-index:1}
+.hero-sub{text-align:center;font-size:12px;color:rgba(255,255,255,.65);letter-spacing:2px;margin-top:4px;position:relative;z-index:1}
+.streak{display:flex;justify-content:center;gap:12px;margin-top:16px;position:relative;z-index:1}
+.streak-item{display:flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(255,255,255,.12);border-radius:999px;backdrop-filter:blur(4px)}
+.streak-item .num{font-size:14px;font-weight:700;color:#fff}
+.streak-item .lbl{font-size:11px;color:rgba(255,255,255,.7)}
+
+.content{padding:20px 24px;display:flex;flex-direction:column;flex:1;min-height:0}
+.section-label{font-size:12px;font-weight:600;color:var(--text-tertiary);letter-spacing:2px;margin-bottom:12px;animation:fadeUp .5s var(--ease) .15s both}
+
+.card{background:var(--surface);border-radius:var(--radius-lg);padding:20px;box-shadow:0 4px 6px rgba(0,0,0,.08);border:1px solid var(--divider);animation:fadeUp .5s var(--ease) .2s both}
+.card .title{font-size:20px;font-weight:600;color:var(--text-primary);line-height:1.4}
+.card .en{font-size:13px;color:var(--text-tertiary);font-style:italic;margin-top:2px}
+.card .tags{display:flex;gap:8px;margin:14px 0 0}
+.card .tag{padding:4px 10px;background:var(--bg);border-radius:999px;font-size:11px;font-weight:500;color:var(--text-secondary)}
+.card .tag.go{background:var(--brand-light);color:var(--brand)}
+.card .row{display:flex;justify-content:space-between;padding-top:14px;margin-top:14px;border-top:1px solid var(--divider);font-size:12px;color:var(--text-tertiary)}
+
+.spacer{flex:1}
+.cta-wrap{padding-top:16px;animation:fadeUp .5s var(--ease) .3s both}
+.cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:52px;background:var(--brand);color:#fff;font-size:17px;font-weight:600;border:none;border-radius:var(--radius-mg);cursor:pointer;letter-spacing:1px;box-shadow:0 4px 12px rgba(2,180,127,.25);transition:all .25s var(--ease)}
+.cta:hover{background:var(--brand-dark);transform:translateY(-1px);box-shadow:0 6px 16px rgba(2,180,127,.3)}
+.cta:active{transform:translateY(1px)}
+.cta .arw{transition:transform .2s}.cta:hover .arw{transform:translateX(4px)}
+.footer{text-align:center;font-size:12px;color:var(--text-tertiary);margin-top:12px;animation:fadeUp .5s var(--ease) .4s both}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:8px}
+.dots span{width:4px;height:4px;border-radius:50%;background:var(--divider);animation:breathe 3s ease-in-out infinite}
+.dots span:nth-child(2){animation-delay:.5s}.dots span:nth-child(3){animation-delay:1s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes breathe{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:.7;transform:scale(1.3)}}
+</style></head><body>
+<div class="phone">
+<div class="island"></div>
+<div class="status"><span class="t">9:41</span></div>
+<div class="hero">
+<div class="hero-brand">听刻</div>
+<div class="hero-sub">把声音刻进脑子里</div>
+<div class="streak">
+<div class="streak-item"><span>🔥</span><span class="num">12</span><span class="lbl">天连续</span></div>
+<div class="streak-item"><span>📊</span><span class="num">78%</span><span class="lbl">正确率</span></div>
+</div>
+</div>
+<div class="content">
+<div class="section-label">今日练习</div>
+<div class="card">
+<div class="title">人类世的终结</div>
+<div class="en">The End of the Anthropocene</div>
+<div class="tags"><span class="tag go">🎧 盲听</span><span class="tag">✍️ 听写</span><span class="tag">🗣️ 跟读</span></div>
+<div class="row"><span>难度 · 中高级</span><span>⏱ 约 15 分钟</span></div>
+</div>
+<div class="spacer"></div>
+<div class="cta-wrap"><button class="cta"><span>开始今日练习</span><span class="arw">→</span></button></div>
+<div class="dots"><span></span><span></span><span></span></div>
+<div class="footer">每天 15 分钟，三步练听力</div>
+</div></div></body></html>

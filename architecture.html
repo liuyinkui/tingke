@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>英语学习App 系统架构</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;padding:40px;color:#1e293b}
+h1{text-align:center;font-size:24px;margin-bottom:32px;color:#334155}
+svg{display:block;margin:0 auto;max-width:1000px}
+</style>
+</head>
+<body>
+<h1>英语学习App · 系统架构图</h1>
+<svg viewBox="0 0 960 700" width="960" height="700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Arrow marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#94a3b8"/>
+    </marker>
+    <!-- Zone backgrounds -->
+    <linearGradient id="clientGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="serverGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0fdf4"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="aiGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fefce8"/>
+      <stop offset="100%" stop-color="#fef9c3"/>
+    </linearGradient>
+    <linearGradient id="infraGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#faf5ff"/>
+      <stop offset="100%" stop-color="#f3e8ff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ======== Trust Zone Backgrounds ======== -->
+  <rect x="30" y="20" width="900" height="140" rx="8" fill="url(#clientGrad)" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="50" y="48" font-size="13" fill="#3b82f6" font-weight="600">客户端层</text>
+
+  <rect x="30" y="180" width="900" height="220" rx="8" fill="url(#serverGrad)" stroke="#bbf7d0" stroke-width="1.5"/>
+  <text x="50" y="208" font-size="13" fill="#22c55e" font-weight="600">服务端层</text>
+
+  <rect x="30" y="420" width="900" height="120" rx="8" fill="url(#aiGrad)" stroke="#fde68a" stroke-width="1.5"/>
+  <text x="50" y="448" font-size="13" fill="#eab308" font-weight="600">AI 能力层</text>
+
+  <rect x="30" y="560" width="900" height="120" rx="8" fill="url(#infraGrad)" stroke="#d8b4fe" stroke-width="1.5"/>
+  <text x="50" y="588" font-size="13" fill="#a855f7" font-weight="600">基础设施层</text>
+
+  <!-- Filter/glow for nodes -->
+  <filter id="shadow" x="-2%" y="-2%" width="104%" height="104%">
+    <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.1"/>
+  </filter>
+
+  <!-- ======== Client Layer ======== -->
+  <!-- RN App -->
+  <rect x="120" y="65" width="180" height="54" rx="8" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="210" y="90" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">React Native App</text>
+  <text x="210" y="108" text-anchor="middle" font-size="11" fill="#64748b">iOS + Android</text>
+
+  <!-- Admin Panel -->
+  <rect x="390" y="65" width="180" height="54" rx="8" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="480" y="90" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">管理后台</text>
+  <text x="480" y="108" text-anchor="middle" font-size="11" fill="#64748b">React + Tailwind</text>
+
+  <!-- Mini Program -->
+  <rect x="660" y="65" width="180" height="54" rx="8" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="750" y="90" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">家长端小程序</text>
+  <text x="750" y="108" text-anchor="middle" font-size="11" fill="#64748b">微信小程序</text>
+
+  <!-- ======== Server Layer ======== -->
+  <!-- API Gateway -->
+  <rect x="120" y="225" width="720" height="46" rx="8" fill="#ffffff" stroke="#4ade80" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="480" y="246" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">API Gateway — Nginx / Traefik</text>
+  <text x="480" y="262" text-anchor="middle" font-size="11" fill="#64748b">反向代理 · 限流 · TLS 终结</text>
+
+  <!-- Backend Services -->
+  <rect x="120" y="295" width="220" height="54" rx="8" fill="#ffffff" stroke="#4ade80" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="230" y="318" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">后端服务 (Node.js)</text>
+  <text x="230" y="336" text-anchor="middle" font-size="11" fill="#64748b">RESTful API · 业务逻辑</text>
+
+  <rect x="390" y="295" width="220" height="54" rx="8" fill="#ffffff" stroke="#4ade80" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="500" y="318" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">间隔重复引擎</text>
+  <text x="500" y="336" text-anchor="middle" font-size="11" fill="#64748b">遗忘曲线 · 复习推荐</text>
+
+  <rect x="660" y="295" width="180" height="54" rx="8" fill="#ffffff" stroke="#4ade80" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="750" y="318" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">定时任务</text>
+  <text x="750" y="336" text-anchor="middle" font-size="11" fill="#64748b">日签发放 · 报告推送</text>
+
+  <!-- ======== AI Layer ======== -->
+  <rect x="120" y="450" width="220" height="54" rx="8" fill="#ffffff" stroke="#facc15" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="230" y="473" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">AI 语音评测</text>
+  <text x="230" y="491" text-anchor="middle" font-size="11" fill="#64748b">阿里云/腾讯云 SDK</text>
+
+  <rect x="390" y="450" width="220" height="54" rx="8" fill="#ffffff" stroke="#facc15" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="500" y="473" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">内容推荐引擎</text>
+  <text x="500" y="491" text-anchor="middle" font-size="11" fill="#64748b">错词分析 · 自适应难度</text>
+
+  <rect x="660" y="450" width="180" height="54" rx="8" fill="#ffffff" stroke="#facc15" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="750" y="473" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">LLM 辅助</text>
+  <text x="750" y="491" text-anchor="middle" font-size="11" fill="#64748b">例句生成 · 解释</text>
+
+  <!-- ======== Infrastructure Layer ======== -->
+  <rect x="120" y="595" width="220" height="54" rx="8" fill="#ffffff" stroke="#c084fc" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="230" y="618" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">PostgreSQL</text>
+  <text x="230" y="636" text-anchor="middle" font-size="11" fill="#64748b">用户 · 学习记录 · 词汇库</text>
+
+  <rect x="390" y="595" width="220" height="54" rx="8" fill="#ffffff" stroke="#c084fc" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="500" y="618" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Redis</text>
+  <text x="500" y="636" text-anchor="middle" font-size="11" fill="#64748b">排行榜 · Session · 缓存</text>
+
+  <rect x="660" y="595" width="180" height="54" rx="8" fill="#ffffff" stroke="#c084fc" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="750" y="618" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">阿里云 OSS</text>
+  <text x="750" y="636" text-anchor="middle" font-size="11" fill="#64748b">音频 · 图片 · 资源</text>
+
+  <!-- ======== Connectors (drawn AFTER nodes) ======== -->
+  <!-- Client → API Gateway -->
+  <line x1="210" y1="119" x2="210" y2="225" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="480" y1="119" x2="480" y2="225" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="750" y1="119" x2="750" y2="225" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- API Gateway → Backend Services -->
+  <line x1="210" y1="271" x2="210" y2="295" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="180" y1="271" x2="180" y2="295" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="480" y1="271" x2="230" y2="295" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="750" y1="271" x2="500" y2="295" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Backend ↔ Spaced Repetition -->
+  <line x1="340" y1="322" x2="390" y2="322" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Spaced Repetition → Scheduler -->
+  <line x1="610" y1="322" x2="660" y2="322" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Backend → AI Layer -->
+  <line x1="210" y1="349" x2="210" y2="450" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="750" y1="349" x2="750" y2="450" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Backend → Infra -->
+  <line x1="210" y1="349" x2="210" y2="595" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="480" y1="349" x2="500" y2="595" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- AI → Infra -->
+  <line x1="230" y1="504" x2="230" y2="595" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="500" y1="504" x2="500" y2="595" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="750" y1="504" x2="750" y2="595" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Legend -->
+  <rect x="30" y="690" width="12" height="12" rx="2" fill="#3b82f6"/>
+  <text x="46" y="701" font-size="11" fill="#64748b">客户端</text>
+  <rect x="130" y="690" width="12" height="12" rx="2" fill="#22c55e"/>
+  <text x="146" y="701" font-size="11" fill="#64748b">服务端</text>
+  <rect x="220" y="690" width="12" height="12" rx="2" fill="#eab308"/>
+  <text x="236" y="701" font-size="11" fill="#64748b">AI</text>
+  <rect x="290" y="690" width="12" height="12" rx="2" fill="#a855f7"/>
+  <text x="306" y="701" font-size="11" fill="#64748b">基础设施</text>
+</svg>
+</body>
+</html>

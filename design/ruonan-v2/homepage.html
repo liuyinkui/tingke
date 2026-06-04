@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听刻 · 首页 V2 — 专业白</title>
+<style>
+  /* ═══════════════════════════════════════════════
+     DESIGN SYSTEM TOKENS
+     ═══════════════════════════════════════════════ */
+  :root {
+    --color-brand-primary: #02B47F;
+    --color-brand-primary-dark: #019A6C;
+    --color-brand-secondary: #F8D9D6;
+    --color-success: #2ECC71;
+    --color-error: #E74C3C;
+    --color-warning: #F39C12;
+    --color-info: #3498DB;
+
+    --color-text-primary: rgba(0,0,0,0.9);
+    --color-text-secondary: rgba(0,0,0,0.6);
+    --color-text-tertiary: rgba(0,0,0,0.3);
+    --color-text-quaternary: rgba(0,0,0,0.2);
+    --color-text-inverse: #FFFFFF;
+
+    --color-neutral-1: #FFFFFF;
+    --color-neutral-2: #F1F3F5;
+    --color-neutral-3: #F2F4F7;
+    --color-neutral-4: #E9ECF0;
+    --color-neutral-5: #DCE2E8;
+    --color-neutral-6: #BEC5CD;
+    --color-neutral-7: #8E9AAB;
+    --color-neutral-8: #5A6E8A;
+    --color-neutral-9: rgba(0,0,0,0.9);
+    --color-neutral-10: #000000;
+
+    --color-background-page: #F1F3F5;
+    --color-background-surface: #FFFFFF;
+    --color-background-overlay: rgba(0,0,0,0.5);
+
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-mg: 12px;
+    --border-radius-lg: 16px;
+    --border-radius-xl: 24px;
+    --border-radius-2xl: 32px;
+    --border-radius-full: 9999px;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.08);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.12);
+
+    --spacing-4: 4px;
+    --spacing-8: 8px;
+    --spacing-12: 12px;
+    --spacing-16: 16px;
+    --spacing-20: 20px;
+    --spacing-24: 24px;
+    --spacing-32: 32px;
+    --spacing-40: 40px;
+    --spacing-48: 48px;
+
+    --font-family-sans: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+    --font-size-display-s: 24px;
+    --font-size-title-l: 22px;
+    --font-size-title-m: 20px;
+    --font-size-title-s: 18px;
+    --font-size-body-l: 18px;
+    --font-size-body-m: 16px;
+    --font-size-body-s: 14px;
+    --font-size-caption-l: 12px;
+
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1A1A2E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: var(--font-family-sans);
+    padding: 20px;
+  }
+
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: var(--color-neutral-1);
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 0 0 8px #222,
+      0 0 0 10px #444,
+      0 24px 80px rgba(0,0,0,0.35);
+  }
+
+  .dynamic-island {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 126px;
+    height: 36px;
+    background: #111;
+    border-radius: 20px;
+    z-index: 20;
+    pointer-events: none;
+  }
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    background: var(--color-neutral-1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ═══════════════════════════════════════════════
+     专业白 THEME: Clean white, minimal brand accent
+     ═══════════════════════════════════════════════ */
+  .screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(180deg, rgba(2,180,127,0.04) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .status-bar {
+    height: 54px;
+    padding: 54px 32px 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    z-index: 15;
+    position: relative;
+  }
+  .status-bar .time {
+    font-size: 15px;
+    font-weight: 590;
+    color: var(--color-text-primary);
+    letter-spacing: 0.3px;
+  }
+  .status-icons svg { display: block; }
+  .status-icons .st0 { fill: var(--color-text-primary); }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 28px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Minimal Header ── */
+  .header-minimal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  .header-minimal .logo {
+    font-size: 22px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    letter-spacing: 3px;
+  }
+  .header-minimal .logo-brand {
+    color: var(--color-brand-primary);
+  }
+  .header-minimal .date {
+    font-size: var(--font-size-body-s);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* ── Greeting ── */
+  .greeting {
+    font-size: var(--font-size-title-s);
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-medium);
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .greeting-sub {
+    font-size: var(--font-size-body-s);
+    color: var(--color-text-tertiary);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  /* ── Streak Badge (minimal) ── */
+  .streak-minimal {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 36px;
+  }
+  .streak-minimal .flame {
+    font-size: 22px;
+  }
+  .streak-minimal .text {
+    font-size: var(--font-size-body-s);
+    color: var(--color-text-secondary);
+  }
+  .streak-minimal .num {
+    font-size: var(--font-size-title-m);
+    font-weight: var(--font-weight-bold);
+    color: #FF6B35;
+  }
+  .streak-minimal .days {
+    font-size: var(--font-size-body-s);
+    color: var(--color-text-secondary);
+  }
+
+  /* ── Progress Dots ── */
+  .streak-dots {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 40px;
+  }
+  .streak-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-neutral-4);
+  }
+  .streak-dots .dot.filled {
+    background: var(--color-brand-primary);
+  }
+  .streak-dots .dot.today {
+    background: var(--color-brand-primary);
+    box-shadow: 0 0 0 3px rgba(2,180,127,0.2);
+  }
+
+  /* ── Today's Practice (clean card) ── */
+  .practice-block {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .practice-block .label {
+    font-size: var(--font-size-caption-l);
+    color: var(--color-text-tertiary);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: var(--font-weight-medium);
+  }
+  .practice-block .time {
+    font-size: 56px;
+    font-weight: 300;
+    color: var(--color-text-primary);
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .practice-block .time .unit {
+    font-size: 20px;
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-tertiary);
+    margin-left: 2px;
+  }
+  .practice-block .source {
+    margin-top: 16px;
+    font-size: var(--font-size-body-s);
+    color: var(--color-text-secondary);
+  }
+  .practice-block .meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    font-size: var(--font-size-caption-l);
+    color: var(--color-text-tertiary);
+  }
+  .practice-block .meta .divider {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--color-text-quaternary);
+  }
+
+  /* ── Primary CTA (brand accent only) ── */
+  .btn-primary {
+    width: 100%;
+    height: 52px;
+    background: var(--color-brand-primary);
+    color: #FFF;
+    border: none;
+    border-radius: var(--border-radius-mg);
+    font-size: 17px;
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(2,180,127,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+  .btn-primary:hover {
+    background: var(--color-brand-primary-dark);
+  }
+  .btn-primary:focus-visible {
+    outline: 2px solid var(--color-brand-primary);
+    outline-offset: 3px;
+  }
+
+  .spacer-flex { flex: 1; min-height: 16px; }
+
+  /* ── Minimal Bottom Nav ── */
+  .bottom-nav {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    width: 100%;
+    padding: 12px 0;
+    flex-shrink: 0;
+    border-top: 1px solid var(--color-neutral-4);
+  }
+  .bottom-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: var(--font-size-caption-l);
+    color: var(--color-text-tertiary);
+    text-decoration: none;
+    cursor: pointer;
+    padding: 4px 12px;
+    transition: color 0.2s ease;
+  }
+  .bottom-nav .nav-item.active {
+    color: var(--color-brand-primary);
+  }
+  .bottom-nav .nav-item:hover {
+    color: var(--color-brand-primary);
+  }
+  .bottom-nav .nav-item svg {
+    display: block;
+  }
+
+  .safe-area {
+    height: 34px;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="screen">
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="status-icons">
+        <svg width="17" height="12" viewBox="0 0 17 12">
+          <rect x="0" y="8" width="3" height="4" rx="0.5" class="st0"/>
+          <rect x="4.5" y="5" width="3" height="7" rx="0.5" class="st0"/>
+          <rect x="9" y="2.5" width="3" height="9.5" rx="0.5" class="st0"/>
+          <rect x="13.5" y="0" width="3" height="12" rx="0.5" class="st0"/>
+        </svg>
+        <svg width="15" height="12" viewBox="0 0 15 12">
+          <circle cx="7.5" cy="10.5" r="1.2" class="st0"/>
+          <path d="M7.5 6.5C9.09 6.5 10.5 7.12 11.54 8.14L10.48 9.2C9.72 8.44 8.66 8 7.5 8C6.34 8 5.28 8.44 4.52 9.2L3.46 8.14C4.5 7.12 5.91 6.5 7.5 6.5Z" class="st0"/>
+          <path d="M7.5 3.5C10.08 3.5 12.42 4.5 14.14 6.21L13.08 7.27C11.64 5.83 9.68 5 7.5 5C5.32 5 3.36 5.83 1.92 7.27L0.86 6.21C2.58 4.5 4.92 3.5 7.5 3.5Z" class="st0"/>
+        </svg>
+        <svg width="25" height="12" viewBox="0 0 25 12">
+          <rect x="0.5" y="0.5" width="21" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1"/>
+          <rect x="2" y="2" width="18" height="8" rx="1.5" fill="#2ECC71"/>
+          <rect x="22" y="4" width="3" height="4" rx="1" fill="currentColor"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- Minimal Header -->
+      <div class="header-minimal">
+        <div class="logo"><span class="logo-brand">听</span>刻</div>
+        <div class="date">6月4日 周四</div>
+      </div>
+
+      <!-- Greeting -->
+      <div class="greeting">早上好 👋</div>
+      <div class="greeting-sub">又是新的一天，来练精听吧</div>
+
+      <!-- Streak -->
+      <div class="streak-minimal">
+        <span class="flame">🔥</span>
+        <span class="num">7</span>
+        <span class="days">天连胜</span>
+        <span class="text">· 第 12 天练习</span>
+      </div>
+
+      <!-- Streak Dots -->
+      <div class="streak-dots">
+        <span class="dot filled"></span>
+        <span class="dot filled"></span>
+        <span class="dot filled"></span>
+        <span class="dot filled"></span>
+        <span class="dot filled"></span>
+        <span class="dot filled"></span>
+        <span class="dot today"></span>
+      </div>
+
+      <!-- Today's Practice -->
+      <div class="practice-block">
+        <div class="label">今日练习</div>
+        <div class="time">3<span class="unit">分</span>12<span class="unit">秒</span></div>
+        <div class="source">VOA 慢速 · 气候变化的影响</div>
+        <div class="meta">
+          <span>L2 中级</span>
+          <span class="divider"></span>
+          <span>1 段音频</span>
+        </div>
+      </div>
+
+      <!-- Primary CTA -->
+      <button class="btn-primary" aria-label="开始今日练习">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M4 2L13 8L4 14V2Z" fill="white"/>
+        </svg>
+        开始今日练习
+      </button>
+
+      <div class="spacer-flex"></div>
+
+      <!-- Bottom Nav -->
+      <div class="bottom-nav">
+        <a class="nav-item active" role="button" tabindex="0">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 10L11 3L19 10V19C19 19.55 18.55 20 18 20H14C13.45 20 13 19.55 13 19V14C13 13.45 12.55 13 12 13H10C9.45 13 9 13.45 9 14V19C9 19.55 8.55 20 8 20H4C3.45 20 3 19.55 3 19V10Z"/>
+          </svg>
+          <span>首页</span>
+        </a>
+        <a class="nav-item" role="button" tabindex="0">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="4" width="6.5" height="14" rx="1"/>
+            <rect x="12.5" y="4" width="6.5" height="14" rx="1"/>
+          </svg>
+          <span>素材库</span>
+        </a>
+        <a class="nav-item" role="button" tabindex="0">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="11" cy="8" r="3.5"/>
+            <path d="M3 20C3 15.58 6.58 12 11 12C15.42 12 19 15.58 19 20"/>
+          </svg>
+          <span>我的</span>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="safe-area"></div>
+
+  </div>
+</div>
+
+</body>
+</html>
