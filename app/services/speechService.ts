@@ -22,7 +22,7 @@
  *   onPlaybackStatusUpdate    — 播放状态变化回调 (位置/进度)
  */
 
-import { Audio, AVPlaybackStatus, AVPlaybackStatusSuccess } from 'expo-av';
+import { Audio, AVPlaybackStatus, AVPlaybackStatusSuccess, RecordingOptionsPresets } from 'expo-av';
 
 // 音频源映射：assets/audio/sentence_{n}.wav
 const audioSources = [
@@ -62,6 +62,125 @@ class AudioService {
   onEnd: (() => void) | null = null;
   /** 播放状态变化回调 (位置/进度更新) */
   onPlaybackStatusUpdate: ((status: AudioServiceState) => void) | null = null;
+
+  /** 录音相关 */
+  private recording: Audio.Recording | null = null;
+  private _isRecording: boolean = false;
+  private _recordingDurationMs: number = 0;
+
+  get isRecording(): boolean {
+    return this._isRecording;
+  }
+
+  get recordingDurationMs(): number {
+    return this._recordingDurationMs;
+  }
+
+  /**
+   * 开始录音
+   * 使用 expo-av Audio.Recording API
+   * Web 浏览器自动请求麦克风权限
+   */
+  async startRecording(): Promise<void> {
+    try {
+      // 切换到录音模式
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        staysActiveInBackground: false,
+      });
+
+      const recording = new Audio.Recording();
+      await recording.prepareToRecordAsync(RecordingOptionsPresets.HIGH_QUALITY);
+      await recording.startAsync();
+
+      this.recording = recording;
+      this._isRecording = true;
+      this._recordingDurationMs = 0;
+
+      // 监听录音时长
+      recording.setOnRecordingStatusUpdate((status) => {
+        if (status.isRecording) {
+          this._recordingDurationMs = status.durationMillis ?? 0;
+        }
+      });
+    } catch (error) {
+      console.warn('[AudioService] Failed to start recording:', error);
+      this._isRecording = false;
+      throw error;
+    }
+  }
+
+  /**
+   * 停止录音，返回录音文件 URI
+   * @returns 录音文件 URI (wav/m4a 格式依平台而定)
+   */
+  async stopRecording(): Promise<string> {
+    if (!this.recording || !this._isRecording) {
+      throw new Error('[AudioService] No recording in progress');
+    }
+
+    try {
+      await this.recording.stopAndUnloadAsync();
+      const uri = this.recording.getURI();
+      this.recording = null;
+      this._isRecording = false;
+
+      // 恢复播放模式
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: false,
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        staysActiveInBackground: false,
+      });
+
+      if (!uri) {
+        throw new Error('[AudioService] Recording URI is null');
+      }
+
+      return uri;
+    } catch (error) {
+      console.warn('[AudioService] Failed to stop recording:', error);
+      this.recording = null;
+      this._isRecording = false;
+      throw error;
+    }
+  }
+
+  /**
+   * 播放录音文件
+   * @param uri 录音文件 URI（来自 stopRecording 的返回值）
+   */
+  async playRecording(uri: string): Promise<void> {
+    // 停止当前播放
+    await this.stopInternal();
+
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        { uri },
+        { shouldPlay: true },
+        (status) => {
+          if (!status.isLoaded) return;
+          const s = status as AVPlaybackStatusSuccess;
+          this.state.isPlaying = s.isPlaying;
+
+          if (s.didJustFinish) {
+            this.state.isPlaying = false;
+            this.currentSound = null;
+            if (this.onEnd) {
+              this.onEnd();
+            }
+          }
+        },
+      );
+      this.currentSound = sound;
+      this.state.isPlaying = true;
+    } catch (error) {
+      console.warn('[AudioService] Failed to play recording:', error);
+      throw error;
+    }
+  }
 
   private sentenceCount: number = 0;
 
@@ -286,6 +405,21 @@ class AudioService {
 
   /** 销毁清理 */
   async dispose(): Promise<void> {
+    // 清理录音
+    if (this.recording) {
+      try {
+        const status = await this.recording.getStatusAsync();
+        if (status.isRecording) {
+          await this.recording.stopAndUnloadAsync();
+        }
+      } catch {
+        // ignore
+      }
+      this.recording = null;
+    }
+    this._isRecording = false;
+    this._recordingDurationMs = 0;
+
     await this.unloadAll();
     this.onEnd = null;
     this.onPlaybackStatusUpdate = null;
